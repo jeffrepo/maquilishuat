@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- <report
+            id="action_saldo_facturas"
+            string="Saldo de factruas"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.saldo_facturas"
+            name="maquilishuat.saldo_facturas"
+            menu="False"
+        /> -->
+
+        <record id="view_maquilishuat_saldo_facturas_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.saldo_facturas.wizard</field>
+              <field name="model">maquilishuat.saldo_facturas.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Saldo de facturas">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <group>
+                        <field name="name" invisible="1"/>
+                        <field name="archivo" readonly="1" filename="name"/>
+                    </group>
+                    <footer>
+                        <!-- <button name="print_report" string="Print"  type="object" class="btn-primary"/> -->
+                        <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_saldo_facturas"
+            name="Saldo de facturas"
+            res_model="maquilishuat.saldo_facturas.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_saldo_facturas" id="menu_saldo_facturas" parent="account.menu_finance_reports"/>
+
+
+
+    </data>
+</odoo>
