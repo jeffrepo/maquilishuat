@@ -88,6 +88,7 @@ class saldo_facturas_wizard(models.TransientModel):
             hoja.write(2,6,'t61_90',columna_bold)
             hoja.write(2,7,'t91_120',columna_bold)
             hoja.write(2,8,'t121_mas',columna_bold)
+            hoja.write(2,9,'saldo_factura',columna_bold)
 
 
             fila = 3
@@ -102,6 +103,7 @@ class saldo_facturas_wizard(models.TransientModel):
                     hoja.write(fila,6,factura['90'])
                     hoja.write(fila,7,factura['120'])
                     hoja.write(fila,8,factura['mas'])
+                    hoja.write(fila,8,factura['saldo_factura'])
 
                     fila += 1
 
