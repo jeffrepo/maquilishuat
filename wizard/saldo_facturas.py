@@ -42,7 +42,7 @@ class saldo_facturas_wizard(models.TransientModel):
 
                 f = {
                     'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.name if factura.grado_id else '',
+                    'grado': factura.grado_id.nombre if factura.grado_id else '',
                     'numero': factura.name,
                     'fecha': factura.date_invoice,
                     '30': treinta,
