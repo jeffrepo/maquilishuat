@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="maquilishuat_account_invoice_form">
+            <field name="name">Maquilishuat Account Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="sale.account_invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="team_id" position="replace"/>
+                </data>
+            </field>
+        </record>
+
+</odoo>

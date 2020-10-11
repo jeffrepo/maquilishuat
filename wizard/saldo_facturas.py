@@ -72,17 +72,22 @@ class saldo_facturas_wizard(models.TransientModel):
             # #
             # #
             formato_fecha = libro.add_format({'num_format': 'dd/mm/yy'})
-            hoja.write(0,4,'ESCUELA BILINGÜE MAQUILISHUAT')
+            titulo_bold = libro.add_format()
+            titulo_bold.set_bold()
+            columna_bold = libro.add_format()
+            columna_bold.set_fg_color('#D7D7D7')
+            columna_bold.set_bold()
+            hoja.write(0,4,'ESCUELA BILINGÜE MAQUILISHUAT',titulo_bold)
 
-            hoja.write(2,0,'Nombre')
-            hoja.write(2,1,'Grado')
-            hoja.write(2,2,'Número')
-            hoja.write(2,3,'Fecha')
-            hoja.write(2,4,'t0_30')
-            hoja.write(2,5,'t31_60')
-            hoja.write(2,6,'t61_90')
-            hoja.write(2,7,'t91_120')
-            hoja.write(2,8,'t121_mas')
+            hoja.write(2,0,'Nombre',columna_bold)
+            hoja.write(2,1,'Grado',columna_bold)
+            hoja.write(2,2,'Número',columna_bold)
+            hoja.write(2,3,'Fecha',columna_bold)
+            hoja.write(2,4,'t0_30',columna_bold)
+            hoja.write(2,5,'t31_60',columna_bold)
+            hoja.write(2,6,'t61_90',columna_bold)
+            hoja.write(2,7,'t91_120',columna_bold)
+            hoja.write(2,8,'t121_mas',columna_bold)
 
 
             fila = 3

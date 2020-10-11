@@ -12,18 +12,12 @@
 
        """,
     'website': 'sispav.com.gt',
-    'depends': ['base','account'],
+    'depends': ['base','account','colegio','sale'],
     'data': [
         'views/saldo_facturas_wizard.xml',
-        # 'views/planilla.xml',
-        # 'views/recibo_pago.xml',
-        # 'views/report.xml',
-        # 'views/hr_payroll_views.xml',
-        # 'views/recibo_pago.xml',
-        # 'views/hr_contract_views.xml',
-        # 'views/hr_payroll_views.xml',
-        # 'views/res_company_views.xml',
-        # 'views/report.xml',
+        'views/account_invoice_view.xml',
+        'views/sale_views.xml',
+        'views/account_payment_view.xml'
     ],
     'demo': [],
     'installable': True,
