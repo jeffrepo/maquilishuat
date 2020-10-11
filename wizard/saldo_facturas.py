@@ -103,7 +103,7 @@ class saldo_facturas_wizard(models.TransientModel):
                     hoja.write(fila,6,factura['90'])
                     hoja.write(fila,7,factura['120'])
                     hoja.write(fila,8,factura['mas'])
-                    hoja.write(fila,8,factura['saldo_factura'])
+                    hoja.write(fila,9,factura['saldo_factura'])
 
                     fila += 1
 
