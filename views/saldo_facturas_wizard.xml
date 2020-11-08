@@ -2,32 +2,32 @@
 <odoo>
     <data>
 
-        <!-- <report
+        <report
             id="action_saldo_facturas"
-            string="Saldo de factruas"
+            string="Cuentas por cobrar"
             model="account.account"
             report_type="qweb-pdf"
             file="maquilishuat.saldo_facturas"
             name="maquilishuat.saldo_facturas"
             menu="False"
-        /> -->
+        />
 
         <record id="view_maquilishuat_saldo_facturas_wizard" model="ir.ui.view">
               <field name="name">view.maquilishuat.saldo_facturas.wizard</field>
               <field name="model">maquilishuat.saldo_facturas.wizard</field>
               <field name="arch" type="xml">
-                <form string="Saldo de facturas">
+                <form string="Reporte cuentas por cobrar">
                     <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
                     </group>
-                    <group>
+                    <!-- <group>
                         <field name="name" invisible="1"/>
                         <field name="archivo" readonly="1" filename="name"/>
-                    </group>
+                    </group> -->
                     <footer>
-                        <!-- <button name="print_report" string="Print"  type="object" class="btn-primary"/> -->
-                        <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <!-- <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/> -->
                         <button string="Cancel" class="btn-default" special="cancel" />
                     </footer>
                 </form>
@@ -36,7 +36,7 @@
 
 
         <act_window id="maquilishuat_action_saldo_facturas"
-            name="Saldo de facturas"
+            name="Reporte cuentas por cobrar"
             res_model="maquilishuat.saldo_facturas.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>

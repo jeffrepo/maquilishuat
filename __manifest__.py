@@ -14,6 +14,7 @@
     'website': 'sispav.com.gt',
     'depends': ['base','account','colegio','sale'],
     'data': [
+        'views/saldo_facturas.xml',
         'views/saldo_facturas_wizard.xml',
         'views/account_invoice_view.xml',
         'views/sale_views.xml',

@@ -41,6 +41,7 @@ class saldo_facturas_wizard(models.TransientModel):
                     mas = factura.residual
 
                 f = {
+                    'codigo': factura.partner_id.matricula,
                     'nombre': factura.partner_id.name,
                     'grado': factura.grado_id.nombre if factura.grado_id else '',
                     'numero': factura.name,
@@ -121,10 +122,11 @@ class saldo_facturas_wizard(models.TransientModel):
                 'target': 'new',
             }
 
-    # @api.multi
-    # def print_report(self):
-    #     datas = {'ids': self.env.context.get('active_ids', [])}
-    #     res = self.read(['nomina_id','formato_planilla_id'])
-    #     res = res and res[0] or {}
-    #     datas['form'] = res
-    #     return self.env.ref('hr_gt.action_planilla').report_action([], data=datas)
+    @api.multi
+    def print_report(self):
+        datas = {'ids': self.env.context.get('active_ids', [])}
+        res = self.read(['fecha_inicio','fecha_fin'])
+        res = res and res[0] or {}
+        datas['form'] = res
+        logging.warn(datas)
+        return self.env.ref('maquilishuat.action_saldo_facturas').report_action([], data=datas)
