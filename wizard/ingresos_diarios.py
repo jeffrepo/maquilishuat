@@ -22,7 +22,7 @@ class ingresos_diarios_wizard(models.TransientModel):
         workbook = xlrd.open_workbook(file_contents = base64.decodestring(self.archivo))
         sheet = workbook.sheet_by_index(0)
         #En ese ciclo se construye el diccionario con la informacion del archivo de excel.
-        facturas = self.env['account.invoice_id'].search([])
+        facturas = self.env['account.invoice'].search([])
 
         facturas_odoo = []
         for f in facturas:
