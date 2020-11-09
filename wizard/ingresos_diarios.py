@@ -26,7 +26,7 @@ class ingresos_diarios_wizard(models.TransientModel):
 
         facturas_odoo = []
         for f in facturas:
-            facturas_odoo.append(f.reference)
+            facturas_odoo.append(f.name)
         for linea in range(sheet.nrows):
             if linea != 0:
                 # fecha_excel = sheet.cell(linea, 10).value
