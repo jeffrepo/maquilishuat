@@ -33,7 +33,7 @@ class ingresos_diarios_wizard(models.TransientModel):
                 # fecha_excel = fecha_excel.replace("'", "")
 
                 # fecha = datetime.datetime(*xlrd.xldate_as_tuple(fecha_excel, workbook.datemode))
-                factura_excel = sheet.cell(linea, 0).value
+                factura_excel = sheet.cell(linea, 3).value
                 logging.warn(factura_excel)
                 if factura_excel in facturas_odoo:
                     logging.warn('si existe')
