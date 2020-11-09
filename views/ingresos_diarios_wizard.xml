@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_ingresos_diarios"
+            string="Reporte Ingresos Diarios"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.ingresos_diarios"
+            name="maquilishuat.ingresos_diarios"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_ingresos_diarios_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.ingresos_diarios.wizard</field>
+              <field name="model">maquilishuat.ingresos_diarios.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Reporte ingresos diarios">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                        <field name="archivo" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button name="print_report_excel" string="verificar" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_ingresos_diarios"
+            name="Reporte ingresos diarios"
+            res_model="maquilishuat.ingresos_diarios.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_ingresos_diarios" id="menu_ingresos_diarios" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
