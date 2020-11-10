@@ -35,7 +35,7 @@ class ingresos_diarios_wizard(models.TransientModel):
 
                 # fecha = datetime.datetime(*xlrd.xldate_as_tuple(fecha_excel, workbook.datemode))
                 factura_excel = sheet.cell(linea, 3).value
-                facturas_excel.append(factura_excel)
+                facturas_excel.append(str(factura_excel))
 
 
                 # factura = self.env['account.invoice'].search([('name','=',str(factura_excel))])
@@ -49,7 +49,7 @@ class ingresos_diarios_wizard(models.TransientModel):
 
         facturas = self.env['account.invoice'].search([])
         for f in facturas:
-            if f.name in facturas_excel:
+            if str(f.name) in facturas_excel:
                 logging.warn('si existe')
             else:
                 logging.warn(f.name)
