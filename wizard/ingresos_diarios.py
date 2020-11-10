@@ -24,7 +24,7 @@ class ingresos_diarios_wizard(models.TransientModel):
         #En ese ciclo se construye el diccionario con la informacion del archivo de excel.
 
 
-        facturas_odoo = []
+        facturas_excel = []
         # for f in facturas:
         #     facturas_odoo.append(f.name)
         # logging.warn(facturas_odoo)
@@ -35,13 +35,24 @@ class ingresos_diarios_wizard(models.TransientModel):
 
                 # fecha = datetime.datetime(*xlrd.xldate_as_tuple(fecha_excel, workbook.datemode))
                 factura_excel = sheet.cell(linea, 3).value
-                logging.warn(factura_excel)
+                facturas_excel.append(factura_excel)
 
-                factura = self.env['account.invoice'].search([('name','=',str(factura_excel))])
-                if factura:
-                    logging.warn('si existe')
-                else:
-                    logging.warn(factura_excel)
+
+                # factura = self.env['account.invoice'].search([('name','=',str(factura_excel))])
+                # if factura:
+                #     logging.warn('si existe')
+                # else:
+                #     logging.warn(factura_excel)
+
+        logging.warn(facturas_excel)
+
+
+        facturas = self.env['account.invoice'].search([])
+        for f in facturas:
+            if f.name in facturas_odoo:
+                logging.warn('si existe')
+            else:
+                logging.warn(f.name)    
 
         return {
             'view_type': 'form',
