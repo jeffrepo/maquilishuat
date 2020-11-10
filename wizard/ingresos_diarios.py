@@ -37,7 +37,7 @@ class ingresos_diarios_wizard(models.TransientModel):
                 factura_excel = sheet.cell(linea, 3).value
                 logging.warn(factura_excel)
 
-                factura = self.env['account.invoice'].search([('name','=',factura_excel)])
+                factura = self.env['account.invoice'].search([('name','=',str(factura_excel))])
                 if factura:
                     logging.warn('si existe')
                 else:
