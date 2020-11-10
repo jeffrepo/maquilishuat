@@ -49,10 +49,10 @@ class ingresos_diarios_wizard(models.TransientModel):
 
         facturas = self.env['account.invoice'].search([])
         for f in facturas:
-            if f.name in facturas_odoo:
+            if f.name in facturas_excel:
                 logging.warn('si existe')
             else:
-                logging.warn(f.name)    
+                logging.warn(f.name)
 
         return {
             'view_type': 'form',
