@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="libro_ventas_contribuyente">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <div clas="header">
+                <center>
+                    <div>
+                        <p>
+
+                            <span t-esc="user.company_id.name"/><br/>
+                            No. DE REGISTRO: 20696, NIT; 06141506901019<br/>
+                            CENTRO DE ENSEÑANZA<br/>
+                            LIBRO DE VENTAS A CONTRIBUYENTES<br/>
+                            PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
+                        </p>
+                    </div>
+                </center>
+            </div>
+            <div class="page">
+                FECHA EMISION: <span t-esc="fecha_actual()"/>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>VENTAS INTERNAS</span></th>
+                            <th style="border-top: 1px solid black;"></th>
+                            <th style="border-top: 1px solid black;"></th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th style="border-bottom: 1px solid black;text-align:left"><span>FORMULARIO ÚNICO</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:center"><span>FECHA</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:center" ><span>No DE COMPROB</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>NOMBRE DEL CLIENTE</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>EXPORTACION</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>EXENTAS</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>GRAVADAS</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>TOTAL</span></th>
+                            <th style="border-bottom: 1px solid black;text-align:right" ><span>VALOR NETO</span></th>
+                        </tr>
+                    </thead>
+                    <!-- <tbody>
+                        <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
+                            <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
+                            <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
+                                <td><span t-esc="fac['codigo']"/></td>
+                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
+                                <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="text-align:right">TOTAL GENERAL</td>
+                                <td style="text-align:right"><span t-esc="sum_totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="sum_totales['60']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="sum_totales['90']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="sum_totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                        </t>
+
+                    </tbody> -->
+                </table>
+
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <td>
+                <div style="float:left;width:60%;text-align:left;">
+
+                    <table style="width:90%">
+                        <tbody>
+                            <tr>
+                                <td>RESUMEN DE OPERACIONES</td>
+                                <td colspan="2" style="border-bottom: 1px solid black;text-align:right">PROPIAS</td>
+                                <td colspan="2" style="border-bottom: 1px solid black;text-align:center">A CTA. DE TERCEROS</td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="border-bottom: 1px solid black;text-align:right">VALOR NETO</td>
+                                <td style="border-bottom: 1px solid black;text-align:right">DEBITO FISCAL</td>
+                                <td style="border-bottom: 1px solid black;text-align:right">VALOR NETO</td>
+                                <td style="border-bottom: 1px solid black;text-align:right">DEBITO FISCAL</td>
+                                <td style="border-bottom: 1px solid black;">IVA PERCIBIDO</td>
+                            </tr>
+                            <tr>
+                                <td>VENTAS NETAS INTERNAS GRAVADAS A CONTRIBUYENTES</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>VENTAS NETAS INTERNAS GRAVADAS A CONSUMIDORES</td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL OPERACIONES INTERNAS GRAVADAS</td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                            </tr>
+                            <tr>
+                                <td>VENTAS NETAS INTERNAS EXENTAS CONTRIBUYENTES</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>VENTAS NETAS INTERNAS EXENTAS A CONSUMIDORES</td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL OPERACIONES INTERNAS EXENTAS</td>
+                                <td  style="border-bottom: 1px solid black;text-align:right"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>EXPORTACIONES SEGUN FACTURAS DE EXPORTACION</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div style="float:right;width:40%;text-align:right;">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="border-top: 1px solid black;text-align:center">Nombre y Firma del Contador ó Contribuyente</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+
+            <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
+              Página <span class="page"/>/<span class="topage"/>
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -13,10 +13,10 @@
         />
 
         <record id="view_maquilishuat_abonos_cuentas_cobrar_wizard" model="ir.ui.view">
-              <field name="name">view.maquilishuat.ingresos_diarios.wizard</field>
-              <field name="model">maquilishuat.ingresos_diarios.wizard</field>
+              <field name="name">view.maquilishuat.abonos_cuentas_cobrar.wizard</field>
+              <field name="model">maquilishuat.abonos_cuentas_cobrar.wizard</field>
               <field name="arch" type="xml">
-                <form string="Reporte ingresos diarios">
+                <form string="Reporte abonos cuentas por cobrar">
                     <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
@@ -30,14 +30,14 @@
         </record>
 
 
-        <act_window id="maquilishuat_action_ingresos_diarios"
-            name="Reporte ingresos diarios"
-            res_model="maquilishuat.ingresos_diarios.wizard"
+        <act_window id="maquilishuat_action_abonos_cuentas_cobrar"
+            name="Reporte abonos cuentas por cobrar"
+            res_model="maquilishuat.abonos_cuentas_cobrar.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
 
 
-        <menuitem action="maquilishuat_action_ingresos_diarios" id="menu_ingresos_diarios" parent="account.menu_finance_reports"/>
+        <menuitem action="maquilishuat_action_abonos_cuentas_cobrar" id="menu_abonos_cuentas_cobrar" parent="account.menu_finance_reports"/>
 
     </data>
 </odoo>

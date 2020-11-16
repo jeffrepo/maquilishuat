@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="abonos_cuentas_cobrar">
+    <template id="estado_cuenta_cliente">
         <t t-call="web.html_container">
             <t t-set="data_report_margin_top" t-value="12"/>
             <t t-set="data_report_header_spacing" t-value="9"/>
@@ -11,8 +11,7 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            INFORME DE ABONOS A CUENTAS POR COBRAR, PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
-                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
+                            ESTADO DE CUENTA HISTORICO POR CLIENTE DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
                         </p>
                     </div>
                 </center>
@@ -22,12 +21,13 @@
                 <table style="width:100%">
                     <thead>
                         <tr>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>No. FACT.</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>FECHA FACT.</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>NOMBRE DEL CLIENTE</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CONCEPTO DEL ABONO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>FECHA ABONO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR ABONO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CLIENTE</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CCF/FACT</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>FECHA</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CARGOS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>ABONOS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>SALDO</span></th>
                         </tr>
                     </thead>
                     <!-- <tbody>

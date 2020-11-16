@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_libro_ventas_contribuyente"
+            string="Libro de ventas contribuyente"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.libro_ventas_contribuyente"
+            name="maquilishuat.libro_ventas_contribuyente"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_libro_ventas_contribuyente_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.libro_ventas_contribuyente.wizard</field>
+              <field name="model">maquilishuat.libro_ventas_contribuyente.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Libro de ventas cotribuyente">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_libro_ventas_contribuyente"
+            name="Libro de ventas constribuyente"
+            res_model="maquilishuat.libro_ventas_contribuyente.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_libro_ventas_contribuyente" id="menu_libro_ventas_contribuyente" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>

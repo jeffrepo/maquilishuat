@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_colegiaturas_pagadas_no"
+            string="Reporte colegiaturas pagadas y no pagadas"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.colegiaturas_pagadas_no"
+            name="maquilishuat.colegiaturas_pagadas_no"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_colegiaturas_pagadas_no_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.colegiaturas_pagadas_no.wizard</field>
+              <field name="model">maquilishuat.colegiaturas_pagadas_no.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Reporte colegiaturas pagadas y no pagadas">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_colegiaturas_pagadas_no"
+            name="Reporte colegiaturas pagadas y no pagadas"
+            res_model="maquilishuat.colegiaturas_pagadas_no.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_colegiaturas_pagadas_no" id="menu_colegiaturas_pagadas_no" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
