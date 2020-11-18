@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_colegiaturas_pendientes"
+            string="Reporte colegiaturas pendientes de pago"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.colegiaturas_pendientes"
+            name="maquilishuat.colegiaturas_pendientes"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_colegiaturas_pendientes_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.colegiaturas_pendientes.wizard</field>
+              <field name="model">maquilishuat.colegiaturas_pendientes.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Reporte de colegiaturas pendientes de pago">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_colegiaturas_pendientes"
+            name="Reporte colegiaturas pendientes de pago"
+            res_model="maquilishuat.colegiaturas_pendientes.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_colegiaturas_pendientes" id="menu_colegiaturas_pendientes" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>

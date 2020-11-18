@@ -12,3 +12,4 @@ from . import libro_compras
 from . import libro_ventas_cf_detallado
 from . import libro_ventas_contribuyente
 from . import libro_ventas_cf
+from . import colegiaturas_pendientes

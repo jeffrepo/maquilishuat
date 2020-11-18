@@ -15,6 +15,8 @@
     'depends': ['base','account','colegio','sale'],
     'data': [
         'data/paperformats.xml',
+        'views/colegiaturas_pendientes.xml',
+        'views/colegiaturas_pendientes_wizard.xml',
         'views/libro_ventas_cf.xml',
         'views/libro_ventas_cf_wizard.xml',
         'views/libro_ventas_contribuyente.xml',

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="colegiaturas_pendientes">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <div clas="header">
+                <center>
+                    <div>
+                        <p>
+
+                            <span t-esc="user.company_id.name"/><br/>
+                            INFORME DE COLEGIATURAS MENSUALES PENDIENTES DE PAGO, PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
+                        </p>
+                    </div>
+                </center>
+            </div>
+            <div class="page">
+                FECHA EMISION: <span t-esc="fecha_actual()"/>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL ALUMNO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL CLIENTE</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span>COMENTARIO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span>VALOR PAGADO</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="len(get_clientes(fecha_inicio,fecha_fin)) > 0">
+
+                            <t t-foreach="get_clientes(fecha_inicio,fecha_fin)" t-as="grado_alumno">
+                                <tr>
+                                    <td colspan="5"><strong>GRADO: <span t-esc="grado_alumno['grado']"/></strong></td>
+                                </tr>
+
+                                <t t-set="cantidad" t-value="0"/>
+                                <t t-foreach="grado_alumno['clientes']" t-as="alumno">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="alumno.matricula"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="alumno.name"/>
+                                        </td>
+                                        <td colspan="3">
+                                            PENDIENTE DE PAGO
+                                        </td>
+                                    </tr>
+                                    <t t-set="cantidad" t-value="cantidad+1"/>
+                                </t>
+
+                                <tr>
+                                    <td style="border-bottom: 1px solid black;"><strong>SUB-TOTAL:</strong></td>
+                                    <td style="border-bottom: 1px solid black;"><strong><span t-esc="cantidad"/></strong></td>
+                                    <td style="border-bottom: 1px solid black;" colspan="3"></td>
+                                </tr>
+
+                            </t>
+                        </t>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
+              Página <span class="page"/>/<span class="topage"/>
+            </div>
+
+        </t>
+    </template>
+</odoo>
