@@ -26,8 +26,8 @@
                         <field name="archivo" readonly="1" filename="name"/>
                     </group>
                     <footer>
-                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
-                        <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/>
+                        <button name="print_report" string="Generar reporte PDF"  type="object" class="btn-primary"/>
+                        <button name="generar_excel" string="Generar reporte xls" type="object" class="oe_highlight"/>
                         <button string="Cancel" class="btn-default" special="cancel" />
                     </footer>
                 </form>
