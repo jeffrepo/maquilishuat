@@ -21,13 +21,13 @@
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
                     </group>
-                    <!-- <group>
+                    <group>
                         <field name="name" invisible="1"/>
                         <field name="archivo" readonly="1" filename="name"/>
-                    </group> -->
+                    </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
-                        <!-- <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/> -->
+                        <button name="generar_excel" string="Generar reporte" type="object" class="oe_highlight"/>
                         <button string="Cancel" class="btn-default" special="cancel" />
                     </footer>
                 </form>

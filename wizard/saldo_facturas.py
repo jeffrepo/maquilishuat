@@ -80,22 +80,23 @@ class saldo_facturas_wizard(models.TransientModel):
             columna_bold.set_bold()
             hoja.write(0,4,'ESCUELA BILINGÜE MAQUILISHUAT',titulo_bold)
 
-            hoja.write(2,0,'Nombre',columna_bold)
-            hoja.write(2,1,'Grado',columna_bold)
-            hoja.write(2,2,'Número',columna_bold)
-            hoja.write(2,3,'Fecha',columna_bold)
-            hoja.write(2,4,'t0_30',columna_bold)
-            hoja.write(2,5,'t31_60',columna_bold)
-            hoja.write(2,6,'t61_90',columna_bold)
-            hoja.write(2,7,'t91_120',columna_bold)
-            hoja.write(2,8,'t121_mas',columna_bold)
-            hoja.write(2,9,'saldo_factura',columna_bold)
+            hoja.write(2,0,'Cliente',columna_bold)
+            hoja.write(2,1,'Nombre',columna_bold)
+            hoja.write(2,2,'Grado',columna_bold)
+            hoja.write(2,3,'Número',columna_bold)
+            hoja.write(2,4,'Fecha',columna_bold)
+            hoja.write(2,5,'t0_30',columna_bold)
+            hoja.write(2,6,'t31_60',columna_bold)
+            hoja.write(2,7,'t61_90',columna_bold)
+            hoja.write(2,8,'t91_120',columna_bold)
+            hoja.write(2,9,'t121_mas',columna_bold)
+            hoja.write(2,10,'saldo_factura',columna_bold)
 
 
             fila = 3
             if facturas:
                 for factura in facturas:
-                    hoja.write(fila,0,factura['nombre'])
+                    hoja.write(fila,0,factura['codigo'])
                     hoja.write(fila,1,factura['grado'])
                     hoja.write(fila,2,factura['numero'])
                     hoja.write(fila,3,factura['fecha'],formato_fecha)
@@ -110,7 +111,7 @@ class saldo_facturas_wizard(models.TransientModel):
 
             libro.close()
             datos = base64.b64encode(f.getvalue())
-            self.write({'archivo': datos, 'name':'saldo_facturas.xls'})
+            self.write({'archivo': datos, 'name':'cuenta_por_cobrar.xls'})
             return {
                 'context': self.env.context,
                 'view_type': 'form',

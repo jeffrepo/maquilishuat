@@ -46,7 +46,7 @@ class ReportSaldFacturas(models.AbstractModel):
         facturas = []
         totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
-
+        facturas_agrupadas = {}
         if facturas_ids:
             fecha_hoy = date.today()
             for factura in facturas_ids:
@@ -86,7 +86,30 @@ class ReportSaldFacturas(models.AbstractModel):
                 totales['mas'] += mas
                 totales['total'] += factura.residual
                 facturas.append(f)
-        return {'fact':facturas, 'suma_totales': totales}
+        for f in facturas:
+            codigo = f['codigo']
+            if codigo not in facturas_agrupadas:
+                facturas_agrupadas[codigo] = {
+                                    'codigo': codigo,
+                                    'nombre': f['nombre'],
+                                    'grado': f['grado'],
+                                    'numero': f['numero'],
+                                    'fecha': f['fecha'],
+                                    '30': 0,
+                                    '60': 0,
+                                    '90': 0,
+                                    '120': 0,
+                                    'mas': 0,
+                                    'saldo_factura': 0}
+            facturas_agrupadas[codigo]['30'] += f['30']
+            facturas_agrupadas[codigo]['60'] += f['60']
+            facturas_agrupadas[codigo]['90'] += f['90']
+            facturas_agrupadas[codigo]['120'] += f['120']
+            facturas_agrupadas[codigo]['mas'] += f['mas']
+            facturas_agrupadas[codigo]['saldo_factura'] += f['saldo_factura']
+
+        logging.warn(facturas_agrupadas.values())
+        return {'fact':facturas_agrupadas.values(), 'suma_totales': totales}
 
     @api.model
     def _get_report_values(self, docids, data=None):
