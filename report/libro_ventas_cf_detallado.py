@@ -45,48 +45,25 @@ class ReportLibroVentasCFDetallado(models.AbstractModel):
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
-        totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
+        totales = {'exentas': 0,'gravadas': 0,'total': 0}
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
 
         if facturas_ids:
-            fecha_hoy = date.today()
-            for factura in facturas_ids:
-                treinta = 0
-                sesenta = 0
-                noventa = 0
-                ciento_veinte = 0
-                mas = 0
-                diferencia_dias = fecha_hoy - factura.date_invoice
-                dias = diferencia_dias.days
-                if dias <= 30:
-                    treinta = factura.residual
-                elif dias > 30 and dias <=60:
-                    sesenta =  factura.residual
-                elif dias > 60 and dias <= 90:
-                    noventa = factura.residual
-                elif dias > 90:
-                    mas = factura.residual
-
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
-                    'numero': factura.name,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
+            for f in facturas_ids:
+                dic = {
+                    'fecha': f.date_invoice,
+                    'comprobante': f.number,
+                    'cliente': f.partner_id.name,
+                    'exentas': f.amount_untaxed,
+                    'gravadas': f.amount_tax,
+                    'total': f.amount_total
                 }
-                totales['30'] += treinta
-                totales['60'] += sesenta
-                totales['90'] += noventa
-                totales['120'] += ciento_veinte
-                totales['mas'] += mas
-                totales['total'] += factura.residual
-                facturas.append(f)
+                facturas.append(dic)
+                totales['exentas'] += f.amount_untaxed
+                totales['gravadas'] += f.amount_tax
+                totales['total'] += f.amount_total
+        logging.warn('FACTURAS')
+        logging.warn(facturas)
         return {'fact':facturas, 'suma_totales': totales}
 
     def fecha_actual(self):
