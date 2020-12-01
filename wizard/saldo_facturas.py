@@ -43,7 +43,7 @@ class saldo_facturas_wizard(models.TransientModel):
                 f = {
                     'codigo': factura.partner_id.matricula,
                     'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
+                    'grado': factura.partner_id.grado_id.nombre if factura.partner_id.grado_id else '',
                     'numero': factura.name,
                     'fecha': factura.date_invoice,
                     '30': treinta,
@@ -97,15 +97,16 @@ class saldo_facturas_wizard(models.TransientModel):
             if facturas:
                 for factura in facturas:
                     hoja.write(fila,0,factura['codigo'])
-                    hoja.write(fila,1,factura['grado'])
-                    hoja.write(fila,2,factura['numero'])
-                    hoja.write(fila,3,factura['fecha'],formato_fecha)
-                    hoja.write(fila,4,factura['30'])
-                    hoja.write(fila,5,factura['60'])
-                    hoja.write(fila,6,factura['90'])
-                    hoja.write(fila,7,factura['120'])
-                    hoja.write(fila,8,factura['mas'])
-                    hoja.write(fila,9,factura['saldo_factura'])
+                    hoja.write(fila,1,factura['nombre'])
+                    hoja.write(fila,2,factura['grado'])
+                    hoja.write(fila,3,factura['numero'])
+                    hoja.write(fila,4,factura['fecha'],formato_fecha)
+                    hoja.write(fila,5,factura['30'])
+                    hoja.write(fila,6,factura['60'])
+                    hoja.write(fila,7,factura['90'])
+                    hoja.write(fila,8,factura['120'])
+                    hoja.write(fila,9,factura['mas'])
+                    hoja.write(fila,10,factura['saldo_factura'])
 
                     fila += 1
 
