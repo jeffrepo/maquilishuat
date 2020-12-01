@@ -60,7 +60,7 @@
                                 <td style="text-align:right"><span t-esc="fac['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"></td>
+                                <td style="text-align:right"><span t-esc="fac['valor']" t-options='{"widget": "float", "precision": 2}'/></td>
 
                             </tr>
                             <tr>
@@ -72,7 +72,7 @@
                                 <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><strong><span t-esc="sum_totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                 <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><strong><span t-esc="sum_totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                 <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><strong><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
-                                <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"></td>
+                                <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><strong><span t-esc="sum_totales['valor']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                             </tr>
                         </t>
 

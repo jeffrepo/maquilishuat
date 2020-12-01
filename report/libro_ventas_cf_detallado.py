@@ -45,23 +45,35 @@ class ReportLibroVentasCFDetallado(models.AbstractModel):
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
-        totales = {'exentas': 0,'gravadas': 0,'total': 0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
+        totales = {'exentas': 0,'gravadas': 0,'total': 0,'valor':0}
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
 
         if facturas_ids:
             for f in facturas_ids:
+                exentas = 0
+                gravadas = 0
+                valor = 0
+                for linea in f.invoice_line_ids:
+                    if linea.invoice_line_tax_ids:
+                        gravadas += linea.price_subtotal
+                        valor += (linea.price_total - linea.price_subtotal)
+                    else:
+                        exentas += linea.price_total
+
                 dic = {
                     'fecha': f.date_invoice,
                     'comprobante': f.number,
                     'cliente': f.partner_id.name,
-                    'exentas': f.amount_untaxed,
-                    'gravadas': f.amount_tax,
-                    'total': f.amount_total
+                    'exentas': exentas,
+                    'gravadas': gravadas,
+                    'total': exentas + gravadas,
+                    'valor': valor,
                 }
                 facturas.append(dic)
-                totales['exentas'] += f.amount_untaxed
-                totales['gravadas'] += f.amount_tax
-                totales['total'] += f.amount_total
+                totales['exentas'] += exentas
+                totales['gravadas'] += gravadas
+                totales['total'] += exentas + gravadas
+                totales['valor'] += valor
         logging.warn('FACTURAS')
         logging.warn(facturas)
         return {'fact':facturas, 'suma_totales': totales}
