@@ -44,50 +44,42 @@ class ReportIngresosDiarios(models.AbstractModel):
         return mes
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
-        facturas = []
-        totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
-
+        formas_pago = {}
+        total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0}
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid','open'])],order="date_invoice asc")
         if facturas_ids:
-            fecha_hoy = date.today()
             for factura in facturas_ids:
-                treinta = 0
-                sesenta = 0
-                noventa = 0
-                ciento_veinte = 0
-                mas = 0
-                diferencia_dias = fecha_hoy - factura.date_invoice
-                dias = diferencia_dias.days
-                if dias <= 30:
-                    treinta = factura.residual
-                elif dias > 30 and dias <=60:
-                    sesenta =  factura.residual
-                elif dias > 60 and dias <= 90:
-                    noventa = factura.residual
-                elif dias > 90:
-                    mas = factura.residual
+                if factura.state == 'open' and factura.payment_ids:
+                    for pago in factura.payment_ids:
+                        if pago.journal_id.name not in formas_pago:
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 }  }
+                        formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': pago.amount,'contado': 0,'total': pago.amount,'cuota_mensual': pago.amount})
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += pago.amount;
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0;
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount;
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
 
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
-                    'numero': factura.name,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
-                }
-                totales['30'] += treinta
-                totales['60'] += sesenta
-                totales['90'] += noventa
-                totales['120'] += ciento_veinte
-                totales['mas'] += mas
-                totales['total'] += factura.residual
-                facturas.append(f)
-        return {'fact':facturas, 'suma_totales': totales}
+                        total_general['credito'] +=pago.amount
+                        total_general['contado'] +=0
+                        total_general['total'] +=pago.amount
+                        total_general['cuota_mensual'] +=pago.amount
+
+                if factura.state == 'paid' and factura.payment_ids:
+                    for pago in factura.payment_ids:
+                        if pago.journal_id.name not in formas_pago:
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[],'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 } }
+                        formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount})
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0;
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] +=  pago.amount;
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount;
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
+
+                        total_general['credito'] += 0
+                        total_general['contado'] += pago.amount
+                        total_general['total'] +=pago.amount
+                        total_general['cuota_mensual'] +=pago.amount
+        logging.warn(total_general)
+        return {'formas_pago':formas_pago.values(),'total_general': total_general}
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
