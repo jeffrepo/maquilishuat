@@ -14,7 +14,7 @@ class ingresos_diarios_wizard(models.TransientModel):
 
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
-    archivo = fields.Binary('Archivo excel')
+    # archivo = fields.Binary('Archivo excel')
 
 
     @api.multi

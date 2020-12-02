@@ -21,7 +21,6 @@
                     <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
-                        <field name="archivo" required="1"/>
                     </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
