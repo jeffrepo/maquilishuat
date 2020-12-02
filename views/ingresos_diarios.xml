@@ -80,10 +80,10 @@
                             <tr>
                                 <td colspan="3"></td>
                                 <td style="border-top: 1px solid black;">TOTAL-GENERAL ===></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['credito']"/></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['contado']"/></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['total']"/></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['cuota_mensual']"/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['credito']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['contado']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="_get_facturas(fecha_inicio,fecha_fin)['total_general']['cuota_mensual']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <!-- <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['contado']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['total']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['cuota_mensual']" t-options='{"widget": "float", "precision": 2}'/></td> -->
