@@ -40,9 +40,9 @@
                     <!-- <t t-set="_get_facturas(fecha_inicio,fecha_fin)['total_general']" t-value="tg"/> -->
 
                     <tbody>
-                        <t t-if="_get_facturas(fecha_inicio,fecha_fin)['formas_pago']">
+                        <t t-if="_get_pagos(fecha_inicio,fecha_fin)['formas_pago']">
                             <!-- <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/> -->
-                            <t t-foreach="_get_facturas(fecha_inicio,fecha_fin)['formas_pago']" t-as="forma">
+                            <t t-foreach="_get_pagos(fecha_inicio,fecha_fin)['formas_pago']" t-as="forma">
                                 <tr>
                                     <td style="height:1cm">FORMA DE PAGO:</td>
                                     <td colspan="9"><span t-esc="forma['forma_pago']"/></td>
