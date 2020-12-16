@@ -24,7 +24,7 @@
                     </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
-                        <button name="print_report_excel" string="verificar" type="object" class="oe_highlight"/>
+                        <!-- <button name="print_report_excel" string="verificar" type="object" class="oe_highlight"/> -->
                         <button string="Cancel" class="btn-default" special="cancel" />
                     </footer>
                 </form>
