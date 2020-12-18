@@ -45,7 +45,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
         formas_pago = {}
-        total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0}
+        total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0}
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid','open'])],order="date_invoice asc")
         if facturas_ids:
             for factura in facturas_ids:
@@ -84,42 +84,160 @@ class ReportIngresosDiarios(models.AbstractModel):
 
     def _get_pagos(self,fecha_inicio,fecha_fin):
         formas_pago = {}
-        total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0}
+        gravada = 0
+        valor_neto = 0
+        total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0}
         pagos_ids = self.env['account.payment'].search([('payment_date','>=', fecha_inicio),('payment_date','<=',fecha_fin),('payment_type','=','inbound'),('state','in',['posted'])],order="payment_date asc")
         for pago in pagos_ids:
-            for factura in pago.invoice_ids:
-                if factura.state == 'open':
-                    if pago.journal_id.name not in formas_pago:
-                        formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 }  }
+            if pago.journal_id.default_debit_account_id.user_type_id.name == "Pasivos no-circulantes":
+                if pago.journal_id.name not in formas_pago:
+                    formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
+                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': 0,'total': pago.amount,'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados': pago.amount})
+                formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
+                formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0
+                formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
+                formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += 0;
+                formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += pago.amount;
 
-                    formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': pago.amount,'contado': 0,'total': pago.amount,'cuota_mensual': pago.amount})
-                    formas_pago[pago.journal_id.name]['subtotal']['credito'] += pago.amount
-                    formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0
-                    formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
-                    formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
+                total_general['credito'] +=pago.amount
+                total_general['contado'] +=0
+                total_general['total'] +=pago.amount
+                total_general['cuota_mensual'] +=0
+                total_general['pagos_anticipados'] +=pago.amount
 
-                    total_general['credito'] +=pago.amount
-                    total_general['contado'] +=0
-                    total_general['total'] +=pago.amount
-                    total_general['cuota_mensual'] +=pago.amount
+                for linea in factura.invoice_line_ids:
+                    if linea.product_id.type == "product":
+                        gravada += linea.price_total
+                        valor_neto += linea.price_subtotal
 
-                if factura.state == 'paid':
-                    for pago in factura.payment_ids:
+            else:
+
+                for factura in pago.invoice_ids:
+                    if factura.date_invoice < pago.payment_date:
                         if pago.journal_id.name not in formas_pago:
-                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[],'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 } }
-                        formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount})
-                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0;
-                        formas_pago[pago.journal_id.name]['subtotal']['contado'] +=  pago.amount;
-                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount;
-                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
 
-                        total_general['credito'] += 0
-                        total_general['contado'] += pago.amount
+                        formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': 0,'total': pago.amount,'cuota_mensual': 0,
+                        'otros_pagos':pago.amount,'pagos_anticipados':0})
+
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['otros_pagos'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += 0
+
+                        total_general['credito'] +=0
+                        total_general['contado'] +=0
                         total_general['total'] +=pago.amount
-                        total_general['cuota_mensual'] +=pago.amount
+                        total_general['cuota_mensual'] +=0
+                        total_general['otros_pagos'] +=pago.amount
+                        total_general['pagos_anticipados'] +=0
+
+                        for linea in factura.invoice_line_ids:
+                            if linea.product_id.type == "product":
+                                gravada += linea.price_total
+                                valor_neto += linea.price_subtotal
+
+                    if factura.date_invoice == pago.payment_date and factura.amount_total == pago.amount:
+                        if pago.journal_id.name not in formas_pago:
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
+
+                        colegiatura = False
+                        for linea in factura.invoice_line_ids:
+                            if ('colegiaturas' or 'colegiatura') in linea.product_id.name.lower():
+                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                                'otros_pagos':0,'pagos_anticipados':0})
+                                colegiatura = True
+                            else:
+
+                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
+                                'otros_pagos':0,'pagos_anticipados':0})
+
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount if colegiatura else 0
+                        formas_pago[pago.journal_id.name]['subtotal']['otros_pagos'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += 0
+
+                        total_general['credito'] +=0
+                        total_general['contado'] +=pago.amount
+                        total_general['total'] +=pago.amount
+                        total_general['cuota_mensual'] +=pago.amount if colegiatura else 0
+                        total_general['otros_pagos'] +=0
+                        total_general['pagos_anticipados'] +=0
+
+                        for linea in factura.invoice_line_ids:
+                            if linea.product_id.type == "product":
+                                gravada += linea.price_total
+                                valor_neto += linea.price_subtotal
+
+                    if factura.date_invoice == pago.payment_date and factura.state in ['open']:
+                        if pago.journal_id.name not in formas_pago:
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
+
+                        colegiatura = False
+                        for linea in factura.invoice_line_ids:
+                            if ('colegiaturas' or 'colegiatura') in linea.product_id.name.lower():
+                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': factura.amount_total,'contado': 0,'total': pago.amount,'cuota_mensual': factura.amount_total,
+                                'otros_pagos':0,'pagos_anticipados':0})
+                                colegiatura = True
+                            else:
+
+                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': factura.amount_total,'contado': 0,'total': factura.amount_total,'cuota_mensual': 0,
+                                'otros_pagos':0,'pagos_anticipados':0})
+
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += factura.amount_total
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += factura.amount_total
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += factura.amount_total if colegiatura else 0
+                        formas_pago[pago.journal_id.name]['subtotal']['otros_pagos'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += 0
+
+                        total_general['credito'] +=factura.amount_total
+                        total_general['contado'] +=0
+                        total_general['total'] +=factura.amount_total
+                        total_general['cuota_mensual'] +=factura.amount_total if factura.amount_total else 0
+                        total_general['otros_pagos'] +=0
+                        total_general['pagos_anticipados'] +=0
+
+                        for linea in factura.invoice_line_ids:
+                            if linea.product_id.type == "product":
+                                gravada += linea.price_total
+                                valor_neto += linea.price_subtotal
+                    # elif factura.state == 'open':
+                    #     if pago.journal_id.name not in formas_pago:
+                    #         formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 }  }
+                    #
+                    #     formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': pago.amount,'contado': 0,'total': pago.amount,'cuota_mensual': pago.amount})
+                    #     formas_pago[pago.journal_id.name]['subtotal']['credito'] += pago.amount
+                    #     formas_pago[pago.journal_id.name]['subtotal']['contado'] += 0
+                    #     formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
+                    #     formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
+                    #
+                    #     total_general['credito'] +=pago.amount
+                    #     total_general['contado'] +=0
+                    #     total_general['total'] +=pago.amount
+                    #     total_general['cuota_mensual'] +=pago.amount
+                    #
+                    # elif factura.state == 'paid':
+                    #     for pago in factura.payment_ids:
+                    #         if pago.journal_id.name not in formas_pago:
+                    #             formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[],'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0 } }
+                    #         formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount})
+                    #         formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0;
+                    #         formas_pago[pago.journal_id.name]['subtotal']['contado'] +=  pago.amount;
+                    #         formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount;
+                    #         formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount;
+                    #
+                    #         total_general['credito'] += 0
+                    #         total_general['contado'] += pago.amount
+                    #         total_general['total'] +=pago.amount
+                    #         total_general['cuota_mensual'] +=pago.amount
         logging.warn('PAGOS')
-        logging.warn(formas_pago)
-        return {'formas_pago':formas_pago.values(),'total_general': total_general}
+        logging.warn(total_general)
+        return {'gravadas': gravada,'valor_neto':valor_neto,'formas_pago':formas_pago.values(),'total_general': total_general}
 
 
 
