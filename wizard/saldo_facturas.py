@@ -17,7 +17,7 @@ class saldo_facturas_wizard(models.TransientModel):
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
 
         if facturas_ids:
             fecha_hoy = date.today()
@@ -27,7 +27,7 @@ class saldo_facturas_wizard(models.TransientModel):
                 noventa = 0
                 ciento_veinte = 0
                 mas = 0
-                diferencia_dias = fecha_hoy - factura.date_invoice
+                diferencia_dias = fecha_fin - factura.date_invoice
                 dias = diferencia_dias.days
                 if dias <= 30:
                     treinta = factura.residual
@@ -40,6 +40,9 @@ class saldo_facturas_wizard(models.TransientModel):
                 elif dias > 120:
                     mas = factura.residual
 
+                # if factura.state == 'paid':
+                #     for p in factra.payment_ids:
+                #         if fecha_fin <= p.payment_date:
                 f = {
                     'codigo': factura.partner_id.matricula,
                     'nombre': factura.partner_id.name,

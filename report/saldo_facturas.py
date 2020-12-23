@@ -42,10 +42,25 @@ class ReportSaldFacturas(models.AbstractModel):
             mes = 'DICIEMBRE'
         return mes
 
+    def factura_pagada_fecha_fin(self,factura,fecha_fin):
+        total_pagado = 0
+        dias = -1
+        saldo = factura.amount_total
+        logging.warn(factura)
+        if factura.payment_ids:
+            for p in factura.payment_ids:
+                if p.payment_date > fecha_fin:
+                    dias = (fecha_fin - factura.date_invoice)
+                    total_pagado += p.amount
+        else:
+            dias = (fecha_fin - factura.date_invoice)
+        return dias if dias == -1 else dias.days
+
+    # Ordena por codigo
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
         totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
         facturas_agrupadas = {}
         if facturas_ids:
             fecha_hoy = date.today()
@@ -55,37 +70,41 @@ class ReportSaldFacturas(models.AbstractModel):
                 noventa = 0
                 ciento_veinte = 0
                 mas = 0
-                diferencia_dias = fecha_hoy - factura.date_invoice
-                dias = diferencia_dias.days
-                if dias <= 30:
-                    treinta = factura.residual
-                elif dias > 30 and dias <=60:
-                    sesenta =  factura.residual
-                elif dias > 60 and dias <= 90:
-                    noventa = factura.residual
-                elif dias > 90:
-                    mas = factura.residual
+                # diferencia_dias = fecha_hoy - factura.date_invoice
+                # dias = diferencia_dias.days
+                dias = self.factura_pagada_fecha_fin(factura,datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date())
+                logging.warn(dias)
+                if dias >=0:
+                    if dias <= 30:
+                        treinta = factura.amount_total
+                    elif dias > 30 and dias <=60:
+                        sesenta =  factura.amount_total
+                    elif dias > 60 and dias <= 90:
+                        noventa = factura.amount_total
+                    elif dias > 90:
+                        mas = factura.amount_total
 
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
-                    'numero': factura.name,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
-                }
-                totales['30'] += treinta
-                totales['60'] += sesenta
-                totales['90'] += noventa
-                totales['120'] += ciento_veinte
-                totales['mas'] += mas
-                totales['total'] += factura.residual
-                facturas.append(f)
+                    f = {
+                        'codigo': factura.partner_id.matricula,
+                        'nombre': factura.partner_id.name,
+                        'grado': factura.grado_id.nombre if factura.grado_id else '',
+                        'numero': factura.name,
+                        'fecha': factura.date_invoice,
+                        '30': treinta,
+                        '60': sesenta,
+                        '90': noventa,
+                        '120': ciento_veinte,
+                        'mas': mas,
+                        'saldo_factura': factura.amount_total
+                    }
+                    totales['30'] += treinta
+                    totales['60'] += sesenta
+                    totales['90'] += noventa
+                    totales['120'] += ciento_veinte
+                    totales['mas'] += mas
+                    totales['total'] += factura.amount_total
+                    facturas.append(f)
+
         for f in facturas:
             codigo = f['codigo']
             if codigo not in facturas_agrupadas:
