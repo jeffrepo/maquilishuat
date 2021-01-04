@@ -9,6 +9,7 @@ class AccountInvoice(models.Model):
 
     grado_rel_id = fields.Many2one('colegio.grado','Grado', store=True)
     ciclo_rel_id = fields.Many2one('colegio.ciclo','Ciclo', store=True)
+    matricula_rel = fields.Char('Matricula', related="partner_id.matricula",store=True)
 
     @api.onchange('partner_id')
     def check_change(self):

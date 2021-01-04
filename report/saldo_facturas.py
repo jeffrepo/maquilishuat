@@ -9,6 +9,7 @@ from dateutil.relativedelta import relativedelta
 from dateutil import relativedelta as rdelta
 from odoo.fields import Date, Datetime
 import logging
+import collections
 
 class ReportSaldFacturas(models.AbstractModel):
     _name = 'report.maquilishuat.saldo_facturas'
@@ -60,7 +61,7 @@ class ReportSaldFacturas(models.AbstractModel):
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
         totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])])
         facturas_agrupadas = {}
         if facturas_ids:
             fecha_hoy = date.today()
@@ -85,7 +86,7 @@ class ReportSaldFacturas(models.AbstractModel):
                         mas = factura.amount_total
 
                     f = {
-                        'codigo': factura.partner_id.matricula,
+                        'codigo': int(factura.partner_id.matricula),
                         'nombre': factura.partner_id.name,
                         'grado': factura.grado_id.nombre if factura.grado_id else '',
                         'numero': factura.name,
@@ -127,8 +128,10 @@ class ReportSaldFacturas(models.AbstractModel):
             facturas_agrupadas[codigo]['mas'] += f['mas']
             facturas_agrupadas[codigo]['saldo_factura'] += f['saldo_factura']
 
-        logging.warn(facturas_agrupadas.values())
-        return {'fact':facturas_agrupadas.values(), 'suma_totales': totales}
+        od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
+        logging.warn(od)
+
+        return {'fact':od.values(), 'suma_totales': totales}
 
     @api.model
     def _get_report_values(self, docids, data=None):
