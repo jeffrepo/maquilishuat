@@ -107,10 +107,10 @@ class ReportSaldFacturas(models.AbstractModel):
                     facturas.append(f)
 
         for f in facturas:
-            codigo = f['nombre']
-            if codigo not in facturas_agrupadas:
-                facturas_agrupadas[codigo] = {
-                                    'codigo': codigo,
+            nomb = f['nombre']
+            if nomb not in facturas_agrupadas:
+                facturas_agrupadas[nomb] = {
+                                    'codigo': f['codigo'],
                                     'nombre': f['nombre'],
                                     'grado': f['grado'],
                                     'numero': f['numero'],
@@ -121,12 +121,12 @@ class ReportSaldFacturas(models.AbstractModel):
                                     '120': 0,
                                     'mas': 0,
                                     'saldo_factura': 0}
-            facturas_agrupadas[codigo]['30'] += f['30']
-            facturas_agrupadas[codigo]['60'] += f['60']
-            facturas_agrupadas[codigo]['90'] += f['90']
-            facturas_agrupadas[codigo]['120'] += f['120']
-            facturas_agrupadas[codigo]['mas'] += f['mas']
-            facturas_agrupadas[codigo]['saldo_factura'] += f['saldo_factura']
+            facturas_agrupadas[nomb]['30'] += f['30']
+            facturas_agrupadas[nomb]['60'] += f['60']
+            facturas_agrupadas[nomb]['90'] += f['90']
+            facturas_agrupadas[nomb]['120'] += f['120']
+            facturas_agrupadas[nomb]['mas'] += f['mas']
+            facturas_agrupadas[nomb]['saldo_factura'] += f['saldo_factura']
 
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
         logging.warn(od)
