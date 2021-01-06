@@ -107,7 +107,7 @@ class ReportSaldFacturas(models.AbstractModel):
                     facturas.append(f)
 
         for f in facturas:
-            codigo = f['codigo']
+            codigo = f['nombre']
             if codigo not in facturas_agrupadas:
                 facturas_agrupadas[codigo] = {
                                     'codigo': codigo,
