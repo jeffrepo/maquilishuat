@@ -113,6 +113,7 @@ class ReportIngresosDiarios(models.AbstractModel):
             else:
 
                 for factura in pago.invoice_ids:
+                    logging.warn(factura.partner_id.name)
                     if factura.date_invoice < pago.payment_date:
                         if pago.journal_id.name not in formas_pago:
                             formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
