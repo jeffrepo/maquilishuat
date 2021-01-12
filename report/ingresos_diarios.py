@@ -113,8 +113,10 @@ class ReportIngresosDiarios(models.AbstractModel):
             else:
 
                 for factura in pago.invoice_ids:
-                    logging.warn(factura.partner_id.name)
+
                     if factura.date_invoice < pago.payment_date:
+                        logging.warn(factura.partner_id.name)
+                        logging.warn('<')
                         if pago.journal_id.name not in formas_pago:
                             formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
 
@@ -141,6 +143,9 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 valor_neto += linea.price_subtotal
 
                     if factura.date_invoice == pago.payment_date and factura.amount_total == pago.amount:
+                        logging.warn(factura.partner_id.name)
+                        logging.warn('= fecha')
+
                         if pago.journal_id.name not in formas_pago:
                             formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
 
@@ -175,6 +180,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 valor_neto += linea.price_subtotal
 
                     if factura.date_invoice == pago.payment_date and factura.state in ['open']:
+                        logging.warn(factura.partner_id.name)
+                        logging.warn('= open')
                         if pago.journal_id.name not in formas_pago:
                             formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
 
@@ -243,11 +250,11 @@ class ReportIngresosDiarios(models.AbstractModel):
 
 
     def fecha_actual(self):
-        logging.warn(datetime.datetime.now())
+        # logging.warn(datetime.datetime.now())
 
         timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
         fecha_hora = datetime.datetime.now().astimezone(timezone).strftime('%d/%m/%Y')
-        logging.warn(fecha_hora)
+        # logging.warn(fecha_hora)
         return fecha_hora
 
     @api.model
