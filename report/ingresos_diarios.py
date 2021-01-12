@@ -152,13 +152,20 @@ class ReportIngresosDiarios(models.AbstractModel):
                         colegiatura = False
                         for linea in factura.invoice_line_ids:
                             if ('colegiaturas' or 'colegiatura') in linea.product_id.name.lower():
-                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
-                                'otros_pagos':0,'pagos_anticipados':0})
+                                # formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                                # 'otros_pagos':0,'pagos_anticipados':0})
                                 colegiatura = True
-                            else:
+                            # else:
+                            #
+                            #     formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
+                            #     'otros_pagos':0,'pagos_anticipados':0})
 
-                                formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
-                                'otros_pagos':0,'pagos_anticipados':0})
+                        if colegiatura:
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                            'otros_pagos':0,'pagos_anticipados':0})
+                        else:
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
+                            'otros_pagos':0,'pagos_anticipados':0})
 
                         formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
                         formas_pago[pago.journal_id.name]['subtotal']['contado'] += pago.amount
