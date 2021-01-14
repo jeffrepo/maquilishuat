@@ -94,16 +94,16 @@ class ReportIngresosDiarios(models.AbstractModel):
             for factura in facturas_ids:
                 if 'DAVIVIENDA Remesa' not in formas_pago:
                     formas_pago['DAVIVIENDA Remesa'] = {'forma_pago':'DAVIVIENDA Remesa', 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
-                formas_pago['DAVIVIENDA Remesa']['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': factura.amount_total,'contado': 0,'total': pago.amount,'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0})
+                formas_pago['DAVIVIENDA Remesa']['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': factura.amount_total,'contado': 0,'total': factura.amount_total,'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0})
                 formas_pago['DAVIVIENDA Remesa']['subtotal']['credito'] += factura.amount_total
                 formas_pago['DAVIVIENDA Remesa']['subtotal']['contado'] += 0
-                formas_pago['DAVIVIENDA Remesa']['subtotal']['total'] += 0
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['total'] += factura.amount_total
                 formas_pago['DAVIVIENDA Remesa']['subtotal']['cuota_mensual'] += 0
                 formas_pago['DAVIVIENDA Remesa']['subtotal']['pagos_anticipados'] += 0
 
                 total_general['credito'] +=factura.amount_total
                 total_general['contado'] +=0
-                total_general['total'] +=0
+                total_general['total'] +=factura.amount_total
                 total_general['cuota_mensual'] +=0
                 total_general['pagos_anticipados'] +=0
 
