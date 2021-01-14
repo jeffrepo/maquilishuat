@@ -86,8 +86,27 @@ class ReportIngresosDiarios(models.AbstractModel):
         formas_pago = {}
         gravada = 0
         valor_neto = 0
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open'])],order="date_invoice asc")
         total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0}
         pagos_ids = self.env['account.payment'].search([('payment_date','>=', fecha_inicio),('payment_date','<=',fecha_fin),('payment_type','=','inbound'),('state','in',['posted'])],order="payment_date asc")
+
+        if facturas_ids:
+            for factura in facturas_ids:
+                if 'DAVIVIENDA Remesa' not in formas_pago:
+                    formas_pago['DAVIVIENDA Remesa'] = {'forma_pago':'DAVIVIENDA Remesa', 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
+                formas_pago['DAVIVIENDA Remesa']['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': factura.amount_total,'contado': 0,'total': pago.amount,'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0})
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['credito'] += factura.amount_total
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['contado'] += 0
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['total'] += 0
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['cuota_mensual'] += 0
+                formas_pago['DAVIVIENDA Remesa']['subtotal']['pagos_anticipados'] += 0
+
+                total_general['credito'] +=factura.amount_total
+                total_general['contado'] +=0
+                total_general['total'] +=0
+                total_general['cuota_mensual'] +=0
+                total_general['pagos_anticipados'] +=0
+
         for pago in pagos_ids:
             if pago.journal_id.default_debit_account_id.user_type_id.name == "Pasivos no-circulantes":
                 if pago.journal_id.name not in formas_pago:
