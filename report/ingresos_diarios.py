@@ -199,23 +199,23 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 colegiatura = True
 
                         if colegiatura:
-                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': factura.amount_total,'total': factura.amount_total,'cuota_mensual': factura.amount_total,
                             'otros_pagos':0,'pagos_anticipados':0})
                         else:
-                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': factura.amount_total,'total': factura.amount_total,'cuota_mensual': 0,
                             'otros_pagos':0,'pagos_anticipados':0})
 
                         formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
-                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += pago.amount
-                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
-                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount if colegiatura else 0
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += factura.amount_total
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += factura.amount_total
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += factura.amount_total if colegiatura else 0
                         formas_pago[pago.journal_id.name]['subtotal']['otros_pagos'] += 0
                         formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += 0
 
                         total_general['credito'] +=0
-                        total_general['contado'] +=pago.amount
-                        total_general['total'] +=pago.amount
-                        total_general['cuota_mensual'] +=pago.amount if colegiatura else 0
+                        total_general['contado'] +=factura.amount_total
+                        total_general['total'] +=factura.amount_total
+                        total_general['cuota_mensual'] +=factura.amount_total if colegiatura else 0
                         total_general['otros_pagos'] +=0
                         total_general['pagos_anticipados'] +=0
 
