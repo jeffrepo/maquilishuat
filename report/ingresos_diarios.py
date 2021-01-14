@@ -186,6 +186,44 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 gravada += linea.price_total
                                 valor_neto += linea.price_subtotal
 
+                    if factura.date_invoice == pago.payment_date and factura.amount_total != pago.amount:
+                        if pago.journal_id.name not in formas_pago:
+                            formas_pago[pago.journal_id.name] = {'forma_pago':pago.journal_id.name, 'facturas':[] ,'subtotal': {'credito':0,'contado':0,'total':0,'cuota_mensual':0,'otros_pagos':0,'pagos_anticipados':0 }  }
+
+
+                        colegiatura = False
+                        for linea in factura.invoice_line_ids:
+                            if ('colegiaturas' or 'colegiatura') in linea.product_id.name.lower():
+                                # formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                                # 'otros_pagos':0,'pagos_anticipados':0})
+                                colegiatura = True
+
+                        if colegiatura:
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': pago.amount,
+                            'otros_pagos':0,'pagos_anticipados':0})
+                        else:
+                            formas_pago[pago.journal_id.name]['facturas'].append({'factura': factura.number,'fecha': factura.date_invoice, 'matricula': factura.partner_id.matricula,'nombre_cliente': factura.partner_id.name, 'credito': 0,'contado': pago.amount,'total': pago.amount,'cuota_mensual': 0,
+                            'otros_pagos':0,'pagos_anticipados':0})
+
+                        formas_pago[pago.journal_id.name]['subtotal']['credito'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['contado'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['total'] += pago.amount
+                        formas_pago[pago.journal_id.name]['subtotal']['cuota_mensual'] += pago.amount if colegiatura else 0
+                        formas_pago[pago.journal_id.name]['subtotal']['otros_pagos'] += 0
+                        formas_pago[pago.journal_id.name]['subtotal']['pagos_anticipados'] += 0
+
+                        total_general['credito'] +=0
+                        total_general['contado'] +=pago.amount
+                        total_general['total'] +=pago.amount
+                        total_general['cuota_mensual'] +=pago.amount if colegiatura else 0
+                        total_general['otros_pagos'] +=0
+                        total_general['pagos_anticipados'] +=0
+
+                        for linea in factura.invoice_line_ids:
+                            if linea.product_id.type == "product":
+                                gravada += linea.price_total
+                                valor_neto += linea.price_subtotal
+
                     if factura.date_invoice == pago.payment_date and factura.state in ['open']:
                         logging.warn(factura.partner_id.name)
                         logging.warn('= open')
