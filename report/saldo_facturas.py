@@ -91,7 +91,6 @@ class ReportSaldFacturas(models.AbstractModel):
                 dias = factura_datos['dias']
                 saldo = factura_datos['saldo']
                 logging.warn(dias)
-                logging.warn(factura)
                 if dias >=0:
                     if dias <= 30:
                         treinta = saldo
@@ -122,7 +121,8 @@ class ReportSaldFacturas(models.AbstractModel):
                     totales['mas'] += mas
                     totales['total'] += saldo
                     facturas.append(f)
-
+                    if facutura.partner_id.id == 376:
+                        logging.warn(f)
         for f in facturas:
             nomb = f['nombre']
             if nomb not in facturas_agrupadas:
