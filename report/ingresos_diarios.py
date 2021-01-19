@@ -161,7 +161,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 gravada += linea.price_total
                                 valor_neto += linea.price_subtotal
 
-                    if factura.date_invoice == pago.payment_date and factura.amount_total == pago.amount:
+                    if factura.date_invoice == pago.payment_date and factura.amount_total == pago.amount and factura.state in ['paid']:
                         logging.warn(factura.partner_id.name)
                         logging.warn('= fecha')
 
