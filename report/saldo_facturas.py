@@ -48,21 +48,28 @@ class ReportSaldFacturas(models.AbstractModel):
         dias = -1
         saldo = factura.amount_total
         logging.warn(factura)
+        residual_factura = factura.residual
         if factura.payment_ids:
             for p in factura.payment_ids:
                 if p.payment_date > fecha_fin:
                     dias = (fecha_fin - factura.date_invoice)
                     total_pagado += p.amount
+                    residual_factura += p.amount
                 else:
-                    if p.amount < factura.amount_total:
-                        dias = (fecha_fin - factura.date_invoice)
-                        total_pagado += factura.amount_total - p.amount
+                    dias = (fecha_fin - factura.date_invoice)
+                # elif p.payment_date < fecha_fin:
+                #     dias = (fecha_fin - factura.date_invoice)
+            # total_pagado = factura.amount_total - total_pagado
+                # else:
+                #     if p.amount < factura.amount_total:
+                #         dias = (fecha_fin - factura.date_invoice)
+                #         total_pagado += factura.amount_total - p.amount
         else:
             dias = (fecha_fin - factura.date_invoice)
-            total_pagado += factura.amount_total
+            residual_factura = factura.residual
         logging.warn(factura)
-        logging.warn(total_pagado)
-        return {'dias':dias if dias == -1 else dias.days, 'saldo': total_pagado }
+        logging.warn(residual_factura)
+        return {'dias':dias if dias == -1 else dias.days, 'saldo': residual_factura }
 
     # Ordena por codigo
     def _get_facturas(self,fecha_inicio,fecha_fin):
