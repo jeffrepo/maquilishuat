@@ -68,6 +68,7 @@ class ReportSaldFacturas(models.AbstractModel):
             dias = (fecha_fin - factura.date_invoice)
             residual_factura = factura.residual
         logging.warn(factura)
+        logging.warn(factura.residual)
         logging.warn(residual_factura)
         return {'dias':dias if dias == -1 else dias.days, 'saldo': residual_factura }
 
