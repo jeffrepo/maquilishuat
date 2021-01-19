@@ -53,6 +53,10 @@ class ReportSaldFacturas(models.AbstractModel):
                 if p.payment_date > fecha_fin:
                     dias = (fecha_fin - factura.date_invoice)
                     total_pagado += p.amount
+                else:
+                    if p.amount < factura.amount_total:
+                        dias = (fecha_fin - factura.date_invoice)
+                        total_pagado += factura.amount_total - p.amount
         else:
             dias = (fecha_fin - factura.date_invoice)
             total_pagado += factura.amount_total
@@ -80,7 +84,7 @@ class ReportSaldFacturas(models.AbstractModel):
                 dias = factura_datos['dias']
                 saldo = factura_datos['saldo']
                 logging.warn(dias)
-
+                logging.warn(factura)
                 if dias >=0:
                     if dias <= 30:
                         treinta = saldo
