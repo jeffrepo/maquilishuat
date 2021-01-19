@@ -47,7 +47,7 @@ class ReportSaldFacturas(models.AbstractModel):
         total_pagado = 0
         dias = -1
         saldo = factura.amount_total
-        logging.warn(factura)
+        # logging.warn(factura)
         residual_factura = factura.residual
         if factura.payment_ids:
             for p in factura.payment_ids:
@@ -90,7 +90,7 @@ class ReportSaldFacturas(models.AbstractModel):
                 factura_datos = self.factura_pagada_fecha_fin(factura,datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date())
                 dias = factura_datos['dias']
                 saldo = factura_datos['saldo']
-                logging.warn(dias)
+                # logging.warn(dias)
                 if dias >=0:
                     if dias <= 30:
                         treinta = saldo
@@ -146,7 +146,7 @@ class ReportSaldFacturas(models.AbstractModel):
             facturas_agrupadas[nomb]['saldo_factura'] += f['saldo_factura']
 
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
-        logging.warn(od)
+        # logging.warn(od)
 
         return {'fact':od.values(), 'suma_totales': totales}
 
