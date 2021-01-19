@@ -121,7 +121,7 @@ class ReportSaldFacturas(models.AbstractModel):
                     totales['mas'] += mas
                     totales['total'] += saldo
                     facturas.append(f)
-                    if facutura.partner_id.id == 376:
+                    if factura.partner_id.id == 376:
                         logging.warn(f)
         for f in facturas:
             nomb = f['nombre']
