@@ -55,6 +55,7 @@ class ReportSaldFacturas(models.AbstractModel):
                     total_pagado += p.amount
         else:
             dias = (fecha_fin - factura.date_invoice)
+            total_pagado += factura.amount_total
         logging.warn(factura)
         logging.warn(total_pagado)
         return {'dias':dias if dias == -1 else dias.days, 'saldo': total_pagado }
