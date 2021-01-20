@@ -53,13 +53,15 @@ class ReportSaldFacturas(models.AbstractModel):
             for p in factura.payment_ids:
                 if p.payment_date > fecha_fin:
                     dias = (fecha_fin - factura.date_invoice)
-                    total_pagado += p.amount
+                    # total_pagado += p.amount
+                    logging.warn('---------------_')
                     logging.warn(factura)
                     logging.warn(factura.residual)
                     logging.warn(p.amount)
                     logging.warn(residual_factura)
                     residual_factura += p.amount
                     logging.warn(residual_factura)
+                    logging.warn('_---------------_')
                 else:
                     dias = (fecha_fin - factura.date_invoice)
                 # elif p.payment_date < fecha_fin:
