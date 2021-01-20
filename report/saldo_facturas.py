@@ -57,6 +57,7 @@ class ReportSaldFacturas(models.AbstractModel):
                     logging.warn(factura)
                     logging.warn(factura.residual)
                     logging.warn(p.amount)
+                    logging.warn(residual_factura)
                     residual_factura += p.amount
                     logging.warn(residual_factura)
                 else:
