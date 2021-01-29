@@ -57,15 +57,6 @@ class ReportSaldFacturas(models.AbstractModel):
                     if p.payment_date > fecha_fin:
                         dias = (fecha_fin - factura.date_invoice)
                         # total_pagado += p.amount
-                        logging.warn('---------------_')
-                        logging.warn(factura)
-                        logging.warn(factura.residual)
-                        logging.warn(p.amount)
-                        logging.warn(residual_factura)
-                        logging.warn(p.id)
-                        # residual_factura += p.amount
-                        logging.warn(residual_factura)
-                        logging.warn('_---------------_')
                     else:
                         dias = (fecha_fin - factura.date_invoice)
                         r = 0
@@ -127,12 +118,7 @@ class ReportSaldFacturas(models.AbstractModel):
                         'mas': mas,
                         'saldo_factura': saldo
                     }
-                    totales['30'] += treinta
-                    totales['60'] += sesenta
-                    totales['90'] += noventa
-                    totales['120'] += ciento_veinte
-                    totales['mas'] += mas
-                    totales['total'] += saldo
+
                     facturas.append(f)
                     if factura.partner_id.id == 376:
                         logging.warn(f)
@@ -157,6 +143,13 @@ class ReportSaldFacturas(models.AbstractModel):
             facturas_agrupadas[nomb]['120'] += f['120']
             facturas_agrupadas[nomb]['mas'] += f['mas']
             facturas_agrupadas[nomb]['saldo_factura'] += f['saldo_factura']
+
+            totales['30'] += f['30']
+            totales['60'] += f['60']
+            totales['90'] += f['90']
+            totales['120'] += f['120']
+            totales['mas'] += f['mas']
+            totales['total'] += f['saldo_factura']
 
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
         # logging.warn(od)
