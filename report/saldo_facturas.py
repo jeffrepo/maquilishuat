@@ -146,16 +146,18 @@ class ReportSaldFacturas(models.AbstractModel):
 
 
             # logging.warn(totales['30'])
-        for f in facturas_agrupadas:
+        # for f in facturas_agrupadas:
             # logging.warn(facturas_agrupadas[f])
-            totales['30'] += facturas_agrupadas[f]['30']
-            totales['60'] += facturas_agrupadas[f]['60']
-            totales['90'] += facturas_agrupadas[f]['90']
-            totales['120'] += facturas_agrupadas[f]['120']
-            totales['mas'] += facturas_agrupadas[f]['mas']
-            totales['total'] += facturas_agrupadas[f]['saldo_factura']
+
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
         # logging.warn(facturas_agrupadas)
+        for f in od:
+            totales['30'] += od[f]['30']
+            totales['60'] += od[f]['60']
+            totales['90'] += od[f]['90']
+            totales['120'] += od[f]['120']
+            totales['mas'] += od[f]['mas']
+            totales['total'] += od[f]['saldo_factura']            
 
         return {'fact':od.values(), 'suma_totales': totales}
 
