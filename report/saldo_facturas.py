@@ -152,7 +152,7 @@ class ReportSaldFacturas(models.AbstractModel):
             totales['total'] += f['saldo_factura']
             logging.warn(totales['30'])
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
-        logging.warn(od
+        logging.warn(facturas_agrupadas)
 
         return {'fact':od.values(), 'suma_totales': totales}
 
