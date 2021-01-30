@@ -150,7 +150,7 @@ class ReportSaldFacturas(models.AbstractModel):
             totales['120'] += f['120']
             totales['mas'] += f['mas']
             totales['total'] += f['saldo_factura']
-
+            logging.warn(totales['30'])
         od = collections.OrderedDict(sorted(facturas_agrupadas.items()))
         logging.warn(od.values())
 
