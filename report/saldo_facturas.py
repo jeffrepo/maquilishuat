@@ -120,7 +120,7 @@ class ReportSaldFacturas(models.AbstractModel):
                     }
 
                     facturas.append(f)
-                    
+
         for f in facturas:
             nomb = f['nombre']
             if nomb not in facturas_agrupadas:
@@ -152,6 +152,7 @@ class ReportSaldFacturas(models.AbstractModel):
         # logging.warn(facturas_agrupadas)
         for f in od:
             totales['30'] += od[f]['30']
+            logging.warn(od[f]['30'])
             logging.warn(totales['30'])
             totales['60'] += od[f]['60']
             totales['90'] += od[f]['90']
