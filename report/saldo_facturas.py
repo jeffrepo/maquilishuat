@@ -152,6 +152,7 @@ class ReportSaldFacturas(models.AbstractModel):
         # logging.warn(facturas_agrupadas)
         for f in od:
             totales['30'] += od[f]['30']
+            logging.warn(od[f]['nombre'])
             logging.warn(od[f]['30'])
             logging.warn(totales['30'])
             totales['60'] += od[f]['60']
