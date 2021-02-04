@@ -126,26 +126,27 @@ class ReportSaldFacturas(models.AbstractModel):
                     facturas.append(f)
 
         for f in facturas:
-            nomb = f['nombre']
-            if nomb not in facturas_agrupadas:
-                facturas_agrupadas[nomb] = {
-                                    'codigo': f['codigo'],
-                                    'nombre': f['nombre'],
-                                    'grado': f['grado'],
-                                    'numero': f['numero'],
-                                    'fecha': f['fecha'],
-                                    '30': 0,
-                                    '60': 0,
-                                    '90': 0,
-                                    '120': 0,
-                                    'mas': 0,
-                                    'saldo_factura': 0}
-            facturas_agrupadas[nomb]['30'] += f['30']
-            facturas_agrupadas[nomb]['60'] += f['60']
-            facturas_agrupadas[nomb]['90'] += f['90']
-            facturas_agrupadas[nomb]['120'] += f['120']
-            facturas_agrupadas[nomb]['mas'] += f['mas']
-            facturas_agrupadas[nomb]['saldo_factura'] += f['saldo_factura']
+            if f['saldo_factura'] > 500:
+                nomb = f['nombre']
+                if nomb not in facturas_agrupadas:
+                    facturas_agrupadas[nomb] = {
+                                        'codigo': f['codigo'],
+                                        'nombre': f['nombre'],
+                                        'grado': f['grado'],
+                                        'numero': f['numero'],
+                                        'fecha': f['fecha'],
+                                        '30': 0,
+                                        '60': 0,
+                                        '90': 0,
+                                        '120': 0,
+                                        'mas': 0,
+                                        'saldo_factura': 0}
+                facturas_agrupadas[nomb]['30'] += f['30']
+                facturas_agrupadas[nomb]['60'] += f['60']
+                facturas_agrupadas[nomb]['90'] += f['90']
+                facturas_agrupadas[nomb]['120'] += f['120']
+                facturas_agrupadas[nomb]['mas'] += f['mas']
+                facturas_agrupadas[nomb]['saldo_factura'] += f['saldo_factura']
 
 
             # logging.warn(totales['30'])
