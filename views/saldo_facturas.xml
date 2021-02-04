@@ -5,13 +5,14 @@
             <t t-set="data_report_margin_top" t-value="12"/>
             <t t-set="data_report_header_spacing" t-value="9"/>
             <t t-set="data_report_dpi" t-value="110"/>
-            <div clas="header">
+            <div class="header">
                 <center>
                     <div>
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            REPORTE DE ANTIGUEDAD DE SALDOS RESUMEN POR CLIENTE AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/>
+                            REPORTE DE ANTIGUEDAD DE SALDOS RESUMEN POR CLIENTE AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>
                 </center>
