@@ -99,7 +99,7 @@ class ReportSaldFacturas(models.AbstractModel):
                 dias = factura_datos['dias']
                 saldo = factura_datos['saldo']
                 # logging.warn(dias)
-                if dias >=0 and saldo > 0:
+                if dias >0 and saldo > 0:
                     if dias <= 30:
                         treinta = saldo
                     elif dias > 30 and dias <=60:
