@@ -63,10 +63,10 @@ class ReportSaldFacturas(models.AbstractModel):
                         for linea in p.move_line_ids:
                             r += linea.debit
 
-                            if r <= residual_factura:
-                                residual_factura -= r
-                            else:
-                                residual_factura = 0
+                        if r <= residual_factura:
+                            residual_factura -= r
+                        else:
+                            residual_factura -= residual_factura
                 # elif p.payment_date < fecha_fin:
                 #     dias = (fecha_fin - factura.date_invoice)
             # total_pagado = factura.amount_total - total_pagado
