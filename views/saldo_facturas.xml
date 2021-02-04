@@ -40,7 +40,7 @@
                                 <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;width:10%"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                             <tr>
                                 <td></td>
