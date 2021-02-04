@@ -34,7 +34,7 @@
                         <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
                             <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
                             <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
-                                <t t-if="fac['saldo_factura'] > 0">
+                                <t t-if="fac['saldo_factura'] > 0 or fac['30'] > 0 or fac['60'] > 0 or fac['90'] > 0 or fac['mas'] > 0">
                                     <td><span t-esc="fac['codigo']"/></td>
                                     <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
                                     <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
@@ -42,7 +42,7 @@
                                     <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                    
+
                                 </t>
                             </tr>
                             <tr>
