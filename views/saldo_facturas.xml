@@ -17,7 +17,7 @@
                 </center>
             </div>
             <div class="page">
-                FECHA: <span t-esc="fecha_fin" t-options='{"widget": "date"}'/>
+                FECHA: <span t-esc="fecha_actual()" t-options='{"widget": "date"}'/>
                 <table style="width:100%">
                     <thead>
                         <tr>

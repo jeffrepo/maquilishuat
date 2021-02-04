@@ -168,6 +168,14 @@ class ReportSaldFacturas(models.AbstractModel):
 
         return {'fact':od.values(), 'suma_totales': totales}
 
+    def fecha_actual(self):
+        logging.warn(datetime.datetime.now())
+
+        timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
+        fecha_hora = datetime.datetime.now().astimezone(timezone).strftime('%d/%m/%Y')
+        logging.warn(fecha_hora)
+        return fecha_hora
+
     @api.model
     def _get_report_values(self, docids, data=None):
         return self.get_report_values(docids, data)
@@ -189,5 +197,6 @@ class ReportSaldFacturas(models.AbstractModel):
             'fecha_fin': fecha_fin,
             'fecha_inicio': fecha_inicio,
             '_get_facturas': self._get_facturas,
+            'fecha_actual': self.fecha_actual,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
