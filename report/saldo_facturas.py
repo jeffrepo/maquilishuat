@@ -10,6 +10,7 @@ from dateutil import relativedelta as rdelta
 from odoo.fields import Date, Datetime
 import logging
 import collections
+import pytz
 
 class ReportSaldFacturas(models.AbstractModel):
     _name = 'report.maquilishuat.saldo_facturas'
