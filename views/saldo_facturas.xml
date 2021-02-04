@@ -18,6 +18,8 @@
                 </center>
             </div>
             <div class="page">
+                <br/>
+                <br/>
                 FECHA: <span t-esc="fecha_actual()"/>
                 <table style="width:100%">
                     <thead>
