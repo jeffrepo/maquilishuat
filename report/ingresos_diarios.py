@@ -315,7 +315,7 @@ class ReportIngresosDiarios(models.AbstractModel):
         logging.warn(total_general)
         return {'gravadas': gravada,'valor_neto':valor_neto,'formas_pago':formas_pago.values(),'total_general': total_general}
 
-    def _get_saldo_cuentas(self,cuentas_ids,fecha_fin):
+    def _get_saldo_cuentas(self,fecha_fin,cuentas_ids):
         cuentas = []
         logging.warn('las cuentas')
         logging.warn(cuentas_ids)
