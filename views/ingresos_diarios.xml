@@ -49,6 +49,12 @@
                                     </tr>
 
                                 </t>
+                                <tr>
+                                    <td></td>
+                                    <td style="text-align:right">Sub-Total</td>
+                                    <td style="text-align:right"><span t-esc="cuenta['subtotal_debe']"/></td>
+                                    <td style="text-align:right"><span t-esc="cuenta['subtotal_haber']"/></td>
+                                </tr>
                             </t>
                         </tbody>
                     </t>

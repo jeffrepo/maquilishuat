@@ -328,16 +328,20 @@ class ReportIngresosDiarios(models.AbstractModel):
                         "codigo": cuenta_id.code,
                         "nombre": cuenta_id.name,
                         "movimientos": [],
+                        "subtotal_debe": 0,
+                        "subtotal_haber": 0,
                     }
                     for movimiento in movimientos:
                         movimiento_dic = {
                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                            "debe": str(movimiento.debit),
-                            "haber": str(movimiento.credit),
+                            "debe": movimiento.debit,
+                            "haber": movimiento.credit,
                         }
+                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                        cuenta_dic['subtotal_haber'] += movimiento.credit
                         cuenta_dic["movimientos"].append(movimiento_dic)
                 cuentas.append(cuenta_dic)
-        logging.warn(cuentas)        
+        logging.warn(cuentas)
         return cuentas
 
     def fecha_actual(self):
