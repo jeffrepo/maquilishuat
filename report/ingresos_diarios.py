@@ -325,8 +325,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                 movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                 if movimientos:
                     cuenta_dic = {
-                        "codigo": cuenta.code,
-                        "nombre": cuenta.name,
+                        "codigo": cuenta_id.code,
+                        "nombre": cuenta_id.name,
                         "movimientos": [],
                     }
                     for movimiento in movimientos:
