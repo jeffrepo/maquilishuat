@@ -337,6 +337,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         }
                         cuenta_dic["movimientos"].append(movimiento_dic)
                 cuentas.append(cuenta_dic)
+        logging.warn(cuentas)        
         return cuentas
 
     def fecha_actual(self):
