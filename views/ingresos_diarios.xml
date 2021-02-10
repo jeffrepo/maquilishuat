@@ -24,10 +24,10 @@
                 <table style="width:100%">
                     <thead>
                         <tr>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Codigo</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CONCEPTO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Debe</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Haber</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Codigo</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CONCEPTO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Debe</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Haber</span></th>
 
                         </tr>
                     </thead>
@@ -35,17 +35,17 @@
                         <tbody>
                             <t t-foreach="_get_saldo_cuentas" t-as="cuenta">
                                 <tr>
-                                    <td><span t-esc="cuenta['codigo']"/></td>
-                                    <td><span t-esc="cuenta['nombre']"/></td>
+                                    <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
+                                    <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <t t-foreach="cuenta['movimientos']" t-as="mov">
                                     <tr>
                                         <td></td>
-                                        <td><span t-esc="mov['concepto']"/></td>
-                                        <td><span t-esc="mov['debe']"/></td>
-                                        <td><span t-esc="mov['haber']"/></td>
+                                        <td style="text-align:left"><span t-esc="mov['concepto']"/></td>
+                                        <td style="text-align:right"><span t-esc="mov['debe']"/></td>
+                                        <td style="text-align:right"><span t-esc="mov['haber']"/></td>
                                     </tr>
 
                                 </t>
