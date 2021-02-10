@@ -73,7 +73,7 @@ class saldo_facturas_wizard(models.TransientModel):
                 mas = 0
                 # diferencia_dias = fecha_hoy - factura.date_invoice
                 # dias = diferencia_dias.days
-                factura_datos = self.factura_pagada_fecha_fin(factura,datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date())
+                factura_datos = self.factura_pagada_fecha_fin(factura,datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date())
                 dias = factura_datos['dias']
                 saldo = factura_datos['saldo']
                 # logging.warn(dias)
