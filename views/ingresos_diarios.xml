@@ -41,10 +41,13 @@
                                     <td></td>
                                 </tr>
                                 <t t-foreach="cuenta['movimientos']" t-as="mov">
-                                    <td></td>
-                                    <td><span t-esc="mov['concepto']"/></td>
-                                    <td><span t-esc="mov['debe']"/></td>
-                                    <td><span t-esc="mov['haber']"/></td>
+                                    <tr>
+                                        <td></td>
+                                        <td><span t-esc="mov['concepto']"/></td>
+                                        <td><span t-esc="mov['debe']"/></td>
+                                        <td><span t-esc="mov['haber']"/></td>
+                                    </tr>
+
                                 </t>
                             </t>
                         </tbody>
