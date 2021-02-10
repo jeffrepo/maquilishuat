@@ -35,16 +35,16 @@
                         <tbody>
                             <t t-foreach="_get_saldo_cuentas" t-as="cuenta">
                                 <tr>
-                                    <td><span t-esc="_get_saldo_cuentas[cuenta]['codigo']"/></td>
-                                    <td><span t-esc="_get_saldo_cuentas[cuenta]['nombre']"/></td>
+                                    <td><span t-esc="cuenta['codigo']"/></td>
+                                    <td><span t-esc="cuenta['nombre']"/></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
-                                <t t-foreach="_get_saldo_cuentas[cuenta]['movimientos']" t-as="mov">
+                                <t t-foreach="cuenta['movimientos']" t-as="mov">
                                     <td></td>
-                                    <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['concepto']"/></td>
-                                    <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['debe']"/></td>
-                                    <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['haber']"/></td>
+                                    <td><span t-esc="mov['concepto']"/></td>
+                                    <td><span t-esc="mov['debe']"/></td>
+                                    <td><span t-esc="mov['haber']"/></td>
                                 </t>
                             </t>
                         </tbody>
