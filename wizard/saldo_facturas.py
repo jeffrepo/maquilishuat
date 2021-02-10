@@ -100,8 +100,8 @@ class saldo_facturas_wizard(models.TransientModel):
                         'mas': mas,
                         'saldo_factura': saldo
                     }
-
-                    facturas.append(f)
+                    if saldo >=0.0001:
+                        facturas.append(f)
         return facturas
 
     # def _get_facturas(self,fecha_inicio,fecha_fin):
