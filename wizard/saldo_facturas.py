@@ -15,10 +15,48 @@ class saldo_facturas_wizard(models.TransientModel):
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
 
+    def factura_pagada_fecha_fin(self,factura,fecha_fin):
+        total_pagado = 0
+        dias = -1
+        saldo = factura.amount_total
+        # logging.warn(factura)
+        # residual_factura = factura.residual
+        residual_factura = factura.amount_total
+
+        if factura.payment_ids:
+            for p in factura.payment_ids:
+                if p.state in ['posted']:
+                    if p.payment_date > fecha_fin:
+                        dias = (fecha_fin - factura.date_invoice)
+                        # total_pagado += p.amount
+                    else:
+                        dias = (fecha_fin - factura.date_invoice)
+                        r = 0
+                        for linea in p.move_line_ids:
+                            r += linea.debit
+
+                        if r <= residual_factura:
+                            residual_factura -= r
+                        else:
+                            residual_factura -= residual_factura
+                # elif p.payment_date < fecha_fin:
+                #     dias = (fecha_fin - factura.date_invoice)
+            # total_pagado = factura.amount_total - total_pagado
+                # else:
+                #     if p.amount < factura.amount_total:
+                #         dias = (fecha_fin - factura.date_invoice)
+                #         total_pagado += factura.amount_total - p.amount
+        else:
+            dias = (fecha_fin - factura.date_invoice)
+            residual_factura = factura.residual
+        return {'dias':dias if dias == -1 else dias.days, 'saldo': residual_factura }
+
+
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
-
+        totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])])
+        facturas_agrupadas = {}
         if facturas_ids:
             fecha_hoy = date.today()
             for factura in facturas_ids:
@@ -27,37 +65,80 @@ class saldo_facturas_wizard(models.TransientModel):
                 noventa = 0
                 ciento_veinte = 0
                 mas = 0
-                diferencia_dias = fecha_fin - factura.date_invoice
-                dias = diferencia_dias.days
-                if dias <= 30:
-                    treinta = factura.residual
-                elif dias > 30 and dias <=60:
-                    sesenta =  factura.residual
-                elif dias > 60 and dias <= 90:
-                    noventa = factura.residual
-                elif dias > 90 and dias <= 120:
-                    ciento_veinte = factura.residual
-                elif dias > 120:
-                    mas = factura.residual
+                # diferencia_dias = fecha_hoy - factura.date_invoice
+                # dias = diferencia_dias.days
+                factura_datos = self.factura_pagada_fecha_fin(factura,datetime.datetime.strptime(fecha_fin, '%Y-%m-%d').date())
+                dias = factura_datos['dias']
+                saldo = factura_datos['saldo']
+                # logging.warn(dias)
+                if dias >=0:
+                    if dias <= 30:
+                        treinta = saldo
+                    elif dias > 30 and dias <=60:
+                        sesenta =  saldo
+                    elif dias > 60 and dias <= 90:
+                        noventa = saldo
+                    elif dias > 90:
+                        mas = saldo
 
-                # if factura.state == 'paid':
-                #     for p in factra.payment_ids:
-                #         if fecha_fin <= p.payment_date:
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.partner_id.grado_id.nombre if factura.partner_id.grado_id else '',
-                    'numero': factura.number,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
-                }
-                facturas.append(f)
+                    f = {
+                        'codigo': int(factura.partner_id.matricula),
+                        'nombre': factura.partner_id.name,
+                        'grado': factura.grado_id.nombre if factura.grado_id else '',
+                        'numero': factura.name,
+                        'fecha': factura.date_invoice,
+                        '30': treinta,
+                        '60': sesenta,
+                        '90': noventa,
+                        '120': ciento_veinte,
+                        'mas': mas,
+                        'saldo_factura': saldo
+                    }
+
+                    facturas.append(f)
         return facturas
+
+    # def _get_facturas(self,fecha_inicio,fecha_fin):
+    #     facturas = []
+    #     facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
+    #
+    #     if facturas_ids:
+    #         fecha_hoy = date.today()
+    #         for factura in facturas_ids:
+    #             treinta = 0
+    #             sesenta = 0
+    #             noventa = 0
+    #             ciento_veinte = 0
+    #             mas = 0
+    #             diferencia_dias = fecha_fin - factura.date_invoice
+    #             dias = diferencia_dias.days
+    #             if dias <= 30:
+    #                 treinta = factura.residual
+    #             elif dias > 30 and dias <=60:
+    #                 sesenta =  factura.residual
+    #             elif dias > 60 and dias <= 90:
+    #                 noventa = factura.residual
+    #             elif dias > 90 and dias <= 120:
+    #                 ciento_veinte = factura.residual
+    #             elif dias > 120:
+    #                 mas = factura.residual
+    #
+    #
+    #             f = {
+    #                 'codigo': factura.partner_id.matricula,
+    #                 'nombre': factura.partner_id.name,
+    #                 'grado': factura.partner_id.grado_id.nombre if factura.partner_id.grado_id else '',
+    #                 'numero': factura.number,
+    #                 'fecha': factura.date_invoice,
+    #                 '30': treinta,
+    #                 '60': sesenta,
+    #                 '90': noventa,
+    #                 '120': ciento_veinte,
+    #                 'mas': mas,
+    #                 'saldo_factura': factura.residual
+    #             }
+    #             facturas.append(f)
+    #     return facturas
 
     def generar_excel(self):
         for w in self:
