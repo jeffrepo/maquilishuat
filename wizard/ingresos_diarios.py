@@ -14,7 +14,7 @@ class ingresos_diarios_wizard(models.TransientModel):
 
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
-    cuentas_ids = fields.Many2many('account.account','maqui_cuentas_rel',string='Cuentas')
+    cuentas_ids = fields.Many2many('account.account',string='Cuentas')
     # archivo = fields.Binary('Archivo excel')
 
 
