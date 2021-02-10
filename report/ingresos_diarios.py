@@ -317,6 +317,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
     def _get_saldo_cuentas(self,cuentas_ids,fecha_fin):
         cuentas = []
+        logging.warn('las cuentas')
         logging.warn(cuentas_ids)
         if cuentas_ids:
             for cuenta in cuentas_ids:
