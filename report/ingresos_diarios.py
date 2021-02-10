@@ -321,7 +321,8 @@ class ReportIngresosDiarios(models.AbstractModel):
         logging.warn(cuentas_ids)
         if cuentas_ids:
             for cuenta in cuentas_ids:
-                movimientos = self.env["account.move.line"].search([("account_id","=", cuenta.id),("date","=",fecha_fin)])
+                cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
+                movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                 if movimientos:
                     cuenta_dic = {
                         "codigo": cuenta.code,
