@@ -315,7 +315,26 @@ class ReportIngresosDiarios(models.AbstractModel):
         logging.warn(total_general)
         return {'gravadas': gravada,'valor_neto':valor_neto,'formas_pago':formas_pago.values(),'total_general': total_general}
 
-
+    def _get_saldo_cuentas(self,cuentas_ids,fecha_fin):
+        cuentas = []
+        if cuentas_ids:
+            for cuenta in cuentas_ids:
+                movimientos = self.env["account.move.line"].search([("account_id","=", cuenta.id),("date","=",fecha_fin)])
+                if movimientos:
+                    cuenta_dic = {
+                        "codigo": cuenta.code,
+                        "nombre": cuenta.name,
+                        "movimientos": [],
+                    }
+                    for movimiento in movimientos:
+                        movimiento_dic = {
+                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                            "debe": str(movimiento.debit),
+                            "haber": str(movimiento.credit),
+                        }
+                        cuenta_dic["movimientos"].append(movimiento_dic)
+                cuentas.append(cuenta_dic)
+        return cuentas
 
     def fecha_actual(self):
         # logging.warn(datetime.datetime.now())
@@ -334,6 +353,7 @@ class ReportIngresosDiarios(models.AbstractModel):
         self.model = 'account.invoice'
         fecha_fin = data.get('form', {}).get('fecha_fin', False)
         fecha_inicio = data.get('form', {}).get('fecha_inicio', False)
+        cuentas_ids = data.get('form', {}).get('cuentas_ids', False)
         # formato_planilla_id = data.get('form', {}).get('formato_planilla_id', False)
         docs = self.env[self.model].browse(docids)
         logging.warn(docs)
@@ -345,8 +365,10 @@ class ReportIngresosDiarios(models.AbstractModel):
             'docs': docs,
             'fecha_fin': fecha_fin,
             'fecha_inicio': fecha_inicio,
+            'cuentas_ids': cuentas_ids,
             '_get_facturas': self._get_facturas,
             '_get_pagos': self._get_pagos,
             'fecha_actual': self.fecha_actual,
+            '_get_saldo_cuentas': self._get_saldo_cuentas,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

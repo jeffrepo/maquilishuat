@@ -11,15 +11,46 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            INFORME DE INGRESOS DIARIOS, PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
-                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
+                            FECHA: <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/><br/>
+                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA<br/>
+                            VENTAS
                         </p>
                     </div>
                 </center>
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
+                <t t-set="_get_saldo_cuentas" t-value="_get_saldo_cuentas(fecha_fin,cuentas_ids)"/>
                 <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Codigo</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CONCEPTO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Debe</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Haber</span></th>
+
+                        </tr>
+                    </thead>
+                    <t t-if="len(_get_saldo_cuentas) > 0">
+                        <tbody>
+                          <t t-foreach="_get_saldo_cuentas" t-as="cuenta">
+                              <tr>
+                                  <td><span t-esc="_get_saldo_cuentas[cuenta]['codigo']"/></td>
+                                  <td><span t-esc="_get_saldo_cuentas[cuenta]['nombre']"/></td>
+                                  <td></td>
+                                  <td></td>
+                              </tr>
+                              <t t-foreach="_get_saldo_cuentas[cuenta]['movimientos']" t-as="mov">
+                                  <td></td>
+                                  <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['concepto']"/></td>
+                                  <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['debe']"/></td>
+                                  <td><span t-esc="_get_saldo_cuentas[cuenta]['movimientos'][mov]['haber']"/></td>
+                              </t>
+                          </t>
+                        </tbody>
+                    </t>
+
+                <!-- <table style="width:100%">
                     <thead>
                         <tr>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>FACT.</span></th>
@@ -30,8 +61,6 @@
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CONTADO</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>TOTAL</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CUOTA MENSUAL</span></th>
-                            <!-- <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>PLAN 3 PAGOS</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>PLAN ANUAL</span></th> -->
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>OTROS PAGOS</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>PAGOS ANTICIPADOS</span></th>
 
@@ -44,11 +73,9 @@
                     <t t-set="otros_pagos" t-value="0"/>
                     <t t-set="pagos_anticipados" t-value="0"/>
 
-                    <!-- <t t-set="_get_facturas(fecha_inicio,fecha_fin)['total_general']" t-value="get_facturas"/> -->
                     <t t-set="get_facturas" t-value="_get_facturas(fecha_inicio,fecha_fin)"/>
                     <tbody>
                         <t t-if="_get_pagos(fecha_inicio,fecha_fin)['formas_pago']">
-                            <!-- <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/> -->
                             <t t-foreach="_get_pagos(fecha_inicio,fecha_fin)['formas_pago']" t-as="forma">
                                 <tr>
                                     <td style="height:1cm">FORMA DE PAGO:</td>
@@ -67,8 +94,6 @@
                                         <td style="text-align:right"><span t-esc="fac['otros_pagos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right"><span t-esc="fac['pagos_anticipados']" t-options='{"widget": "float", "precision": 2}'/></td>
 
-                                        <!-- <td style="text-align:right"><span t-esc="fac['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td style="text-align:right"><span t-esc="fac['cuota_mensual']" t-options='{"widget": "float", "precision": 2}'/></td> -->
                                     </tr>
                                 </t>
                                 <tr>
@@ -89,13 +114,6 @@
                                     <t t-set="pagos_anticipados" t-value="pagos_anticipados + forma['subtotal']['pagos_anticipados']"/>
 
                                 </tr>
-                                <!-- <td><span t-esc="fac['codigo']"/></td>
-                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
-                                <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td> -->
                             </t>
                             <tr>
                                 <td style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;" colspan="3"></td>
@@ -107,9 +125,6 @@
                                 <td style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="otros_pagos" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="pagos_anticipados" t-options='{"widget": "float", "precision": 2}'/></td>
 
-                                <!-- <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['contado']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="total_g['cuota_mensual']" t-options='{"widget": "float", "precision": 2}'/></td> -->
 
                             </tr>
                             <t t-set="iva" t-value="_get_pagos(fecha_inicio,fecha_fin)['gravadas'] - _get_pagos(fecha_inicio,fecha_fin)['valor_neto']"/>
@@ -125,19 +140,11 @@
                                 <td>COBROS (ABONOS DE CxC):</td>
                                 <td style="text-align:right"><span t-esc="otros_pagos" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
-                            <!-- <tr>
-                                <td></td>
-                                <td style="text-align:right">TOTAL GENERAL</td>
-                                <td style="text-align:right"><span t-esc="sum_totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr> -->
+
                         </t>
 
                     </tbody>
-                </table>
+                </table> -->
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
               Página <span class="page"/>/<span class="topage"/>
