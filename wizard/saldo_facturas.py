@@ -6,6 +6,12 @@ import base64
 import xlsxwriter
 import io
 import logging
+import datetime
+import time
+import dateutil.parser
+from dateutil.relativedelta import relativedelta
+from dateutil import relativedelta as rdelta
+from odoo.fields import Date, Datetime
 
 class saldo_facturas_wizard(models.TransientModel):
     _name = 'maquilishuat.saldo_facturas.wizard'
