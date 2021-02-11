@@ -359,7 +359,9 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     total['debe'] += 0
                                     total['haber'] += movimiento.credit
                                     cuenta_dic["movimientos"].append(movimiento_dic)
-                        cuentas.append(cuenta_dic)
+
+                        if cuenta_dic['subtotal_debe'] > 0 or cuenta_dic['subtotal_haber'] > 0:
+                            cuentas.append(cuenta_dic)
                     else:
                         cuenta_dic = {
                             "codigo": cuenta_id.code,
