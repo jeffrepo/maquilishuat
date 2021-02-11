@@ -339,7 +339,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         for movimiento in movimientos:
                             if movimiento.ref:
                                 logging.warn('si cobrar')
-                                factura = self.env["account.invoice"].search([("number","=", str(movimiento.ref))])
+                                factura = self.env["account.invoice"].search([('number','=like', str(movimiento.ref))])
                                 logging.warn(factura)
                                 if factura and factura.date_invoice != movimiento.date:
 
