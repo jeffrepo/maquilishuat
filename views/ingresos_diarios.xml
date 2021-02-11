@@ -58,15 +58,14 @@
                             </t>
                         </tbody>
                     </t>
-                </table>
-                <table style="width:100%">
                     <tr>
                         <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;">Total Comprobante:</th>
                         <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="_get_saldo_cuentas['total']['debe']" t-options='{"widget": "float", "precision": 2}'/></th>
                         <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="_get_saldo_cuentas['total']['haber']" t-options='{"widget": "float", "precision": 2}'/></th>
                     </tr>
-
                 </table>
+                <br/>
+                <br/>
                 <div>
                     <center>
                         CONTABILIZADO POR: __________________________ AUTORIZADO POR: __________________________  AUDITADO POR: __________________________
