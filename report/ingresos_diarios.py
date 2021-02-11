@@ -344,7 +344,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 existe_factura = False
                                 for f in facturas:
 
-                                    if movimiento.ref in f.number:
+                                    if f.reference == movimiento.ref:
                                         existe_factura = True
                                         logging.warn('si igual')
 
