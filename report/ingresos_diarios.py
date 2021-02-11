@@ -325,25 +325,51 @@ class ReportIngresosDiarios(models.AbstractModel):
                 cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
                 movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                 if movimientos:
-                    cuenta_dic = {
-                        "codigo": cuenta_id.code,
-                        "nombre": cuenta_id.name,
-                        "movimientos": [],
-                        "subtotal_debe": 0,
-                        "subtotal_haber": 0,
-                    }
-                    for movimiento in movimientos:
-                        movimiento_dic = {
-                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                            "debe": movimiento.debit,
-                            "haber": movimiento.credit,
+                    if cuenta_id.user_type_id.name == 'Receivable' or cuenta_id.user_type_id.name == 'receivable' or cuenta_id.user_type_id.name == 'Por cobrar':
+                        cuenta_dic = {
+                            "codigo": cuenta_id.code,
+                            "nombre": cuenta_id.name,
+                            "movimientos": [],
+                            "subtotal_debe": 0,
+                            "subtotal_haber": 0,
                         }
-                        cuenta_dic['subtotal_debe'] += movimiento.debit
-                        cuenta_dic['subtotal_haber'] += movimiento.credit
-                        total['debe'] += movimiento.debit
-                        total['haber'] += movimiento.credit
-                        cuenta_dic["movimientos"].append(movimiento_dic)
-                    cuentas.append(cuenta_dic)
+                        for movimiento in movimientos:
+                            if movimiento.ref:
+                                factura = self.env["account.invoice"].search([("name","=", movimiento.ref)])
+                                if factura and factura.date_invoice != movimiento.date:
+
+
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": 0,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['subtotal_debe'] += 0
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    total['debe'] += 0
+                                    total['haber'] += movimiento.credit
+                                    cuenta_dic["movimientos"].append(movimiento_dic)
+                        cuentas.append(cuenta_dic)
+                    else:
+                        cuenta_dic = {
+                            "codigo": cuenta_id.code,
+                            "nombre": cuenta_id.name,
+                            "movimientos": [],
+                            "subtotal_debe": 0,
+                            "subtotal_haber": 0,
+                        }
+                        for movimiento in movimientos:
+                            movimiento_dic = {
+                                "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                "debe": movimiento.debit,
+                                "haber": movimiento.credit,
+                            }
+                            cuenta_dic['subtotal_debe'] += movimiento.debit
+                            cuenta_dic['subtotal_haber'] += movimiento.credit
+                            total['debe'] += movimiento.debit
+                            total['haber'] += movimiento.credit
+                            cuenta_dic["movimientos"].append(movimiento_dic)
+                        cuentas.append(cuenta_dic)
         logging.warn(cuentas)
         return {'cuentas':cuentas,'total': total}
 
