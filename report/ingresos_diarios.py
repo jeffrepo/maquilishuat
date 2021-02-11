@@ -325,9 +325,10 @@ class ReportIngresosDiarios(models.AbstractModel):
                 cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
                 movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                 if movimientos:
-                    if cuenta_id.code == '110301010103':
-                        logging.warn(cuenta_id.user_type_id.name)
-                    if cuenta_id.user_type_id.name == 'Receivable' or cuenta_id.user_type_id.name == 'receivable' or cuenta_id.user_type_id.name == 'Por cobrar':
+                    # if cuenta_id.code == '110301010103':
+                    #     logging.warn(cuenta_id.user_type_id.name)
+                    if cuenta_id.user_type_id.name == 'Por cobrar':
+                        logging.warn('si cobrar')
                         cuenta_dic = {
                             "codigo": cuenta_id.code,
                             "nombre": cuenta_id.name,
@@ -337,7 +338,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         }
                         for movimiento in movimientos:
                             if movimiento.ref:
-                                factura = self.env["account.invoice"].search([("name","=", movimiento.ref)])
+                                factura = self.env["account.invoice"].search([("number","=", str(movimiento.ref))])
                                 if factura and factura.date_invoice != movimiento.date:
 
 
