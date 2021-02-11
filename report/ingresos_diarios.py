@@ -319,6 +319,7 @@ class ReportIngresosDiarios(models.AbstractModel):
         cuentas = []
         logging.warn('las cuentas')
         logging.warn(cuentas_ids)
+        total ={'debe': 0, 'haber':0}
         if cuentas_ids:
             for cuenta in cuentas_ids:
                 cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
@@ -339,10 +340,12 @@ class ReportIngresosDiarios(models.AbstractModel):
                         }
                         cuenta_dic['subtotal_debe'] += movimiento.debit
                         cuenta_dic['subtotal_haber'] += movimiento.credit
+                        total['debe'] += movimiento.debit
+                        total['haber'] += movimiento.credit
                         cuenta_dic["movimientos"].append(movimiento_dic)
                     cuentas.append(cuenta_dic)
         logging.warn(cuentas)
-        return cuentas
+        return {'cuentas':cuentas,'total': total}
 
     def fecha_actual(self):
         # logging.warn(datetime.datetime.now())
