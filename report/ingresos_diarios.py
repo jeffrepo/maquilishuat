@@ -339,11 +339,16 @@ class ReportIngresosDiarios(models.AbstractModel):
                         for movimiento in movimientos:
                             if movimiento.ref:
                                 logging.warn('si cobrar')
-                                factura = self.env["account.invoice"].search([('number','=like', str(movimiento.ref))])
-                                logging.warn(factura)
-                                if factura and factura.date_invoice != movimiento.date:
+                                facturas = self.env["account.invoice"].search([('date_invoice','=', movimiento.date)])
+                                logging.warn(facturas)
+                                existe_factura = False
+                                for f in facturas:
 
+                                    if factura.number == movimiento.ref:
+                                        existe_factura = True
+                                        logging.warn('si igual')
 
+                                if existe_factura == False:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                         "debe": 0,
