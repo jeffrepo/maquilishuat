@@ -411,7 +411,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         total['debe'] += movimiento.debit
                         total['haber'] += movimiento.credit
                         cuenta_dic["movimientos"].append(movimiento_dic)
-                        cuentas.append(cuenta_dic)
+                    cuentas.append(cuenta_dic)
         logging.warn(cuentas)
         return {'cuentas':cuentas,'total': total}
 

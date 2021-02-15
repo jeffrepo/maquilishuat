@@ -84,9 +84,10 @@ class saldo_facturas_wizard(models.TransientModel):
                         sesenta =  saldo
                     elif dias > 60 and dias <= 90:
                         noventa = saldo
-                    elif dias > 90:
+                    elif dias > 90 and dias <= 120:
+                        ciento_veinte = saldo
+                    elif dias > 120:
                         mas = saldo
-
                     f = {
                         'codigo': int(factura.partner_id.matricula),
                         'nombre': factura.partner_id.name,
