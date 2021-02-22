@@ -401,7 +401,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                              "subtotal_debe": 0,
                              "subtotal_haber": 0,
                               }
-                         for movimiento in movimientos:
+                        for movimiento in movimientos:
                              if movimiento.ref:
                                  facturas = self.env["account.invoice"].search([('date_invoice','=', movimiento.date)])
 
