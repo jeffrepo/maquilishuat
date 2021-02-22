@@ -408,9 +408,9 @@ class ReportIngresosDiarios(models.AbstractModel):
                                  existe_factura = False
                                  for f in facturas:
                                      if f.reference == movimiento.ref:
-                                        existe_factura = True
-                                        logging.warn('si igual')
-                                        movimiento_dic = {
+                                         existe_factura = True
+                                         logging.warn('si igual')
+                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": 0,
                                             "haber": movimiento.credit,
