@@ -410,18 +410,28 @@ class ReportIngresosDiarios(models.AbstractModel):
                                      if f.reference == movimiento.ref:
                                         existe_factura = True
                                         logging.warn('si igual')
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": 0,
+                                            "haber": movimiento.credit,
+                                         }
+                                         cuenta_dic['subtotal_debe'] += 0
+                                         cuenta_dic['subtotal_haber'] += movimiento.credit
+                                         total['debe'] += 0
+                                         total['haber'] += movimiento.credit
+                                         cuenta_dic["movimientos"].append(movimiento_dic)
 
-                                 if existe_factura == False:
-                                     movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": 0,
-                                        "haber": movimiento.credit,
-                                     }
-                                     cuenta_dic['subtotal_debe'] += 0
-                                     cuenta_dic['subtotal_haber'] += movimiento.credit
-                                     total['debe'] += 0
-                                     total['haber'] += movimiento.credit
-                                     cuenta_dic["movimientos"].append(movimiento_dic)
+                                 # if existe_factura == False:
+                                 #     movimiento_dic = {
+                                 #        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                 #        "debe": 0,
+                                 #        "haber": movimiento.credit,
+                                 #     }
+                                 #     cuenta_dic['subtotal_debe'] += 0
+                                 #     cuenta_dic['subtotal_haber'] += movimiento.credit
+                                 #     total['debe'] += 0
+                                 #     total['haber'] += movimiento.credit
+                                 #     cuenta_dic["movimientos"].append(movimiento_dic)
 
                         if cuenta_dic['subtotal_debe'] > 0 or cuenta_dic['subtotal_haber'] > 0:
                             cuentas.append(cuenta_dic)
