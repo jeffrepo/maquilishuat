@@ -403,7 +403,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                               }
                         for movimiento in movimientos:
                              if movimiento.ref:
-                                 facturas = self.env["account.invoice"].search([('date_invoice','=', movimiento.date)])
+                                 facturas = self.env["account.invoice"].search([])
 
                                  existe_factura = False
                                  for f in facturas:
