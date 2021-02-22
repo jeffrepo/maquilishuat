@@ -402,7 +402,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                              "subtotal_haber": 0,
                               }
                         for movimiento in movimientos:
-                             if movimiento.invoice_id:
+                             if movimiento.invoice_id and movimiento.invoice_id.date_invoice != movimiento.date:
 
                                  logging.warn('si tiene factura')
                                  movimiento_dic = {
@@ -416,6 +416,18 @@ class ReportIngresosDiarios(models.AbstractModel):
                                  total['haber'] += movimiento.credit
                                  cuenta_dic["movimientos"].append(movimiento_dic)
 
+                             if movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.date_invoice !=  movimiento.date:
+                                 logging.warn('si tiene factura')
+                                 movimiento_dic = {
+                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                     "debe": 0,
+                                     "haber": movimiento.credit,
+                                 }
+                                 cuenta_dic['subtotal_debe'] += 0
+                                 cuenta_dic['subtotal_haber'] += movimiento.credit
+                                 total['debe'] += 0
+                                 total['haber'] += movimiento.credit
+                                 cuenta_dic["movimientos"].append(movimiento_dic)
                                  # if existe_factura == False:
                                  #     movimiento_dic = {
                                  #        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
