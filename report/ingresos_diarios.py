@@ -403,6 +403,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                               }
                         for movimiento in movimientos:
                              if movimiento.invoice_id:
+
+                                 logging.warn('si tiene factura')
                                  movimiento_dic = {
                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                     "debe": 0,
