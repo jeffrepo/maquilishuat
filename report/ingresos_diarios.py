@@ -504,7 +504,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         "haber": movimiento.credit,
                                     }
                                     cuenta_dic['moves'].append(movimiento_dic)
-                        tipo['cuentas'].append(cuenta_dic)
+                        if cuenta_dic['moves']:
+                            tipo['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
 
         return tipo_cuentas

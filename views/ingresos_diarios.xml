@@ -34,14 +34,13 @@
                     </thead>
                     <tbody>
                         <t t-foreach="_get_saldo_cuentas" t-as="cuenta">
-                            <span t-esc="cuenta"/>
                             <tr>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
-                            <!-- <t t-foreach="cuenta['moves']" t-as="mov">
+                            </tr>  
+                            <t t-foreach="cuenta['moves']" t-as="mov">
                                 <tr>
                                     <td></td>
                                     <td style="text-align:left"><span t-esc="mov['concepto']"/></td>
@@ -49,7 +48,7 @@
                                     <td style="text-align:right"><span t-esc="mov['haber']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 </tr>
 
-                            </t> -->
+                            </t>
                         </t>
                     </tbody>
                 </table>
