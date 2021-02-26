@@ -42,7 +42,7 @@
                             </tr>
                             <t t-foreach="cuenta['cuentas']" t-as="c">
                                 <tr>
-                                    <td style="text-align:left"><span t-esc="c['codigo']"/>/td>
+                                    <td style="text-align:left"><span t-esc="c['codigo']"/></td>
                                     <td style="text-align:left"><span t-esc="c['nombre']"/></td>
                                     <td style="text-align:right"></td>
                                     <td style="text-align:right"></td>
