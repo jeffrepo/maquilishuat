@@ -485,6 +485,14 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'codigo': '1103010101',
                         'cuentas': [],
                         'type': 'colegiaturas_debe'
+            },
+            {
+
+                        'nombre': 'Gastos financieros',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_expenses').id],
+                        'codigo': '4301',
+                        'cuentas': [],
+                        'type': 'gastos_financieros'
             }
 
         ]
@@ -492,7 +500,7 @@ class ReportIngresosDiarios(models.AbstractModel):
             for tipo in tipo_cuentas:
                 for cuenta in cuentas_ids:
                     cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
-                    if cuenta_id.user_type_id.id in tipo['tipo_cuentas']:
+                    if cuenta_id.user_type_id.id in tipo['tipo_cuentas','gastos_financieros']:
                         cuenta_dic = {
                             'codigo': cuenta_id.code,
                             'nombre': cuenta_id.name,
