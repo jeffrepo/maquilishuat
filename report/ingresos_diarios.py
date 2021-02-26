@@ -489,7 +489,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         cuenta_dic = {
                             'codigo': cuenta_id.code,
                             'nombre': cuenta_id.name,
-                            'moves': []
+                            'moves': [],
                             'debe': 0,
                             'haber': 0
                         }
