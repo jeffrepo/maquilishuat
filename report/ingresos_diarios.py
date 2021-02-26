@@ -510,6 +510,15 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'cuentas': [],
                         'type': 'periodo_12_13'
             },
+            {
+
+                        'nombre': 'INGRESOS POR SERVICIOS',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_revenue').id],
+                        'codigo': '5101',
+                        'cuentas': [],
+                        'type': 'ingresos_servicios'
+            },
+
 
         ]
         if cuentas_ids:
