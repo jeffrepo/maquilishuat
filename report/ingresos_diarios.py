@@ -485,7 +485,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                 for cuenta in cuentas_ids:
                     cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
 
-                    if cuentas_ids.user_type_id.id in tipo_cuentas['tipo_cuentas']:
+                    if cuenta_id.user_type_id.id in tipo_cuentas['tipo_cuentas']:
                         cuenta_dic = {
                             'codigo': cuenta_id.code,
                             'nombre': cuenta_id.name,
