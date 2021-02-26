@@ -477,6 +477,14 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'codigo': '11010201',
                         'cuentas': [],
                         'type': 'efectivo_equivalente'
+            },
+            {
+
+                        'nombre': 'Colegiaturas',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_receivable').id],
+                        'codigo': '1103010101',
+                        'cuentas': [],
+                        'type': 'colegiaturas_debe'
             }
 
         ]
@@ -508,6 +516,18 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['moves'].append(movimiento_dic)
                                     cuenta_dic['subtotal_debe'] += movimiento.debit
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['colegiaturas_debe']:
+                                for movimiento in movimientos:
+                                    if movimiento.invoice_id:
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
+
                         if cuenta_dic['moves']:
                             tipo['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
