@@ -490,7 +490,9 @@ class ReportIngresosDiarios(models.AbstractModel):
                             'nombre': cuenta_id.name,
                             'moves': [],
                             'debe': 0,
-                            'haber': 0
+                            'haber': 0,
+                            'subtotal_debe': 0,
+                            'subtotal_haber': 0,
                         }
 
 
@@ -504,6 +506,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         "haber": movimiento.credit,
                                     }
                                     cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
                         if cuenta_dic['moves']:
                             tipo['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
