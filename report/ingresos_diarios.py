@@ -572,7 +572,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     if movimiento.payment_id and movimiento.payment_id.invoice_ids:
                                         pagado_fecha = True
                                         for p in movimiento.payment_id.invoice_ids.payment_ids:
-                                            if p.payment_date != movimiento.payment_id.invoice_ids.date_invoice
+                                            if p.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
                                                 pagado_fecha = False
                                         if pagado_fecha == False:
                                             movimiento_dic = {
