@@ -526,6 +526,14 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'cuentas': [],
                         'type': 'ingresos_no_operacionales'
             },
+            {
+
+                        'nombre': 'DEBITO FISCAL',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
+                        'codigo': '210402',
+                        'cuentas': [],
+                        'type': 'debito_fiscal'
+            },
 
 
         ]
@@ -549,7 +557,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13']:
+                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13','debito_fiscal']:
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
