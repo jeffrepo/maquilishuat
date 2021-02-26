@@ -34,12 +34,13 @@
                     </thead>
                     <tbody>
                         <t t-foreach="_get_saldo_cuentas['cuentas']" t-as="cuenta">
-                            <tr>
+                            <span t-esc="cuenta"/>
+                            <!-- <tr>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                             <!-- <t t-foreach="cuenta['moves']" t-as="mov">
                                 <tr>
                                     <td></td>
