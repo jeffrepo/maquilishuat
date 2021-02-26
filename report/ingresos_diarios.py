@@ -609,7 +609,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                 for movimiento in movimientos:
                                     if movimiento.payment_id and movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
                                         movimiento_dic = {
-                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
                                         }
