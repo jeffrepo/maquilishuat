@@ -21,7 +21,8 @@
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="_get_saldo_cuentas" t-value="_get_reporte(fecha_fin,cuentas_ids)"/>
-
+                <t t-set="total_d" t-value="_get_saldo_cuentas[1]"/>
+                <t t-set="total_h" t-value="_get_saldo_cuentas[2]"/>
                 <table style="width:100%">
                     <thead>
                         <tr>
@@ -33,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <t t-foreach="_get_saldo_cuentas" t-as="cuenta">
+                        <t t-foreach="_get_saldo_cuentas[0]" t-as="cuenta">
                             <tr>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
@@ -59,11 +60,16 @@
                                 <tr>
                                     <td></td>
                                     <td style="text-align:right">Sub-Total</td>
-                                    <td><span t-esc="c['subtotal_debe']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td><span t-esc="c['subtotal_haber']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="c['subtotal_debe']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="c['subtotal_haber']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 </tr>
 
                             </t>
+                            <tr>
+                                <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;">Total Comprobante:</th>
+                                <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_d" t-options='{"widget": "float", "precision": 2}'/></th>
+                                <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_h" t-options='{"widget": "float", "precision": 2}'/></th>
+                            </tr>
 
                         </t>
                     </tbody>
