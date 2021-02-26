@@ -485,7 +485,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                 for cuenta in cuentas_ids:
                     cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
 
-                    if cuenta_id.user_type_id.id in tipo_cuentas['tipo_cuentas']:
+                    if cuenta_id.user_type_id.id in tipo_cuentas[tipo]['tipo_cuentas']:
                         cuenta_dic = {
                             'codigo': cuenta_id.code,
                             'nombre': cuenta_id.name,
@@ -497,7 +497,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo_cuentas['tipo'] in ['efectivo_equivalente']:
+                            if tipo_cuentas[tipo]['tipo'] in ['efectivo_equivalente']:
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
@@ -505,7 +505,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         "haber": movimiento.credit,
                                     }
                                     cuenta_dic['moves'].append(movimiento_dic)
-                        tipo_cuentas['cuentas'].append(cuenta_dic)
+                        tipo_cuentas[tipo]['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
 
         return tipo_cuentas
