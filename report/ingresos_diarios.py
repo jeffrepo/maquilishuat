@@ -502,6 +502,14 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'cuentas': [],
                         'type': 'colegiaturas_haber'
             },
+            {
+
+                        'nombre': 'PERIODO 12-13',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_non_current_liabilities').id],
+                        'codigo': '22060109',
+                        'cuentas': [],
+                        'type': 'periodo_12_13'
+            },
 
         ]
         if cuentas_ids:
@@ -522,7 +530,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros']:
+                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13']:
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
@@ -569,20 +577,20 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
-                                    if movimiento.payment_id and movimiento.payment_id.invoice_ids:
-                                        pagado_fecha = True
-                                        for p in movimiento.payment_id.invoice_ids.payment_ids:
-                                            if p.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
-                                                pagado_fecha = False
-                                        if pagado_fecha == False:
-                                            movimiento_dic = {
-                                                "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                                "debe": movimiento.debit,
-                                                "haber": movimiento.credit,
-                                            }
-                                            cuenta_dic['moves'].append(movimiento_dic)
-                                            cuenta_dic['subtotal_debe'] += movimiento.debit
-                                            cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    # if movimiento.payment_id and movimiento.payment_id.invoice_ids:
+                                    #     pagado_fecha = True
+                                    #     for p in movimiento.payment_id.invoice_ids.payment_ids:
+                                    #         if p.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
+                                    #             pagado_fecha = False
+                                    #     if pagado_fecha == False:
+                                    #         movimiento_dic = {
+                                    #             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                    #             "debe": movimiento.debit,
+                                    #             "haber": movimiento.credit,
+                                    #         }
+                                    #         cuenta_dic['moves'].append(movimiento_dic)
+                                    #         cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    #         cuenta_dic['subtotal_haber'] += movimiento.credit
                         if cuenta_dic['moves']:
                             tipo['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
