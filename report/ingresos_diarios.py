@@ -518,7 +518,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['colegiaturas_debe']:
                                 for movimiento in movimientos:
-                                    if movimiento.invoice_id
+                                    if movimiento.invoice_id:
                                         if movimiento.invoice_id.state == 'open':
                                             movimiento_dic = {
                                                 "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
