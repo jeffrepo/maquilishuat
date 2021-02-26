@@ -40,7 +40,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <t t-foreach="cuenta['moves']" t-as="mov">
+                            <!-- <t t-foreach="cuenta['moves']" t-as="mov">
                                 <tr>
                                     <td></td>
                                     <td style="text-align:left"><span t-esc="mov['concepto']"/></td>
@@ -48,7 +48,7 @@
                                     <td style="text-align:right"><span t-esc="mov['haber']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 </tr>
 
-                            </t>
+                            </t> -->
                         </t>
                     </tbody>
                 </table>
