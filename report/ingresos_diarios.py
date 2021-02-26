@@ -476,7 +476,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'tipo_cuentas': [self.env.ref('account.data_account_type_liquidity').id],
                         'codigo': '11010201',
                         'cuentas': [],
-                        'tipo': 'efectivo_equivalente'
+                        'type': 'efectivo_equivalente'
             }
 
         ]
@@ -497,7 +497,7 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo['tipo'] in ['efectivo_equivalente']:
+                            if tipo['type'] in ['efectivo_equivalente']:
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
