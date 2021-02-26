@@ -515,6 +515,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
                             if tipo['type'] in ['efectivo_equivalente','gastos_financieros']:
+                                if tipo['type'] == 'gastos_financieros':
+                                    logging.warn(tipo['type'])
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
