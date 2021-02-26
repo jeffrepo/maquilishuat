@@ -468,6 +468,47 @@ class ReportIngresosDiarios(models.AbstractModel):
         return {'cuentas':cuentas,'total': total}
 
 
+    def _get_reporte(self,fecha_fin,cuentas_ids):
+        tipo_cuentas = [
+            {
+
+                        'nombre': 'Bancos locales',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_liquidity').id],
+                        'codigo': '11010201',
+                        'cuentas': [],
+                        'tipo': 'efectivo_equivalente'
+            }
+
+        ]
+        if cuentas_ids:
+            for tipo in tipo_cuentas:
+                for cuenta in cuentas_ids:
+                    cuenta_id = self.env["account.account"].search([("id","=",cuenta)])
+
+                    if cuentas_id.user_type_id.id in tipo_cuentas['tipo_cuentas']:
+                        cuenta_dic = {
+                            'codigo': cuenta_id.code,
+                            'nombre': cuenta_id.name,
+                            'moves': []
+                            'debe': 0,
+                            'haber': 0
+                        }
+
+
+                        movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
+                        if movimientos:
+                            if tipo_cuentas['tipo'] in ['efectivo_equivalente']:
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                        tipo_cuentas['cuentas'].append(cuenta_dic)
+        logging.warn(tipo_cuentas)
+
+        return tipo_cuentas
 
     def fecha_actual(self):
         # logging.warn(datetime.datetime.now())
@@ -503,5 +544,6 @@ class ReportIngresosDiarios(models.AbstractModel):
             '_get_pagos': self._get_pagos,
             'fecha_actual': self.fecha_actual,
             '_get_saldo_cuentas': self._get_saldo_cuentas,
+            '_get_reporte': self._get_reporte,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

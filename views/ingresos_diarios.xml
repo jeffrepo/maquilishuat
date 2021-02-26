@@ -20,8 +20,39 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="_get_saldo_cuentas" t-value="_get_saldo_cuentas(fecha_fin,cuentas_ids)"/>
+                <t t-set="_get_saldo_cuentas" t-value="_get_reporte(fecha_fin,cuentas_ids)"/>
+
                 <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Codigo</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CONCEPTO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Debe</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Haber</span></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="_get_saldo_cuentas['cuentas']" t-as="cuenta">
+                            <tr>
+                                <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
+                                <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <t t-foreach="cuenta['moves']" t-as="mov">
+                                <tr>
+                                    <td></td>
+                                    <td style="text-align:left"><span t-esc="mov['concepto']"/></td>
+                                    <td style="text-align:right"><span t-esc="mov['debe']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="mov['haber']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                </tr>
+
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <!-- <table style="width:100%">
                     <thead>
                         <tr>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Codigo</span></th>
@@ -63,7 +94,7 @@
                         <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="_get_saldo_cuentas['total']['debe']" t-options='{"widget": "float", "precision": 2}'/></th>
                         <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="_get_saldo_cuentas['total']['haber']" t-options='{"widget": "float", "precision": 2}'/></th>
                     </tr>
-                </table>
+                </table> -->
                 <br/>
                 <br/>
                 <div>
