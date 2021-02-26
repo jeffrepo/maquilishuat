@@ -22,7 +22,7 @@
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="_get_saldo_cuentas" t-value="_get_reporte(fecha_fin,cuentas_ids)"/>
 
-                <table style="width:100%">
+                <!-- <table style="width:100%">
                     <thead>
                         <tr>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Codigo</span></th>
@@ -34,7 +34,7 @@
                     </thead>
                     <tbody>
                         <t t-foreach="_get_saldo_cuentas['cuentas']" t-as="cuenta">
-                            <span t-esc="cuenta"/>
+                            <span t-esc="cuenta"/> -->
                             <!-- <tr>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
                                 <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
@@ -50,9 +50,9 @@
                                 </tr>
 
                             </t> -->
-                        </t>
+                        <!-- </t>
                     </tbody>
-                </table>
+                </table> -->
                 <!-- <table style="width:100%">
                     <thead>
                         <tr>
