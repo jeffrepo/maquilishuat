@@ -518,6 +518,14 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'cuentas': [],
                         'type': 'ingresos_servicios'
             },
+            {
+
+                        'nombre': 'INGRESOS NO OPERACIONALES',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_revenue').id],
+                        'codigo': '5201',
+                        'cuentas': [],
+                        'type': 'ingresos_no_operacionales'
+            },
 
 
         ]
@@ -550,6 +558,16 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_debe'] += movimiento.debit
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['ingresos_servicios'] and ('5101' in cuenta_id.code):
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['ingresos_no_operacionales'] and ('5201' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
