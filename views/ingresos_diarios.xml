@@ -65,13 +65,14 @@
                                 </tr>
 
                             </t>
-                            <tr>
-                                <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;">Total Comprobante:</th>
-                                <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_d" t-options='{"widget": "float", "precision": 2}'/></th>
-                                <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_h" t-options='{"widget": "float", "precision": 2}'/></th>
-                            </tr>
+
 
                         </t>
+                        <tr>
+                            <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;">Total Comprobante:</th>
+                            <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_d" t-options='{"widget": "float", "precision": 2}'/></th>
+                            <th style="text-align:right;border-top: 1px solid black;border-bottom: 1px solid black;"><span t-esc="total_h" t-options='{"widget": "float", "precision": 2}'/></th>
+                        </tr>
                     </tbody>
                 </table>
                 <!-- <table style="width:100%">
