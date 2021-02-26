@@ -493,7 +493,15 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'codigo': '4301',
                         'cuentas': [],
                         'type': 'gastos_financieros'
-            }
+            },
+            {
+
+                        'nombre': 'Colegiaturas',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_receivable').id],
+                        'codigo': '1103010101',
+                        'cuentas': [],
+                        'type': 'colegiaturas_haber'
+            },
 
         ]
         if cuentas_ids:
@@ -515,8 +523,6 @@ class ReportIngresosDiarios(models.AbstractModel):
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
                             if tipo['type'] in ['efectivo_equivalente','gastos_financieros']:
-                                if tipo['type'] == 'gastos_financieros':
-                                    logging.warn(tipo['type'])
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
@@ -552,6 +558,19 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 cuenta_dic['moves'].append(movimiento_dic)
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
                                                 cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['colegiaturas_haber']:
+                                for movimiento in movimientos:
+                                    if movimiento.payment_id and movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
+
+
                         if cuenta_dic['moves']:
                             tipo['cuentas'].append(cuenta_dic)
         logging.warn(tipo_cuentas)
