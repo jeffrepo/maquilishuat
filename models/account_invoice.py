@@ -16,3 +16,8 @@ class AccountInvoice(models.Model):
         if self.partner_id:
             self.grado_rel_id = self.partner_id.grado_id
             self.ciclo_rel_id = self.partner_id.ciclo_id
+
+class AccountInvoiceLinea(models.Model):
+    _inherit = "account.invoice.line"
+
+    mes_pagado = fields.Date('Mes pagado')
