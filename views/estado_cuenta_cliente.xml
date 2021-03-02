@@ -20,7 +20,7 @@
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="estado_cuenta_cliente" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
 
-                <t t-if="moves">
+                <t t-if="estado_cuenta_cliente">
                     <t t-foreach="estado_cuenta_cliente" t-as="cuentas">
                         <table style="width:100%">
                             <thead>
