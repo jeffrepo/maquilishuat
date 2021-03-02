@@ -110,11 +110,13 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                         saldo = m.debit - m.credit
                     else:
                         saldo += m.debit - m.credit
-                    datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                    datos[f.id]['cargos'] += m.debit
-                    datos[f.id]['abonos'] += m.credit
-                    total['cargos'] += m.debit
-                    total['abonos'] += m.credit
+
+                    if m.debit > 0:
+                        datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                        datos[f.id]['cargos'] += m.debit
+                        datos[f.id]['abonos'] += m.credit
+                        total['cargos'] += m.debit
+                        total['abonos'] += m.credit
 
 
                 if f.payment_ids:
@@ -126,11 +128,14 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                                     saldo = m.debit - m.credit
                                 else:
                                     saldo += m.debit - m.credit
-                                datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                                datos[f.id]['cargos'] += m.debit
-                                datos[f.id]['abonos'] += m.credit
-                                total['cargos'] += m.debit
-                                total['abonos'] += m.credit
+
+
+                                if m.credit > 0:
+                                    datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                                    datos[f.id]['cargos'] += m.debit
+                                    datos[f.id]['abonos'] += m.credit
+                                    total['cargos'] += m.debit
+                                    total['abonos'] += m.credit
 
         total['saldo'] = total['cargos'] - total['abonos']
 
