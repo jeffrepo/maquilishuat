@@ -104,7 +104,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                         datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
 
                     saldo = 0
-                    for m in f.move_id:
+                    for m in f.move_id.line_ids:
                         if saldo == 0:
                             saldo = m.debit - m.credit
                         else:
