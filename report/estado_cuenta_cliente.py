@@ -91,6 +91,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
 
     def estado_cuenta(self,fecha_inicio,fecha_fin,cliente_id):
+        logging.warn(cliente_id)
         facturas_ids = self.env['account.invoice'].search([('id','=',cliente_id[0])],order="date_invoice asc")
         datos = {}
         logging.warn(facturas_ids)
