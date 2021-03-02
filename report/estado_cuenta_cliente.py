@@ -99,6 +99,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                 logging.warn(str(fecha_inicio))
                 logging.warn(str(f.date_invoice))
                 if str(f.date_invoice) >= str(fecha_inicio) and str(f.date_invoice) <= str(fecha_fin) and f.state in ['open','paid']:
+                    logging.warn('si pasa')
                     if f.id not in datos:
                         datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
 
@@ -109,6 +110,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                         else:
                             saldo -= m.debit - m.credit
                         datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+
         logging.warn(datos)
         return datos
 
