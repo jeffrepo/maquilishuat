@@ -140,5 +140,6 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
             'cliente_id': cliente_id,
             '_get_facturas': self._get_facturas,
             'fecha_actual': self.fecha_actual,
+            'estado_cuenta': self.estado_cuenta,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
