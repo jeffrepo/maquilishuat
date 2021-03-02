@@ -93,6 +93,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
     def estado_cuenta(self,fecha_inicio,fecha_fin,cliente_id):
         facturas_ids = self.env['account.invoice'].search([('id','=',cliente_id[0]),('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('state','in',['in_payment','open','paid'])],order="date_invoice asc")
         datos = {}
+        logging.warn(facturas_ids)
         if facturas_ids:
             for f in facturas_ids:
                 if f.id not in datos:
