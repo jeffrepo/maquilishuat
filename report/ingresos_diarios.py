@@ -509,7 +509,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'codigo': '210402',
                         'cuentas': [],
                         'type': 'debito_fiscal'
-            },            
+            },
             {
 
                         'nombre': 'PERIODO 12-13',
@@ -615,7 +615,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['colegiaturas_haber']:
                                 for movimiento in movimientos:
-                                    if movimiento.payment_id and movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice:
+                                    if movimiento.payment_id and ((movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice) or (movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.credit < movimiento.payment_id.invoice_ids.amount_total)):
                                     # if movimiento.payment_id and movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice:
                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
