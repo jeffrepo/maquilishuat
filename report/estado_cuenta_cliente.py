@@ -94,6 +94,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
         logging.warn(cliente_id)
         facturas_ids = self.env['account.invoice'].search([('partner_id','=',cliente_id[0]),('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('state','in',['open','paid'])],order="date_invoice asc")
         datos = {}
+        total = {'cargos': 0, 'abonos': 0, 'saldo': 0}
         logging.warn(facturas_ids)
         if facturas_ids:
             for f in facturas_ids:
@@ -112,6 +113,9 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                     datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
                     datos[f.id]['cargos'] += m.debit
                     datos[f.id]['abonos'] += m.credit
+                    total['cargos'] += m.debit
+                    total['cargos'] += m.credit
+                    total['saldos'] += saldo
 
 
                 if f.payment_ids:
@@ -126,9 +130,12 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                                 datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
                                 datos[f.id]['cargos'] += m.debit
                                 datos[f.id]['abonos'] += m.credit
+                                total['cargos'] += m.debit
+                                total['cargos'] += m.credit
+                                total['saldos'] += saldo
 
         logging.warn(datos)
-        return datos.values()
+        return {'datos': datos.values(), 'total': total}
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())

@@ -19,9 +19,9 @@
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="estado_cuenta_cliente" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
-
-                <t t-if="estado_cuenta_cliente">
-                    <t t-foreach="estado_cuenta_cliente" t-as="cuentas">
+                <t t-set="estado_cuenta_cliente_datos" t-value="estado_cuenta_cliente['datos']">
+                <t t-if="estado_cuenta_cliente_datos">
+                    <t t-foreach="estado_cuenta_cliente_datos" t-as="cuentas">
                         <table style="width:100%">
                             <thead>
                                 <tr>
@@ -37,22 +37,27 @@
                             <tbody>
                                 <t t-foreach="cuentas['movimientos']" t-as="m">
                                     <tr>
-                                        <td><span t-esc="cuentas['codigo']"/></td>
-                                        <td><span t-esc="cuentas['cliente']"/></td>
-                                        <td><span t-esc="cuentas['factura']"/></td>
-                                        <td><span t-esc="m['fecha']" t-options='{"widget": "date"}'/></td>
-                                        <td><span t-esc="m['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td><span t-esc="m['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td><span t-esc="m['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:left"><span t-esc="cuentas['codigo']"/></td>
+                                        <td style="text-align:center"><span t-esc="cuentas['cliente']"/></td>
+                                        <td style="text-align:center"><span t-esc="cuentas['factura']"/></td>
+                                        <td style="text-align:right"><span t-esc="m['fecha']" t-options='{"widget": "date"}'/></td>
+                                        <td style="text-align:right"><span t-esc="m['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"><span t-esc="m['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"><span t-esc="m['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     </tr>
                                 </t>
                                 <tr>
-                                    <td colspan="4">SUB-TOTAL FACT. ===></td>
-                                    <td><span t-esc="cuentas['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td><span t-esc="cuentas['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td><span t-esc="cuentas['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td colspan="4" style="text-align:center">SUB-TOTAL FACT. ===></td>
+                                    <td style="text-align:right"><span t-esc="cuentas['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="cuentas['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="cuentas['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 </tr>
-
+                                <tr>
+                                    <td colspan="4" style="text-align:center;border-top: 1px solid black;">TOTAL GENERAL ===></td>
+                                    <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['cargos']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                    <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['abonos']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                    <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['saldo']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
+                                </tr>
                             </tbody>
                         </table>
                     </t>
