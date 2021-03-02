@@ -108,8 +108,24 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                     if saldo == 0:
                         saldo = m.debit - m.credit
                     else:
-                        saldo -= m.debit - m.credit
+                        saldo += m.debit - m.credit
                     datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                    datos[f.id]['cargos'] += m.debit
+                    datos[f.id]['abonos'] += m.credit
+
+
+                if f.payment_ids:
+                    saldo = 0
+                    for pago in payment_ids:
+                        if pago.state == 'posted':
+                            for m in pago.move_line_ids:
+                                if saldo == 0:
+                                    saldo = m.debit - m.credit
+                                else:
+                                    saldo += m.debit - m.credit
+                                datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                                datos[f.id]['cargos'] += m.debit
+                                datos[f.id]['abonos'] += m.credit
 
         logging.warn(datos)
         return datos
