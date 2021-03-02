@@ -92,25 +92,24 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
     def estado_cuenta(self,fecha_inicio,fecha_fin,cliente_id):
         logging.warn(cliente_id)
-        facturas_ids = self.env['account.invoice'].search([('id','=',cliente_id[0])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('partner_id','=',cliente_id[0]),('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('state','in',['open','paid'])],order="date_invoice asc")
         datos = {}
         logging.warn(facturas_ids)
         if facturas_ids:
             for f in facturas_ids:
                 logging.warn(str(fecha_inicio))
                 logging.warn(str(f.date_invoice))
-                if str(f.date_invoice) >= str(fecha_inicio) and str(f.date_invoice) <= str(fecha_fin) and f.state in ['open','paid']:
-                    logging.warn('si pasa')
-                    if f.id not in datos:
-                        datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
+                logging.warn('si pasa')
+                if f.id not in datos:
+                    datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
 
-                    saldo = 0
-                    for m in f.move_id.line_ids:
-                        if saldo == 0:
-                            saldo = m.debit - m.credit
-                        else:
-                            saldo -= m.debit - m.credit
-                        datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                saldo = 0
+                for m in f.move_id.line_ids:
+                    if saldo == 0:
+                        saldo = m.debit - m.credit
+                    else:
+                        saldo -= m.debit - m.credit
+                    datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
 
         logging.warn(datos)
         return datos
