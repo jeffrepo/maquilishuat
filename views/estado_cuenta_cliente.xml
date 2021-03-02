@@ -18,6 +18,7 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
+                <t t-set="moves" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
                 <table style="width:100%">
                     <thead>
                         <tr>

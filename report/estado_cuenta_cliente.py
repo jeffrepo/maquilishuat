@@ -89,6 +89,25 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                 facturas.append(f)
         return {'fact':facturas, 'suma_totales': totales}
 
+
+    def estado_cuenta(self,fecha_inicio,fecha_fin,cliente_id):
+        facturas_ids = self.env['account.invoice'].search([('id','=',cliente_id),('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
+        datos = {}
+        if facturas_ids:
+            for f in facturas_ids:
+                if f.id not in datos:
+                    datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
+
+                saldo = 0
+                for m in f.move_id:
+                    if saldo == 0:
+                        saldo = m.debit - m.credit
+                    else:
+                        saldo -= m.debit - m.credit
+                    datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+        logging.warn(datos)
+        return datos
+
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
 
