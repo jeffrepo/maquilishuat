@@ -96,6 +96,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
         logging.warn(facturas_ids)
         if facturas_ids:
             for f in facturas_ids:
+                logging.warn(str(fecha_inicio))
                 if f.date_invoice >= str(fecha_inicio) and f.date_invoice <= str(fecha_fin):
                     if f.id not in datos:
                         datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
