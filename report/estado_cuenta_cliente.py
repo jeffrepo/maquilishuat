@@ -115,7 +115,6 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                     datos[f.id]['abonos'] += m.credit
                     total['cargos'] += m.debit
                     total['cargos'] += m.credit
-                    total['saldos'] += saldo
 
 
                 if f.payment_ids:
@@ -132,7 +131,8 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                                 datos[f.id]['abonos'] += m.credit
                                 total['cargos'] += m.debit
                                 total['cargos'] += m.credit
-                                total['saldos'] += saldo
+                                
+        total['saldo'] = total['cargos'] - total['abonos']
 
         logging.warn(datos)
         return {'datos': datos.values(), 'total': total}
