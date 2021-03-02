@@ -116,7 +116,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
                 if f.payment_ids:
                     saldo = 0
-                    for pago in payment_ids:
+                    for pago in f.payment_ids:
                         if pago.state == 'posted':
                             for m in pago.move_line_ids:
                                 if saldo == 0:
