@@ -40,7 +40,7 @@
                                         <td><span t-esc="cuentas['codigo']"/></td>
                                         <td><span t-esc="cuentas['cliente']"/></td>
                                         <td><span t-esc="cuentas['factura']" t-options='{"widget": "date"}'/></td>
-                                        <td><span t-esc="m['fecha']"/></td
+                                        <td><span t-esc="m['fecha']"/></td>
                                         <td><span t-esc="m['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td><span t-esc="m['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td><span t-esc="m['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
