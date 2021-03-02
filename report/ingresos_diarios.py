@@ -504,6 +504,14 @@ class ReportIngresosDiarios(models.AbstractModel):
             },
             {
 
+                        'nombre': 'DEBITO FISCAL',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
+                        'codigo': '210402',
+                        'cuentas': [],
+                        'type': 'debito_fiscal'
+            },            
+            {
+
                         'nombre': 'PERIODO 12-13',
                         'tipo_cuentas': [self.env.ref('account.data_account_type_non_current_liabilities').id],
                         'codigo': '22060109',
@@ -525,14 +533,6 @@ class ReportIngresosDiarios(models.AbstractModel):
                         'codigo': '5201',
                         'cuentas': [],
                         'type': 'ingresos_no_operacionales'
-            },
-            {
-
-                        'nombre': 'DEBITO FISCAL',
-                        'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
-                        'codigo': '210402',
-                        'cuentas': [],
-                        'type': 'debito_fiscal'
             },
 
 
