@@ -18,8 +18,46 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="moves" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
-                <table style="width:100%">
+                <t t-set="estado_cuenta_cliente" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
+
+                <t t-if="moves">
+                    <t t-foreach="estado_cuenta_cliente" t-as="cuentas">
+                        <table style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CLIENTE</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CCF/FACT</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>FECHA</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CARGOS</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>ABONOS</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>SALDO</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="cuentas['movimientos']" t-as="m">
+                                    <tr>
+                                        <td><span t-esc="cuentas['codigo']"/></td>
+                                        <td><span t-esc="cuentas['cliente']"/></td>
+                                        <td><span t-esc="cuentas['factura']" t-options='{"widget": "date"}'/></td>
+                                        <td><span t-esc="m['fecha']"/></td
+                                        <td><span t-esc="m['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td><span t-esc="m['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td><span t-esc="m['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <tr>
+                                </t>
+                                <tr>
+                                    <td colspan="4">SUB-TOTAL FACT. ===></td>
+                                    <td><span t-esc="cuenta['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td><span t-esc="cuenta['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td><span t-esc="cuenta['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+                <!-- <table style="width:100%">
                     <thead>
                         <tr>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
@@ -30,7 +68,7 @@
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>ABONOS</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>SALDO</span></th>
                         </tr>
-                    </thead>
+                    </thead> -->
                     <!-- <tbody>
                         <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
                             <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
@@ -55,7 +93,7 @@
                         </t>
 
                     </tbody> -->
-                </table>
+                <!-- </table> -->
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
               Página <span class="page"/>/<span class="topage"/>

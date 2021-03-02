@@ -109,7 +109,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                         saldo = m.debit - m.credit
                     else:
                         saldo += m.debit - m.credit
-                    datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                    datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
                     datos[f.id]['cargos'] += m.debit
                     datos[f.id]['abonos'] += m.credit
 
@@ -123,12 +123,12 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                                     saldo = m.debit - m.credit
                                 else:
                                     saldo += m.debit - m.credit
-                                datos[f.id]['movimientos'].append({'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
+                                datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
                                 datos[f.id]['cargos'] += m.debit
                                 datos[f.id]['abonos'] += m.credit
 
         logging.warn(datos)
-        return datos
+        return datos.values()
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
