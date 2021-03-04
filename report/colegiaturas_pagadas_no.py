@@ -143,7 +143,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         if ('junio' or 'Junio') in linea.name:
                             mes_f = 'JUNIO'
 
-                        if mes_f == mes_letras
+                        if mes_f == mes_letras:
                             if grado.id not in pagadas:
                                 pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
                             pagadas[grado.id]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
