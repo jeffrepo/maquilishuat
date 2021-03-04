@@ -15,6 +15,7 @@ class ingresos_diarios_wizard(models.TransientModel):
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
     cuentas_ids = fields.Many2many('account.account',string='Cuentas')
+    correlativo = fields.Char('Correlativo')
     # archivo = fields.Binary('Archivo excel')
 
 
@@ -71,7 +72,7 @@ class ingresos_diarios_wizard(models.TransientModel):
     @api.multi
     def print_report(self):
         datas = {'ids': self.env.context.get('active_ids', [])}
-        res = self.read(['fecha_inicio','fecha_fin','cuentas_ids'])
+        res = self.read(['fecha_inicio','fecha_fin','cuentas_ids','correlativo'])
         res = res and res[0] or {}
         datas['form'] = res
         logging.warn(datas)
