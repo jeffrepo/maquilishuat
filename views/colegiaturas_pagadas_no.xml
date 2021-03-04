@@ -33,12 +33,14 @@
                                     <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR PAGADO</span></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><span t-esc="pagadas['matricula']"/></tr>
-                                <tr><span t-esc="pagadas['nombre']"/></tr>
-                                <tr>PAGADO EL <span t-esc="pagadas['fecha']"/></tr>
-                                <tr><span t-esc="pagadas['valor_pagado']"/></tr>
-                            </tbody>
+                            <t t-foreach="pagadas['alumnos']" t-as="alumno">
+                                <tbody>
+                                    <tr><span t-esc="alumno['matricula']"/></tr>
+                                    <tr><span t-esc="alumno['nombre']"/></tr>
+                                    <tr>PAGADO EL <span t-esc="alumno['fecha']"/></tr>
+                                    <tr><span t-esc="alumno['valor_pagado']"/></tr>
+                                </tbody>
+                            </t>    
                         </table>
                     </t>
 
