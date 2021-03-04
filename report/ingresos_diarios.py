@@ -676,6 +676,7 @@ class ReportIngresosDiarios(models.AbstractModel):
         fecha_fin = data.get('form', {}).get('fecha_fin', False)
         fecha_inicio = data.get('form', {}).get('fecha_inicio', False)
         cuentas_ids = data.get('form', {}).get('cuentas_ids', False)
+        correlativo = data.get('form', {}).get('correlativo', False)
         # formato_planilla_id = data.get('form', {}).get('formato_planilla_id', False)
         docs = self.env[self.model].browse(docids)
         logging.warn(docs)
