@@ -20,8 +20,8 @@
                     <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
-                        <field name="pagadas"/>
-                        <field name="no_pagadas"/>
+                        <field name="facturadas"/>
+                        <field name="no_facturadas"/>
                     </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>

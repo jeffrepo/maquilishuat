@@ -12,8 +12,8 @@ class colegiaturas_pagadas_no_wizard(models.TransientModel):
 
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
-    pagadas = fields.Boolean('Pagadas')
-    no_pagadas = fields.Boolean('No pagadas')
+    facturas = fields.Boolean('Facturadas')
+    no_facturadas = fields.Boolean('No Facturadas')
 
 
     @api.multi
