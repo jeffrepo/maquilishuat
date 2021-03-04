@@ -50,9 +50,9 @@
                                         </tr>
                                     </t>
                                     <tr>
-                                        <td colspan="2"><strong>SUB-TOTAL <span t-esc="pagadas['cantidad']"></strong></td>
+                                        <td colspan="2"><strong>SUB-TOTAL <span t-esc="pagadas['cantidad']"/></strong></td>
                                         <td></td>
-                                        <td><strong><span t-esc="pagadas['subtotal']"></strong></td>
+                                        <td><strong><span t-esc="pagadas['subtotal']"/></strong></td>
                                   </tr>
                                 </tbody>
 
