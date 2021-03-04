@@ -122,7 +122,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             grado = factura.partner_id.grado_id
                             if grado.id not in pagadas:
                                 pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
-                            pagadas[grado.id]['alumnos'].apps({'matricula': factura.partner_id.matricula,'fecha': factura.invoice_date,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
+                            pagadas[grado.id]['alumnos'].apps({'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
 
         if facturas_pagadas_anteriormente:
             for factura in facturas_pagadas_anteriormente:
@@ -146,7 +146,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         if mes_f == mes_letras:
                             if grado.id not in pagadas:
                                 pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
-                            pagadas[grado.id]['alumnos'].append({'matricula': factura.partner_id.matricula,'fecha': factura.invoice_date,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
+                            pagadas[grado.id]['alumnos'].append({'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
 
         logging.warn(pagadas)
         logging.warn(no_pagadas)
