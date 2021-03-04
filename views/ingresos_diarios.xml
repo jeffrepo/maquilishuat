@@ -11,7 +11,7 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            No de Comprobante: <span t-esc="_encabezado(fecha_inicio,fecha_fin)"/>-<span t-esc="correlativo">I    FECHA: <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/><br/>
+                            No de Comprobante: <span t-esc="_encabezado(fecha_inicio,fecha_fin)"/>-<span t-esc="correlativo"/>I    FECHA: <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA<br/>
                             VENTAS
                         </p>
