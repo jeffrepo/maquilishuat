@@ -98,7 +98,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         pagadas = {}
         ciclo = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%Y'))
         mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
-        mes_letras = self.mes_letras(mes)
+        mes_letras = self.mes_letras(fecha_fin)
         clientes_facturas = []
         partner_ids = self.env['account.invoice'].search([('ciclo_id','=',ciclo)])
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
