@@ -22,7 +22,9 @@
                 <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/>
 
                 <t t-if="facturas_pagada_no['pagadas']">
-                    PAGADAS
+                    <div class="pagadas">
+                        PAGADAS
+                    </div>
                     <t t-foreach="facturas_pagada_no['pagadas']" t-as="pagadas">
                         <table style="width:100%">
                             <thead>
@@ -47,6 +49,11 @@
                                             <td><span t-esc="alumno['valor_pagado']"/></td>
                                         </tr>
                                     </t>
+                                    <tr>
+                                        <td colspan="2"><strong>SUB-TOTAL <span t-esc="pagadas['cantidad']"></strong></td>
+                                        <td></td>
+                                        <td><strong><span t-esc="pagadas['subtotal']"></strong></td>
+                                  </tr>
                                 </tbody>
 
                         </table>
