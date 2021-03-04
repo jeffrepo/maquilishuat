@@ -111,24 +111,30 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     for linea in factura.invoice_line_ids:
                         if 'Colegiaturas' in linea.name:
                             grado = factura.partner_id.grado_id
-                            if grado.id not in no_pagadas:
-                                no_pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
-                            no_pagadas[grado.id]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
+                            seccion = factura.partner_id.seccion_id
+                            llave = str(grado.id)+'/'+str(seccion.id)
+                            if llave not in no_pagadas:
+                                no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':factura.partner_id.seccion_id.nombre,'seccion': seccion.id}
+                            no_pagadas[llave]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
 
                 if factura.state == 'paid':
                     clientes_facturas.append(factura.partner_id.id)
                     for linea in factura.invoice_line_ids:
                         if 'Colegiaturas' in linea.name:
                             grado = factura.partner_id.grado_id
-                            if grado.id not in pagadas:
-                                pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
-                            pagadas[grado.id]['alumnos'].apps({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                            seccion = factura.partner_id.seccion_id
+                            llave = str(grado.id)+'/'+str(seccion.id)
+                            if llave not in pagadas:
+                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.id}
+                            pagadas[llave]['alumnos'].apps({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
 
         if facturas_pagadas_anteriormente:
             for factura in facturas_pagadas_anteriormente:
                 for linea in factura.invoice_line_ids:
                     mes_f = False
                     grado = factura.partner_id.grado_id
+                    seccion = factura.partner_id.seccion_id
+                    llave = str(grado.id)+'/'+str(seccion.id)
                     if 'MENSUAL ANTICIPADO' in linea.name:
                         if ('enero' or 'Enero') in linea.name:
                             mes_f = 'ENERO'
@@ -144,9 +150,9 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             mes_f = 'JUNIO'
 
                         if mes_f == mes_letras:
-                            if grado.id not in pagadas:
-                                pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
-                            pagadas[grado.id]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                            if llave not in pagadas:
+                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.id }
+                            pagadas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
 
         logging.warn(pagadas)
         logging.warn(no_pagadas)
