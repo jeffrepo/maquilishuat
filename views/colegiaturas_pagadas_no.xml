@@ -35,12 +35,12 @@
                             </thead>
                             <t t-foreach="pagadas['alumnos']" t-as="alumno">
                                 <tbody>
-                                    <tr><span t-esc="alumno['matricula']"/></tr>
-                                    <tr><span t-esc="alumno['nombre']"/></tr>
-                                    <tr>PAGADO EL <span t-esc="alumno['fecha']"/></tr>
-                                    <tr><span t-esc="alumno['valor_pagado']"/></tr>
+                                    <tr><td><span t-esc="alumno['matricula']"/></td></tr>
+                                    <tr><td><span t-esc="alumno['nombre']"/></td></tr>
+                                    <tr><td>PAGADO EL <span t-esc="alumno['fecha']"/></td></tr>
+                                    <tr><td><span t-esc="alumno['valor_pagado']"/></td></tr>
                                 </tbody>
-                            </t>    
+                            </t>
                         </table>
                     </t>
 
