@@ -4,7 +4,7 @@
 
         <report
             id="action_colegiaturas_pagadas_no"
-            string="Reporte colegiaturas pagadas y no pagadas"
+            string="Reporte colegiaturas facturadas y no facturadas"
             model="account.account"
             report_type="qweb-pdf"
             file="maquilishuat.colegiaturas_pagadas_no"
@@ -16,7 +16,7 @@
               <field name="name">view.maquilishuat.colegiaturas_pagadas_no.wizard</field>
               <field name="model">maquilishuat.colegiaturas_pagadas_no.wizard</field>
               <field name="arch" type="xml">
-                <form string="Reporte colegiaturas pagadas y no pagadas">
+                <form string="Reporte colegiaturas facturadas y no facturadas">
                     <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
@@ -33,7 +33,7 @@
 
 
         <act_window id="maquilishuat_action_colegiaturas_pagadas_no"
-            name="Reporte colegiaturas pagadas y no pagadas"
+            name="Reporte colegiaturas facturas y no facturadas"
             res_model="maquilishuat.colegiaturas_pagadas_no.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
