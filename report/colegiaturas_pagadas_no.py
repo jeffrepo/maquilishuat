@@ -115,7 +115,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             llave = str(grado.id)+'/'+str(seccion.id)
                             if llave not in no_pagadas:
                                 no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0}
-                            no_pagadas[llave]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
+                            no_pagadas[llave]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
 
                 if factura.state == 'paid':
                     clientes_facturas.append(factura.partner_id.id)
@@ -126,7 +126,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             llave = str(grado.id)+'/'+str(seccion.id)
                             if llave not in pagadas:
                                 pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre,'subtotal':0,'cantidad': 0}
-                            pagadas[llave]['alumnos'].apps({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                            pagadas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
                             pagadas[llave]['subtotal'] += linea.price_total
                             pagadas[llave]['cantidad'] += 1
 
@@ -169,7 +169,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     llave = str(grado.id)+'/'+str(seccion.id)
                     if llave not in no_pagadas:
                         no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0}
-                    no_pagadas[llave]['alumnos'].apps({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
+                    no_pagadas[llave]['alumnos'].append({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
 
 
         logging.warn(pagadas)
