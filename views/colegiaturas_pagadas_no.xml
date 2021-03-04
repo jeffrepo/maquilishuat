@@ -20,40 +20,30 @@
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/>
-                <table style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL ALUMNO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>COMENTARIO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR PAGADO</span></th>
-                        </tr>
-                    </thead>
-                    <!-- <tbody>
-                        <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
-                            <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
-                            <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
-                                <td><span t-esc="fac['codigo']"/></td>
-                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
-                                <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style="text-align:right">TOTAL GENERAL</td>
-                                <td style="text-align:right"><span t-esc="sum_totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                        </t>
 
-                    </tbody> -->
-                </table>
+                <t t-if="facturas_pagada_no['pagadas']">
+                    PAGADAS
+                    <t t-foreach="facturas_pagada_no['pagadas']" t-as="pagadas">
+                        <table style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL ALUMNO</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>COMENTARIO</span></th>
+                                    <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR PAGADO</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><span t-esc="pagadas['matricula']"/></tr>
+                                <tr><span t-esc="pagadas['nombre']"/></tr>
+                                <tr>PAGADO EL <span t-esc="pagadas['fecha']"/></tr>
+                                <tr><span t-esc="pagadas['valor_pagado']"/></tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                </t>
+
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
               Página <span class="page"/>/<span class="topage"/>
