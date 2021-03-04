@@ -38,7 +38,7 @@
                                     <tr>
                                         <td><span t-esc="alumno['matricula']"/></td>
                                         <td><span t-esc="alumno['nombre']"/></td>
-                                        <td>PAGADO EL <span t-esc="alumno['fecha']"/></td>
+                                        <td>FACT. <span t-esc="alumno['factura_no']"/> PAGADO EL <span t-esc="alumno['fecha']"/></td>
                                         <td><span t-esc="alumno['valor_pagado']"/></td>
                                     </tr>
                                 </tbody>
