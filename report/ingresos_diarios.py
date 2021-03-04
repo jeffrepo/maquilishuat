@@ -694,5 +694,6 @@ class ReportIngresosDiarios(models.AbstractModel):
             '_get_saldo_cuentas': self._get_saldo_cuentas,
             '_get_reporte': self._get_reporte,
             '_encabezado': self._encabezado,
+            'correlativo': correlativo,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
