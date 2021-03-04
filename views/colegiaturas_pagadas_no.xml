@@ -23,7 +23,7 @@
 
                 <t t-if="facturas_pagada_no['pagadas']">
                     <div class="pagadas">
-                        PAGADAS
+                        <strong>PAGADAS</strong>
                     </div>
                     <t t-foreach="facturas_pagada_no['pagadas']" t-as="pagadas">
                         <table style="width:100%">
@@ -46,13 +46,13 @@
                                             <td><span t-esc="alumno['matricula']"/></td>
                                             <td><span t-esc="alumno['nombre']"/></td>
                                             <td>FACT. <span t-esc="alumno['factura_no']"/> PAGADO EL <span t-esc="alumno['fecha']"/></td>
-                                            <td><span t-esc="alumno['valor_pagado']"/></td>
+                                            <td style="text-align:right"><span t-esc="alumno['valor_pagado']"/></td>
                                         </tr>
                                     </t>
                                     <tr>
-                                        <td colspan="2"><strong>SUB-TOTAL <span t-esc="pagadas['cantidad']"/></strong></td>
+                                        <td colspan="2"><strong>SUB-TOTAL: <span t-esc="pagadas['cantidad']"/></strong></td>
                                         <td></td>
-                                        <td><strong><span t-esc="pagadas['subtotal']"/></strong></td>
+                                        <td style="text-align:right"><strong><span t-esc="pagadas['subtotal']"/></strong></td>
                                   </tr>
                                 </tbody>
 

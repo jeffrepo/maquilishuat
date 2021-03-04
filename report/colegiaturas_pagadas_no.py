@@ -100,7 +100,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
         mes_letras = self.mes_letras(fecha_fin)
         clientes_facturas = []
-        partner_ids = self.env['account.invoice'].search([('ciclo_id','=',ciclo)])
+        partner_ids = self.env['account.invoice'].search([])
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
         facturas_pagadas_anteriormente = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
         if facturas_ids:
@@ -114,7 +114,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             seccion = factura.partner_id.seccion_id
                             llave = str(grado.id)+'/'+str(seccion.id)
                             if llave not in no_pagadas:
-                                no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':factura.partner_id.seccion_id.nombre,'seccion': seccion.nombre,'subtotal':0}
+                                no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0}
                             no_pagadas[llave]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
 
                 if factura.state == 'paid':
@@ -150,6 +150,8 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             mes_f = 'MAYO'
                         if ('junio' or 'Junio') in linea.name:
                             mes_f = 'JUNIO'
+                        if ('julio' or 'Julio') in linea.name:
+                            mes_f = 'JUNIO'
 
                         if mes_f == mes_letras:
                             if llave not in pagadas:
@@ -157,6 +159,19 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             pagadas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
                             pagadas[llave]['subtotal'] += linea.price_total
                             pagadas[llave]['cantidad'] += 1
+
+
+        if partner_ids:
+            for cliente in partner_ids:
+                if cliente.ciclo_id.nombre == ciclo and (cliente.id not in clientes_facturas):
+                    grado = cliente.grado_id
+                    seccion = cliente.seccion_id
+                    llave = str(grado.id)+'/'+str(seccion.id)
+                    if llave not in no_pagadas:
+                        no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0}
+                    no_pagadas[llave]['alumnos'].apps({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
+
+
         logging.warn(pagadas)
         logging.warn(no_pagadas)
         return {'pagadas': pagadas.values() if pagadas else pagadas, 'no_pagadas': no_pagadas.values() if no_pagadas else no_pagadas}
