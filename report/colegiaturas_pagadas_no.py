@@ -114,7 +114,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             seccion = factura.partner_id.seccion_id
                             llave = str(grado.id)+'/'+str(seccion.id)
                             if llave not in no_pagadas:
-                                no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':factura.partner_id.seccion_id.nombre,'seccion': seccion.id}
+                                no_pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':factura.partner_id.seccion_id.nombre,'seccion': seccion.nombre}
                             no_pagadas[llave]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
 
                 if factura.state == 'paid':
@@ -125,7 +125,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             seccion = factura.partner_id.seccion_id
                             llave = str(grado.id)+'/'+str(seccion.id)
                             if llave not in pagadas:
-                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.id}
+                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre}
                             pagadas[llave]['alumnos'].apps({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
 
         if facturas_pagadas_anteriormente:
@@ -151,7 +151,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
 
                         if mes_f == mes_letras:
                             if llave not in pagadas:
-                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.id }
+                                pagadas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre }
                             pagadas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
 
         logging.warn(pagadas)
