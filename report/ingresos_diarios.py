@@ -43,6 +43,17 @@ class ReportIngresosDiarios(models.AbstractModel):
             mes = 'DICIEMBRE'
         return mes
 
+    def _encabezado(self, fecha_inicio,fecha_fin):
+        encabezado = 'ING'
+        mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
+        # movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)],order="date asc")
+        # primera_partida = movimientos[0]
+        # dia = int(datetime.datetime.strptime(str(primera_partida.date), '%Y-%m-%d').date().strftime('%d'))
+
+        encabezado += ' ' + str(mes)
+
+        return encabezado
+
     def _get_facturas(self,fecha_inicio,fecha_fin):
         formas_pago = {}
         total_general = {'credito': 0, 'contado':0, 'total':0, 'cuota_mensual': 0,'otros_pagos':0,'pagos_anticipados':0}
@@ -682,5 +693,6 @@ class ReportIngresosDiarios(models.AbstractModel):
             'fecha_actual': self.fecha_actual,
             '_get_saldo_cuentas': self._get_saldo_cuentas,
             '_get_reporte': self._get_reporte,
+            '_encabezado': self._encabezado,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
