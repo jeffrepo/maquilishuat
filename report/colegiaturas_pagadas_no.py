@@ -10,6 +10,10 @@ from dateutil import relativedelta as rdelta
 from odoo.fields import Date, Datetime
 import pytz
 import logging
+import datetime
+import time
+import dateutil.parser
+
 
 class ReportColegiaturasPagadasNo(models.AbstractModel):
     _name = 'report.maquilishuat.colegiaturas_pagadas_no'
@@ -89,6 +93,65 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                 facturas.append(f)
         return {'fact':facturas, 'suma_totales': totales}
 
+    def colegiaturas_pagadas_nopagadas(self,fecha_inicio,fecha_fin):
+        no_pagadas = {}
+        pagadas = {}
+        ciclo = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%Y'))
+        mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
+        mes_letras = self.mes_letras(mes)
+        clientes_facturas = []
+        partner_ids = self.env['account.invoice'].search([('ciclo_id','=',ciclo)])
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
+        facturas_pagadas_anteriormente = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
+        if facturas_ids:
+            for factura in facturas_ids:
+                if factura.state == 'open':
+                    # agregamos clientes para verificar despues si no tienen facturas en clientes_facturas
+                    clientes_facturas.append(factura.partner_id.id)
+                    for linea in factura.invoice_line_ids:
+                        if 'Colegiaturas' in linea.name:
+                            grado = factura.partner_id.grado_id
+                            if grado.id not in no_pagadas:
+                                no_pagadas[grado] = {'grado': grado.nombre, 'alumnos': []}
+                            no_pagadas[grado]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
+
+                if factura.state == 'paid':
+                    clientes_facturas.append(factura.partner_id.id)
+                    for linea in factura.invoice_line_ids:
+                        if 'Colegiaturas' in linea.name:
+                            grado = factura.partner_id.grado_id
+                            if grado.id not in pagadas:
+                                pagadas[grado] = {'grado': grado.nombre, 'alumnos': []}
+                            pagadas[grado]['alumnos'].apps({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
+
+        if facturas_pagadas_anteriormente:
+            for factura in facturas_pagadas_anteriormente:
+                for linea in factura.invoice_line_ids:
+                    mes_f = False
+                    grado = factura.partner_id.grado_id
+                    if 'MENSUAL ANTICIPADO' in linea.name:
+                        if ('enero' or 'Enero') in linea.name:
+                            mes_f = 'ENERO'
+                        if ('febrero' or 'feb' or 'Febrero') in linea.name:
+                            mes_f = 'FEBRERO'
+                        if ('marzo' or 'Marzo' or 'mzo') in linea.name:
+                            mes_f = 'MARZO'
+                        if ('abril' or 'Abril') in linea.name:
+                            mes_f = 'ABRIL'
+                        if ('mayo' or 'Mayo') in linea.name:
+                            mes_f = 'MAYO'
+                        if ('junio' or 'Junio') in linea.name:
+                            mes_f = 'JUNIO'
+
+                        if mes_f == mes_letras
+                            if grado.id not in pagadas:
+                                pagadas[grado.id] = {'grado': grado.nombre, 'alumnos': []}
+                            pagadas[grado.id]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': factura.amount_total})
+
+        logging.warn(pagadas)
+        logging.warn(no_pagadas)
+        return {'pagadas': pagadas, 'no_pagadas': no_pagadas}
+
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
 
@@ -119,5 +182,6 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
             'fecha_inicio': fecha_inicio,
             '_get_facturas': self._get_facturas,
             'fecha_actual': self.fecha_actual,
+            'colegiaturas_pagadas_nopagadas': self.colegiaturas_pagadas_nopagadas
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
