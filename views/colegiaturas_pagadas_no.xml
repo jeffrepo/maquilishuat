@@ -19,7 +19,7 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)">
+                <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/>
                 <table style="width:100%">
                     <thead>
                         <tr>
