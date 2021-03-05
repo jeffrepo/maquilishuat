@@ -240,7 +240,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     no_facturas[llave]['alumnos'].append({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
 
 
-        return no_facturas
+        return no_facturas.values()
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
