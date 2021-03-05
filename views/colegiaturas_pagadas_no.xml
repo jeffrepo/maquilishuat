@@ -19,9 +19,47 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/>
+                <!-- <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/> -->
 
-                <t t-if="facturas_pagada_no['no_pagadas']">
+                <t t-if="no_facturadas">
+                    <t t-if="facturas_nocreadas(fecha_inicio,fecha_fin)">
+                        <t t-foreach="facturas_nocreadas" t-as="no_creadas">
+                            <table style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL ALUMNO</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>COMENTARIO</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR PAGADO</span></th>
+                                    </tr>
+                                </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2"><strong><span t-esc="no_creadas['seccion']"/> - <span t-esc="no_creadas['grado']"/> </strong></td>
+                                            <td colspan="2"></td>
+                                      </tr>
+                                        <t t-foreach="no_creadas['alumnos']" t-as="alumno">
+                                            <tr>
+                                                <td><span t-esc="alumno['matricula']"/></td>
+                                                <td><span t-esc="alumno['nombre']"/></td>
+                                                <td>NO PAGADO</td>
+                                                <td style="text-align:right">0</td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td colspan="2"><strong>SUB-TOTAL: <span t-esc="no_creadas['cantidad']"/></strong></td>
+                                            <td></td>
+                                            <td style="text-align:right"><strong><span t-esc="no_creadas['subtotal']"/></strong></td>
+                                      </tr>
+                                    </tbody>
+
+                            </table>
+                        </t>
+                    </t>
+                </t>
+
+                <!-- <t t-if="facturas_pagada_no['no_pagadas']">
                     <div class="pagadas">
                         <strong>NO PAGADAS</strong>
                     </div>
@@ -59,11 +97,11 @@
                         </table>
                     </t>
 
-                </t>
+                </t> -->
 
 
 
-                <t t-if="facturas_pagada_no['pagadas']">
+                <!-- <t t-if="facturas_pagada_no['pagadas']">
                     <div class="pagadas">
                         <strong>PAGADAS</strong>
                     </div>
@@ -101,7 +139,7 @@
                         </table>
                     </t>
 
-                </t>
+                </t> -->
 
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">

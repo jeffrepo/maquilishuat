@@ -19,7 +19,7 @@ class colegiaturas_pagadas_no_wizard(models.TransientModel):
     @api.multi
     def print_report(self):
         datas = {'ids': self.env.context.get('active_ids', [])}
-        res = self.read(['fecha_inicio','fecha_fin'])
+        res = self.read(['fecha_inicio','fecha_fin','facturadas','no_facturadas'])
         res = res and res[0] or {}
         datas['form'] = res
         logging.warn(datas)
