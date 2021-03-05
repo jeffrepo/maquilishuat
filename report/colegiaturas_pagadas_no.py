@@ -216,7 +216,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     logging.warn('pasa')
                     if llave not in no_facturas:
                         no_facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0}
-                    no_facturas[llave]['alumnos'].append({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
+                    no_facturas[llave]['alumnos'].append({'matricula': cliente,'nombre': cliente.name, 'valor_pagado': 0})
 
 
         return no_facturas.values()
