@@ -22,8 +22,9 @@
                 <!-- <t t-set="facturas_pagada_no" t-value="colegiaturas_pagadas_nopagadas(fecha_inicio,fecha_fin)"/> -->
 
                 <t t-if="no_facturadas">
-                    <t t-if="facturas_nocreadas(fecha_inicio,fecha_fin)">
-                        <t t-foreach="facturas_nocreadas" t-as="no_creadas">
+                    <t t-set="facturas_no" t-as="facturas_nocreadas(fecha_inicio,fecha_fin)">
+                    <t t-if="facturas_no">
+                        <t t-foreach="facturas_no" t-as="no_creadas">
                             <table style="width:100%">
                                 <thead>
                                     <tr>
