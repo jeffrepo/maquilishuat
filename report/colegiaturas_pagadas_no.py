@@ -183,7 +183,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
         mes_letras = self.mes_letras(fecha_fin)
         clientes_facturas = []
-        partner_ids = self.env['account.invoice'].search([])
+        partner_ids = self.env['res.partner'].search([])
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
         facturas_anteriores = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['open'])],order="date_invoice asc")
         if facturas_ids:
@@ -216,7 +216,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     logging.warn('pasa')
                     if llave not in no_facturas:
                         no_facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0,'cantidad':0}
-                    no_facturas[llave]['alumnos'].append({'matricula': cliente,'nombre': cliente.name, 'valor_pagado': 0})
+                    no_facturas[llave]['alumnos'].append({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
                     no_facturas[llave]['cantidad'] += 1
 
         return no_facturas.values()
