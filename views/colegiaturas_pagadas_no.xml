@@ -23,7 +23,7 @@
 
                 <t t-if="no_facturadas">
                     hola
-                    <t t-set="facturas_no" t-as="facturas_nocreadas(fecha_inicio,fecha_fin)"/>
+                    <t t-set="facturas_no" t-value="facturas_nocreadas(fecha_inicio,fecha_fin)"/>
                     <t t-if="facturas_no">
                         <t t-foreach="facturas_no" t-as="no_creadas">
                             <table style="width:100%">
