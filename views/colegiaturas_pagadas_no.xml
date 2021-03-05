@@ -83,14 +83,14 @@
                                             <tr>
                                                 <td><span t-esc="alumno['matricula']"/></td>
                                                 <td><span t-esc="alumno['nombre']"/></td>
-                                                <td>PAGADA EN FACT. No. , DEL  </td>
+                                                <td>PAGADA EN FACT. No. <span t-esc="alumno['factura_no']"/>, DEL <span t-esc="alumno['fecha']" t-options='{"widget": "date"}'/> </td>
                                                 <td style="text-align:right"><span t-esc="alumno['valor_pagado']"/></td>
                                             </tr>
                                         </t>
                                         <tr>
                                             <td colspan="2"><strong>SUB-TOTAL: <span t-esc="creadas['cantidad']"/></strong></td>
                                             <td></td>
-                                            <td style="text-align:right"><strong><span t-esc="creadas['subtotal']"/></strong></td>
+                                            <td style="text-align:right"><strong><span t-esc="creadas['subtotal']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                       </tr>
                                     </tbody>
 

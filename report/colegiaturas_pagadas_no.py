@@ -243,7 +243,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         llave = str(grado.id)+'/'+str(seccion.id)
                         if llave not in facturas:
                             facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0,'cantidad':0}
-                        facturas[llave]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                        facturas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'fecha': factura.date_invoice,,'valor_pagado': linea.price_total})
                         facturas[llave]['subtotal'] += linea.price_total
                         facturas[llave]['cantidad'] += 1
 
