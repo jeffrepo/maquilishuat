@@ -189,7 +189,9 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         if facturas_ids:
             for factura in facturas_ids:
                     # agregamos clientes para verificar despues si no tienen facturas en clientes_facturas
-                clientes_facturas.append(factura.partner_id.id)
+                for linea in factura.invoice_line_ids:
+                    if 'Colegiaturas' in linea.name:
+                        clientes_facturas.append(factura.partner_id.id)
                     # for linea in factura.invoice_line_ids:
                     #     if 'Colegiaturas' in linea.name:
                     #         grado = factura.partner_id.grado_id
@@ -207,7 +209,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
             for cliente in partner_ids:
                 logging.warn(cliente.id)
                 logging.warn(cliente.ciclo_id.nombre)
-                if cliente.matricula and (cliente.id not in clientes_facturas):
+                if cliente.matricula and cliente.grado_id and (cliente.id not in clientes_facturas):
                 # if cliente.ciclo_id.nombre == ciclo and (cliente.id not in clientes_facturas):
                     logging.warn('si igual')
                     grado = cliente.grado_id
@@ -220,6 +222,62 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     no_facturas[llave]['cantidad'] += 1
 
         return no_facturas.values()
+
+
+    def facturas_creadas(self,fecha_inicio,fecha_fin):
+        facturas = {}
+        ciclo = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%Y'))
+        mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
+        mes_letras = self.mes_letras(fecha_fin)
+        clientes_facturas = []
+        partner_ids = self.env['account.invoice'].search([])
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
+        facturas_anteriores = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
+        if facturas_ids:
+            for factura in facturas_ids:
+                    # agregamos clientes para verificar despues si no tienen facturas en clientes_facturas
+                for linea in factura.invoice_line_ids:
+                    if 'Colegiaturas' in linea.name:
+                        grado = factura.partner_id.grado_id
+                        seccion = factura.partner_id.seccion_id
+                        llave = str(grado.id)+'/'+str(seccion.id)
+                        if llave not in facturas:
+                            facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0,'cantidad':0}
+                        facturas[llave]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                        facturas[llave]['subtotal'] += linea.price_total
+                        facturas[llave]['cantidad'] += 1
+
+        if facturas_anteriores:
+            for factura in facturas_anteriores:
+                for linea in factura.invoice_line_ids:
+                    mes_f = False
+                    grado = factura.partner_id.grado_id
+                    seccion = factura.partner_id.seccion_id
+                    llave = str(grado.id)+'/'+str(seccion.id)
+                    if 'MENSUAL ANTICIPADO' in linea.name:
+                        if ('enero' or 'Enero') in linea.name:
+                            mes_f = 'ENERO'
+                        if ('febrero' or 'feb' or 'Febrero') in linea.name:
+                            mes_f = 'FEBRERO'
+                        if ('marzo' or 'Marzo' or 'mzo') in linea.name:
+                            mes_f = 'MARZO'
+                        if ('abril' or 'Abril') in linea.name:
+                            mes_f = 'ABRIL'
+                        if ('mayo' or 'Mayo') in linea.name:
+                            mes_f = 'MAYO'
+                        if ('junio' or 'Junio') in linea.name:
+                            mes_f = 'JUNIO'
+                        if ('julio' or 'Julio') in linea.name:
+                            mes_f = 'JUNIO'
+
+                        if mes_f == mes_letras:
+                            if llave not in facturas:
+                                facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre ,'subtotal':0,'cantidad': 0}
+                            facturas[llave]['alumnos'].append({'factura_no': factura.number,'matricula': factura.partner_id.matricula,'fecha': factura.date_invoice,'nombre': factura.partner_id.name, 'valor_pagado': linea.price_total})
+                            facturas[llave]['subtotal'] += linea.price_total
+                            facturas[llave]['cantidad'] += 1
+
+        return facturas.values()
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
