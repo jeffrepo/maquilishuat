@@ -314,6 +314,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
             'colegiaturas_pagadas_nopagadas': self.colegiaturas_pagadas_nopagadas,
             'facturadas': facturadas,
             'no_facturadas': no_facturadas,
-            'facturas_nocreadas': self.facturas_nocreadas
+            'facturas_nocreadas': self.facturas_nocreadas,
+            'facturas_creadas': self.facturas_creadas
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
