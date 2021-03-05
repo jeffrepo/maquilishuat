@@ -83,7 +83,7 @@
                                             <tr>
                                                 <td><span t-esc="alumno['matricula']"/></td>
                                                 <td><span t-esc="alumno['nombre']"/></td>
-                                                <td>PAGADA EN FACT. No. , DEL  <span t-esc="alumno['fecha']"  t-options='{"widget": "date"}'/></td>
+                                                <td>PAGADA EN FACT. No. , DEL  </td>
                                                 <td style="text-align:right"><span t-esc="alumno['valor_pagado']"/></td>
                                             </tr>
                                         </t>
