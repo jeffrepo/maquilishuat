@@ -205,7 +205,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         if partner_ids:
             for cliente in partner_ids:
                 logging.warn(cliente.id)
-                if (cliente.ciclo_id.nombre == ciclo) and (cliente.id not in clientes_facturas):
+                if (str(cliente.ciclo_id.nombre) == str(ciclo)) and (cliente.id not in clientes_facturas):
                 # if cliente.ciclo_id.nombre == ciclo and (cliente.id not in clientes_facturas):
                     grado = cliente.grado_id
                     seccion = cliente.seccion_id
