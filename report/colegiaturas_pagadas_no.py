@@ -185,7 +185,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         clientes_facturas = []
         partner_ids = self.env['res.partner'].search([])
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
-        facturas_anteriores = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['open'])],order="date_invoice asc")
+        facturas_anteriores = self.env['account.invoice'].search([('date_invoice','<',fecha_inicio),('type','=','out_invoice'),('state','in',['open','paid'])],order="date_invoice asc")
         if facturas_ids:
             for factura in facturas_ids:
                     # agregamos clientes para verificar despues si no tienen facturas en clientes_facturas
