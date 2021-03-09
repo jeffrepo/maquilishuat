@@ -56,8 +56,9 @@
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['total']"/></td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" colspan="2">TOTALES ==></td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['cantidad']"/></td>
-                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_exentas']"/></td>
-                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_gravadas']"/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span t-esc="facturas_anticipadas['venta_total']['precio_unitario']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                         </tr>
                     </tbody>
                     <!-- <tbody>
