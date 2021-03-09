@@ -618,7 +618,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             if movimiento.invoice_id.payment_ids:
                                                 numero_pagos = len(movimiento.invoice_id.payment_ids)
                                                 for p in movimiento.invoice_id.payment_ids:
-                                                    if p.payment_date == movimiento.invoice_id.date_invoice:
+                                                    if str(p.payment_date) == str(movimiento.invoice_id.date_invoice):
                                                         total_pagos += p.amount
 
                                                 if total_factura == total_pagos:
