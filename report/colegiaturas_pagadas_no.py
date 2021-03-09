@@ -205,6 +205,38 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
         logging.warn(facturas_ids)
         logging.warn(clientes_facturas)
         logging.warn(ciclo)
+        if facturas_anteriores:
+            for factura in facturas_anteriores:
+                for linea in factura.invoice_line_ids:
+                    mes_f = False
+                    grado = factura.partner_id.grado_id
+                    seccion = factura.partner_id.seccion_id
+                    llave = str(grado.id)+'/'+str(seccion.id)
+                    if 'MENSUAL ANTICIPADO' in linea.name:
+                        if ('enero' or 'Enero') in linea.name:
+                            mes_f = 'ENERO'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('febrero' or 'feb' or 'Febrero') in linea.name:
+                            mes_f = 'FEBRERO'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('marzo' or 'Marzo' or 'mzo') in linea.name:
+                            mes_f = 'MARZO'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('abril' or 'Abril') in linea.name:
+                            mes_f = 'ABRIL'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('mayo' or 'Mayo') in linea.name:
+                            mes_f = 'MAYO'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('junio' or 'Junio') in linea.name:
+                            mes_f = 'JUNIO'
+                            clientes_facturas.append(factura.partner_id.id)
+                        if ('julio' or 'Julio') in linea.name:
+                            mes_f = 'JUNIO'
+                            clientes_facturas.append(factura.partner_id.id)
+
+
+
         if partner_ids:
             for cliente in partner_ids:
                 logging.warn(cliente.id)
