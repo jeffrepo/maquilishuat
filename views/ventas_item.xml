@@ -34,7 +34,7 @@
                     </thead>
                     <tbody>
                         <t t-if="facturas_anticipadas">
-                            <t t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fac']" t-as="fact">
+                            <t t-foreach="_get_facturas_anticipadas(fecha_inicio,fecha_fin)['fac']" t-as="fact">
                                 <tr colspan="7">
                                     <td><strong><span t-esc="fact['item']"/></strong></td>
                                 </tr>
