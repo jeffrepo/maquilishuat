@@ -202,9 +202,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     #         no_facturas[llave]['alumnos'].append({'matricula': factura.partner_id.matricula,'nombre': factura.partner_id.name, 'valor_pagado': 0})
                     #         no_facturas[llave]['cantidad'] += 1
                     #
-        logging.warn(facturas_ids)
-        logging.warn(clientes_facturas)
-        logging.warn(ciclo)
+
         if facturas_anteriores:
             for factura in facturas_anteriores:
                 for linea in factura.invoice_line_ids:
@@ -236,7 +234,9 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             clientes_facturas.append(factura.partner_id.id)
 
 
-
+        logging.warn(facturas_ids)
+        logging.warn(clientes_facturas)
+        logging.warn(ciclo)
         if partner_ids:
             for cliente in partner_ids:
                 logging.warn(cliente.id)
