@@ -91,7 +91,7 @@ class ReportVentasItem(models.AbstractModel):
 
     def _get_facturas_anticipadas(self,fecha_inicio,fecha_fin):
         datos = {}
-        venta_total = {'total': 0, 'cantidad': 0, 'ventas_exentas': 0, 'ventas_gravadas': 0}
+        venta_total = {'total': 0, 'cantidad': 0, 'precio_unitario': 0,'ventas_exentas': 0, 'ventas_gravadas': 0}
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
         if facturas_ids:
             for factura in facturas_ids:
@@ -101,9 +101,10 @@ class ReportVentasItem(models.AbstractModel):
                             datos[linea.product_id] = {'item': linea.product_id.name, 'anticipos':[]}
                         datos[linea.product_id]['anticipos'].append({'numero': factura.number,'fecha': factura.date_invoice,'descripcion': linea.name,'cantidad': linea.quantity,'precio_unitario': linea.price_unit, 'ventas_exentas': linea.price_total, 'ventas_gravadas': 0})
                         venta_total['cantidad'] += linea.quantity
+                        venta_total['precio_unitario'] += linea.price_unit
                         venta_total['ventas_exentas'] += linea.price_total
                         venta_total['ventas_gravadas'] += 0
-
+        venta_total['total'] = venta_total['ventas_exentas'] + venta_total['ventas_gravadas']
         return {'fac':datos.values(),'venta_total':venta_total}
 
     def fecha_actual(self):
