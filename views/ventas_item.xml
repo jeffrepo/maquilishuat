@@ -34,11 +34,11 @@
                     </thead>
                     <tbody>
                         <t t-if="facturas_anticipadas">
-                            <t t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
+                            <t t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fact">
                                 <tr colspan="7">
-                                    <td><strong><span t-esc="fac['item']"/></strong></td>
+                                    <td><strong><span t-esc="fact['item']"/></strong></td>
                                 </tr>
-                                <t t-foreach="fac['anticipos']" t-as="anticipo">
+                                <t t-foreach="fact['anticipos']" t-as="anticipo">
                                     <tr>
                                         <td></td>
                                         <td><span t-esc="anticipo['numero']"/></td>
