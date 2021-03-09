@@ -610,6 +610,27 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             cuenta_dic['moves'].append(movimiento_dic)
                                             cuenta_dic['subtotal_debe'] += movimiento.debit
                                             cuenta_dic['subtotal_haber'] += movimiento.credit
+
+                                        if movimiento.invoice_id.state == 'paid':
+                                            pagos_misma_fecha = []
+                                            if movimiento.invoice_id.payment_ids:
+                                                numero_pagos = len(movimiento.invoice_id.payment_ids)
+                                                for p in movimiento.invoice_id.payment_ids:
+                                                    if p.payment_date == movimiento.invoice_id.date_invoice:
+                                                        pagos_misma_fecha.append(p)
+
+
+                                                if len(pagos_misma_fecha) == len(movimiento.invoice_id.payment_ids):
+                                                    movimiento_dic = {
+                                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                                        "debe": movimiento.debit,
+                                                        "haber": movimiento.credit,
+                                                    }
+                                                    cuenta_dic['moves'].append(movimiento_dic)
+                                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+
+
                                         if movimiento.invoice_id.payment_ids:
                                             pagado_fecha = True
                                             for p in movimiento.invoice_id.payment_ids:
