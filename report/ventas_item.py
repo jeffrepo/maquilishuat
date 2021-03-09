@@ -89,6 +89,18 @@ class ReportVentasItem(models.AbstractModel):
                 facturas.append(f)
         return {'fact':facturas, 'suma_totales': totales}
 
+    def _get_facturas_anticipadas(self,fecha_inicio,fecha_fin):
+        datos = {}
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=',fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['paid'])],order="date_invoice asc")
+        if facturas_ids:
+            for factura in facturas_ids:
+                for linea in factura.invoice_line_ids:
+                    if 'MENSUAL ANTICIPADO' in linea.name:
+                        if linea.product_id.id not in datos:
+                            datos[linea.product_id] = {'item': linea.product_id.nane, 'anticipos':[]}
+                        datos[linea.product_id]['anticipos'].append({'numero': factura.number,'fecha': factura.date_invoice,'descripcion': linea.name,'cantidad': linea.quantity,'precio_unitario': linea.price_unit, 'ventas_exentas': linea.price_total, 'ventas_gravadas': 0})
+        return {'fac':datos.values(),'venta_total':0}
+
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
 
@@ -119,5 +131,6 @@ class ReportVentasItem(models.AbstractModel):
             'fecha_inicio': fecha_inicio,
             '_get_facturas': self._get_facturas,
             'fecha_actual': self.fecha_actual,
+            '_get_facturas_anticipadas': self._get_facturas_anticipadas,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
