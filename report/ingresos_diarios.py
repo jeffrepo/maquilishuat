@@ -613,14 +613,15 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                                         if movimiento.invoice_id.state == 'paid':
                                             pagos_misma_fecha = []
+                                            total_factura = movimiento.invoice_id.amount_total
+                                            total_pagos = 0
                                             if movimiento.invoice_id.payment_ids:
                                                 numero_pagos = len(movimiento.invoice_id.payment_ids)
                                                 for p in movimiento.invoice_id.payment_ids:
                                                     if p.payment_date == movimiento.invoice_id.date_invoice:
-                                                        pagos_misma_fecha.append(p)
+                                                        total_pagos += p.amount
 
-
-                                                if len(pagos_misma_fecha) == len(movimiento.invoice_id.payment_ids):
+                                                if total_factura == total_pagos:
                                                     movimiento_dic = {
                                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                                         "debe": movimiento.debit,
