@@ -610,28 +610,6 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             cuenta_dic['moves'].append(movimiento_dic)
                                             cuenta_dic['subtotal_debe'] += movimiento.debit
                                             cuenta_dic['subtotal_haber'] += movimiento.credit
-
-                                        if movimiento.invoice_id.state == 'paid':
-                                            pagos_misma_fecha = []
-                                            total_factura = movimiento.invoice_id.amount_total
-                                            total_pagos = 0
-                                            if movimiento.invoice_id.payment_ids:
-                                                numero_pagos = len(movimiento.invoice_id.payment_ids)
-                                                for p in movimiento.invoice_id.payment_ids:
-                                                    if str(p.payment_date) == str(movimiento.invoice_id.date_invoice):
-                                                        total_pagos += p.amount
-
-                                                if total_factura == total_pagos:
-                                                    movimiento_dic = {
-                                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                                        "debe": movimiento.debit,
-                                                        "haber": movimiento.credit,
-                                                    }
-                                                    cuenta_dic['moves'].append(movimiento_dic)
-                                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                                    cuenta_dic['subtotal_haber'] += movimiento.credit
-
-
                                         if movimiento.invoice_id.payment_ids:
                                             pagado_fecha = True
                                             for p in movimiento.invoice_id.payment_ids:
