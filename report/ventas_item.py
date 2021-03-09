@@ -97,7 +97,7 @@ class ReportVentasItem(models.AbstractModel):
                 for linea in factura.invoice_line_ids:
                     if 'MENSUAL ANTICIPADO' in linea.name:
                         if linea.product_id.id not in datos:
-                            datos[linea.product_id] = {'item': linea.product_id.nane, 'anticipos':[]}
+                            datos[linea.product_id] = {'item': linea.product_id.name, 'anticipos':[]}
                         datos[linea.product_id]['anticipos'].append({'numero': factura.number,'fecha': factura.date_invoice,'descripcion': linea.name,'cantidad': linea.quantity,'precio_unitario': linea.price_unit, 'ventas_exentas': linea.price_total, 'ventas_gravadas': 0})
         return {'fac':datos.values(),'venta_total':0}
 
