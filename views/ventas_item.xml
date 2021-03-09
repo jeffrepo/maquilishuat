@@ -26,7 +26,7 @@
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CCF/FACT</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>FECHA</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CLIENTE / DESCRIPCION</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CANTIDAD</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CANTIDAD</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>PRECIO UNITARIO</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VENTAS EXENTAS</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VENTAS GRAVADAS</span></th>
@@ -40,14 +40,13 @@
                                 </tr>
                                 <t t-foreach="fact['anticipos']" t-as="anticipo">
                                     <tr>
-                                        <td></td>
-                                        <td><span t-esc="anticipo['numero']"/></td>
-                                        <td><span t-esc="anticipo['numero']"/></td>
-                                        <td><span t-esc="anticipo['descripcion']"/></td>
-                                        <td><span t-esc="anticipo['cantidad']"/></td>
-                                        <td><span t-esc="anticipo['precio_unitario']"/></td>
-                                        <td><span t-esc="anticipo['ventas_exentas']"/></td>
-                                        <td><span t-esc="anticipo['ventas_gravadas']"/></td>
+                                        <td style="text-align:left"><span t-esc="anticipo['numero']"/></td>
+                                        <td style="text-align:center"><span t-esc="anticipo['fecha']" t-options='{"widget": "date"}'/></td>
+                                        <td style="text-align:center"><span t-esc="anticipo['descripcion']"/></td>
+                                        <td style="text-align:center"><span t-esc="anticipo['cantidad']"/></td>
+                                        <td style="text-align:right"><span t-esc="anticipo['precio_unitario']"/></td>
+                                        <td style="text-align:right"><span t-esc="anticipo['ventas_exentas']"/></td>
+                                        <td style="text-align:right"><span t-esc="anticipo['ventas_gravadas']"/></td>
                                     </tr>
                                 </t>
                             </t>
