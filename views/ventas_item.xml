@@ -26,15 +26,15 @@
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CCF/FACT</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>FECHA</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CLIENTE / DESCRIPCION</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CANTIDAD</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>PRECIO UNITARIO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CANTIDAD</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>PRECIO UNITARIO</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VENTAS EXENTAS</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VENTAS GRAVADAS</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-if="facturas_anticipadas">
-                            <t t-foreach="_get_facturas_anticipadas(fecha_inicio,fecha_fin)['fac']" t-as="fact">
+                            <t t-foreach="facturas_anticipadas['fac']" t-as="fact">
                                 <tr colspan="7">
                                     <td><strong><span t-esc="fact['item']"/></strong></td>
                                 </tr>
@@ -42,15 +42,24 @@
                                     <tr>
                                         <td style="text-align:left"><span t-esc="anticipo['numero']"/></td>
                                         <td style="text-align:center"><span t-esc="anticipo['fecha']" t-options='{"widget": "date"}'/></td>
-                                        <td style="text-align:center"><span t-esc="anticipo['descripcion']"/></td>
-                                        <td style="text-align:center"><span t-esc="anticipo['cantidad']"/></td>
-                                        <td style="text-align:right"><span t-esc="anticipo['precio_unitario']"/></td>
+                                        <td style="text-align:left"><span t-esc="anticipo['descripcion']"/></td>
+                                        <td style="text-align:right"><span t-esc="anticipo['cantidad']"/></td>
+                                        <td style="text-align:center"><span t-esc="anticipo['precio_unitario']"/></td>
                                         <td style="text-align:right"><span t-esc="anticipo['ventas_exentas']"/></td>
                                         <td style="text-align:right"><span t-esc="anticipo['ventas_gravadas']"/></td>
                                     </tr>
                                 </t>
                             </t>
                         </t>
+                        <tr>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;">VENTA TOTA:</td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['total']"/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['total']"/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">TOTALES ==></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['cantidad']"/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_exentas']"/></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_gravadas']"/></td>
+                        </tr>
                     </tbody>
                     <!-- <tbody>
                         <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
