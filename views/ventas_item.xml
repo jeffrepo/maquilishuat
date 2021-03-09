@@ -52,10 +52,9 @@
                             </t>
                         </t>
                         <tr>
-                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;">VENTA TOTA:</td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;">VENTA TOTAL:</td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['total']"/></td>
-                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['total']"/></td>
-                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">TOTALES ==></td>
+                            <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" colspan="2">TOTALES ==></td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['cantidad']"/></td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_exentas']"/></td>
                             <td style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right"><span t-esc="facturas_anticipadas['venta_total']['ventas_gravadas']"/></td>
