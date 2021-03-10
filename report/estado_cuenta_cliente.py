@@ -110,11 +110,10 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                     # if saldo == 0:
                     #     saldo = m.debit - m.credit
                     # else:
+                    #     saldo += m.debit - m.credit
 
                     if m.debit > 0:
-
                         datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                        saldo += m.debit - m.credit
                         datos[f.id]['cargos'] += m.debit
                         datos[f.id]['abonos'] += m.credit
                         total['cargos'] += m.debit
@@ -129,13 +128,11 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                                 # if saldo == 0:
                                 #     saldo = m.debit - m.credit
                                 # else:
-
-
+                                #     saldo += m.debit - m.credit
+                                #
 
                                 if m.credit > 0:
-
                                     datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                                    saldo += m.debit - m.credit
                                     datos[f.id]['cargos'] += m.debit
                                     datos[f.id]['abonos'] += m.credit
                                     total['cargos'] += m.debit
@@ -146,6 +143,10 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
         # ordenar asc
         for dato in datos.values():
             dato['movimientos'].sort(key = lambda x:x['fecha'])
+            saldo = 0
+            for m in dato['movimientos']:
+                saldo += m['cargos'] - m['abonos']
+                m['saldos'] = saldo
             # logging.warn()
         # logging.warn(datos)
         return {'datos': datos.values(), 'total': total}
