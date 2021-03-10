@@ -287,19 +287,19 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     seccion = factura.partner_id.seccion_id
                     llave = str(grado.id)+'/'+str(seccion.id)
                     if 'MENSUAL ANTICIPADO' in linea.name:
-                        if ('enero' or 'Enero') in linea.name:
+                        if ('enero' or 'Enero', 'ENERO') in linea.name:
                             mes_f = 'ENERO'
-                        if ('febrero' or 'feb' or 'Febrero') in linea.name:
+                        if ('febrero' or 'feb' or 'Febrero' or 'FEBRERO') in linea.name:
                             mes_f = 'FEBRERO'
-                        if ('marzo' or 'Marzo' or 'mzo') in linea.name:
+                        if ('marzo' or 'Marzo' or 'MARZO' or 'mzo') in linea.name:
                             mes_f = 'MARZO'
-                        if ('abril' or 'Abril') in linea.name:
+                        if ('abril' or 'Abril' or 'ABRIL') in linea.name:
                             mes_f = 'ABRIL'
-                        if ('mayo' or 'Mayo') in linea.name:
+                        if ('mayo' or 'Mayo' or 'MAYO') in linea.name:
                             mes_f = 'MAYO'
-                        if ('junio' or 'Junio') in linea.name:
+                        if ('junio' or 'Junio' or 'JUNIO') in linea.name:
                             mes_f = 'JUNIO'
-                        if ('julio' or 'Julio') in linea.name:
+                        if ('julio' or 'Julio' or 'JULIO') in linea.name:
                             mes_f = 'JUNIO'
 
                         if mes_f == mes_letras:
