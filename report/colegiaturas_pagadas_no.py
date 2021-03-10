@@ -217,10 +217,10 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         if ('febrero' or 'feb' or 'Febrero') in linea.name:
                             mes_f = 'FEBRERO'
                             clientes_facturas.append(factura.partner_id.id)
-                        if ('marzo' or 'Marzo' or 'mzo') in linea.name:
+                        if ('MARZO' or 'marzo' or 'Marzo' or 'mzo') in linea.name:
                             mes_f = 'MARZO'
                             clientes_facturas.append(factura.partner_id.id)
-                        if ('abril' or 'Abril') in linea.name:
+                        if ('abril' or 'Abril' or 'ABRIL') in linea.name:
                             mes_f = 'ABRIL'
                             clientes_facturas.append(factura.partner_id.id)
                         if ('mayo' or 'Mayo') in linea.name:
