@@ -641,7 +641,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         if movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.credito:
                                             total_pagos = 0
                                             for pago in movimiento.payment_id.invoice_ids.payment_ids:
-                                                if pago.payment_date == movimiento.payment_id.invoice_ids.date_invoice)
+                                                if pago.payment_date == movimiento.payment_id.invoice_ids.date_invoice:
                                                     total_pagos += pago.amount
 
                                             if total_pagos == movimiento.payment_id.invoice_ids.amount_total:
