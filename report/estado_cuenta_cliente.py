@@ -120,7 +120,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
 
                 if f.payment_ids:
-                    saldo = 0
+                    # saldo = 0
                     for pago in f.payment_ids:
                         if pago.state == 'posted':
                             for m in pago.move_line_ids:
@@ -139,6 +139,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
         total['saldo'] = total['cargos'] - total['abonos']
 
+        # ordenar asc
         for dato in datos.values():
             dato['movimientos'].sort(key = lambda x:x['fecha'])
             # logging.warn()
