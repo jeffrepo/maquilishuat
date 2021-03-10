@@ -626,8 +626,9 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['colegiaturas_haber']:
                                 for movimiento in movimientos:
-                                    if movimiento.payment_id and ((movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice) or (movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.credit < movimiento.payment_id.invoice_ids.amount_total)):
-                                    # if movimiento.payment_id and movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice:
+                                    # if movimiento.payment_id and ((movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice) or (movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.credit < movimiento.payment_id.invoice_ids.amount_total)):
+                                    if movimiento.payment_id and ((movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice)):
+
                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
@@ -636,6 +637,24 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if movimiento.payment_id:
+                                        if movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.credito:
+                                            total_pagos = 0
+                                            for pago in movimiento.payment_id.invoice_ids.payment_ids:
+                                                if pago.payment_date == movimiento.payment_id.invoice_ids.date_invoice)
+                                                    total_pagos += pago.amount
+
+                                            if total_pagos == movimiento.payment_id.invoice_ids.amount_total:
+                                                movimiento_dic = {
+                                                    "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
+                                                    "debe": movimiento.debit,
+                                                    "haber": movimiento.credit,
+                                                }
+                                                cuenta_dic['moves'].append(movimiento_dic)
+                                                cuenta_dic['subtotal_debe'] += movimiento.debit
+                                                cuenta_dic['subtotal_haber'] += movimiento.credit
+
+
                             total_debe += cuenta_dic['subtotal_debe']
                             total_haber += cuenta_dic['subtotal_haber']
                                     # if movimiento.payment_id and movimiento.payment_id.invoice_ids:

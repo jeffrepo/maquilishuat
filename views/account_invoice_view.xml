@@ -25,6 +25,7 @@
                 <field name="partner_id" position="after">
                     <field name="grado_rel_id"/>
                     <field name="ciclo_rel_id"/>
+                    <field name="credito"/>
                 </field>
                 <field name="date_invoice" position="attributes">
                     <attribute name="string">Fecha de factura</attribute>
