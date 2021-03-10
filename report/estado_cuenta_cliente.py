@@ -107,10 +107,10 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
                 # saldo = 0
                 for m in f.move_id.line_ids:
-                    if saldo == 0:
-                        saldo = m.debit - m.credit
-                    else:
-                        saldo += m.debit - m.credit
+                    # if saldo == 0:
+                    #     saldo = m.debit - m.credit
+                    # else:
+                    saldo += m.debit - m.credit
 
                     if m.debit > 0:
                         datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
