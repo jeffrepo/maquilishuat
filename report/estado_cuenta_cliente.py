@@ -125,10 +125,10 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                     for pago in f.payment_ids:
                         if pago.state == 'posted':
                             for m in pago.move_line_ids:
-                                if saldo == 0:
-                                    saldo = m.debit - m.credit
-                                else:
-                                    saldo += m.debit - m.credit
+                                # if saldo == 0:
+                                #     saldo = m.debit - m.credit
+                                # else:
+                                saldo += m.debit - m.credit
 
 
                                 if m.credit > 0:
