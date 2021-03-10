@@ -657,6 +657,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
 
+                                    # variable validacion es para que no agregue el movimiento 2 veces
                                     validacion1 = False
                                     if movimiento.payment_id and ((movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.payment_id.invoice_ids.credito)):
 
