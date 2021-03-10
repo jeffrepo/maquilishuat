@@ -539,7 +539,7 @@ class ReportIngresosDiarios(models.AbstractModel):
             },
             {
                         'nombre': 'INGRESOS NO OPERACIONALES',
-                        'tipo_cuentas': [self.env.ref('account.data_account_type_other_income').id],
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_revenue').id],
                         'codigo': '5201',
                         'cuentas': [],
                         'type': 'ingresos_no_operacionales'
