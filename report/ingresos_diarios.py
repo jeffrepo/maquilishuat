@@ -656,6 +656,8 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
+
+                                    validacion1 = False
                                     if movimiento.payment_id and ((movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.payment_id.invoice_ids.credito)):
 
                                         movimiento_dic = {
@@ -666,8 +668,10 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
+                                        validacion1 = True
+
                                     if movimiento.payment_id:
-                                        if movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.credito:
+                                        if movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.credito and validacion1==False:
                                             total_pagos = 0
                                             for pago in movimiento.payment_id.invoice_ids.payment_ids:
                                                 if pago.payment_date == movimiento.payment_id.invoice_ids.date_invoice:
