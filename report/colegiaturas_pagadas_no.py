@@ -291,7 +291,7 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             mes_f = 'ENERO'
                         if ('febrero' or 'feb' or 'Febrero' or 'FEBRERO') in linea.name:
                             mes_f = 'FEBRERO'
-                        if ('marzo' or 'Marzo' or 'MARZO' or 'mzo') in linea.name:
+                        if (' MARZO' or 'marzo' or 'Marzo' or 'MARZO' or 'mzo') in linea.name:
                             mes_f = 'MARZO'
                         if (' ABRIL' or'abril' or 'Abril' or 'ABRIL') in linea.name:
                             mes_f = 'ABRIL'
