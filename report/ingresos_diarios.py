@@ -593,7 +593,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['moves'].append(movimiento_dic)
                                     cuenta_dic['subtotal_debe'] += movimiento.debit
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
-                            if tipo['type'] in ['ingresos_no_operacionales'] and ('5202' in cuenta_id.code):
+                            if tipo['type'] in ['ingresos_no_operacionales'] and ('5201' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
