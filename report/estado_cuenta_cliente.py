@@ -97,6 +97,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
         total = {'cargos': 0, 'abonos': 0, 'saldo': 0}
         logging.warn(facturas_ids)
         if facturas_ids:
+            saldo = 0
             for f in facturas_ids:
                 logging.warn(str(fecha_inicio))
                 logging.warn(str(f.date_invoice))
@@ -104,7 +105,7 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
                 if f.id not in datos:
                     datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
 
-                saldo = 0
+                # saldo = 0
                 for m in f.move_id.line_ids:
                     if saldo == 0:
                         saldo = m.debit - m.credit
