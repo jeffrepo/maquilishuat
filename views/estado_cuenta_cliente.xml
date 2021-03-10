@@ -51,7 +51,7 @@
                                         <td colspan="4" style="text-align:center">SUB-TOTAL FACT. ===></td>
                                         <td style="text-align:right"><span t-esc="cuentas['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right"><span t-esc="cuentas['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td style="text-align:right"><span t-esc="cuentas['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"></td>
                                     </tr>
 
                                 </tbody>
