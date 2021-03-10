@@ -628,7 +628,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
                                                 cuenta_dic['subtotal_haber'] += movimiento.credit
 
-                                            if total_pagos == movimiento.invoice_id.total_amount and movimiento.invoice_id.credito:
+                                            if total_pagos == movimiento.invoice_id.amount_total and movimiento.invoice_id.credito:
                                                 movimiento_dic = {
                                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                                     "debe": movimiento.debit,
