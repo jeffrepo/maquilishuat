@@ -612,9 +612,12 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             cuenta_dic['subtotal_haber'] += movimiento.credit
                                         if movimiento.invoice_id.payment_ids:
                                             pagado_fecha = True
+                                            total_pagos = 0
                                             for p in movimiento.invoice_id.payment_ids:
                                                 if p.payment_date != movimiento.invoice_id.date_invoice:
                                                     pagado_fecha = False
+                                                else:
+                                                    total_pagos += p.amount
                                             if pagado_fecha == False:
                                                 movimiento_dic = {
                                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
@@ -624,6 +627,17 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 cuenta_dic['moves'].append(movimiento_dic)
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
                                                 cuenta_dic['subtotal_haber'] += movimiento.credit
+
+                                            if total_pagos == movimiento.invoice_id.total_amount and movimiento.invoice_id.credito:
+                                                movimiento_dic = {
+                                                    "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                                    "debe": movimiento.debit,
+                                                    "haber": movimiento.credit,
+                                                }
+                                                cuenta_dic['moves'].append(movimiento_dic)
+                                                cuenta_dic['subtotal_debe'] += movimiento.debit
+                                                cuenta_dic['subtotal_haber'] += movimiento.credit
+
                             if tipo['type'] in ['colegiaturas_haber']:
                                 for movimiento in movimientos:
                                     # if movimiento.payment_id and ((movimiento.payment_id.payment_date != movimiento.payment_id.invoice_ids.date_invoice) or (movimiento.payment_id.payment_date == movimiento.payment_id.invoice_ids.date_invoice and movimiento.credit < movimiento.payment_id.invoice_ids.amount_total)):
