@@ -139,7 +139,9 @@ class ReportEstadoCuentaCliente(models.AbstractModel):
 
         total['saldo'] = total['cargos'] - total['abonos']
 
-        logging.warn(datos)
+        for dato in datos.values():
+            logging.warn(['movimientos'])
+        # logging.warn(datos)
         return {'datos': datos.values(), 'total': total}
 
     def fecha_actual(self):
