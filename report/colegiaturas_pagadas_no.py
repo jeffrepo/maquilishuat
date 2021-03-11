@@ -209,7 +209,8 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     mes_f = False
                     grado = factura.partner_id.grado_id
                     seccion = factura.partner_id.seccion_id
-                    llave = str(grado.id)+'/'+str(seccion.id)
+                    # llave = str(grado.id)+'/'+str(seccion.id)
+                    llave = grado.id
                     if 'MENSUAL ANTICIPADO' in linea.name:
                         if ('enero' or 'Enero') in linea.name:
                             mes_f = 'ENERO'
@@ -246,13 +247,15 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     logging.warn('si igual')
                     grado = cliente.grado_id
                     seccion = cliente.seccion_id
-                    llave = str(grado.id)+'/'+str(seccion.id)
+                    # llave = str(grado.id)+'/'+str(seccion.id)
+                    llave = grado.id
                     logging.warn('pasa')
                     if llave not in no_facturas:
                         no_facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion': seccion.nombre,'subtotal':0,'cantidad':0}
                     no_facturas[llave]['alumnos'].append({'matricula': cliente.matricula,'nombre': cliente.name, 'valor_pagado': 0})
                     no_facturas[llave]['cantidad'] += 1
 
+        logging.warn(no_facturas.values())
         return no_facturas.values()
 
 
