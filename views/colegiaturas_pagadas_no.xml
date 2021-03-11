@@ -37,7 +37,7 @@
 
                                     <tbody>
                                         <tr>
-                                            <td colspan="2"><strong><span t-esc="no_creadas['seccion']"/> - <span t-esc="no_creadas['grado']"/> </strong></td>
+                                            <td colspan="2"><strong><span t-esc="no_creadas['grado']"/> </strong></td>
                                             <td colspan="2"></td>
                                       </tr>
                                         <t t-foreach="no_creadas['alumnos']" t-as="alumno">
