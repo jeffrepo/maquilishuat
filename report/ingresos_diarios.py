@@ -550,6 +550,19 @@ class ReportIngresosDiarios(models.AbstractModel):
                         # 'cuentas': [],
                         # 'type': 'ingresos_no_operacionales'
             },
+            {
+                        'nombre': 'OTROS INGRESOS NO OPERACIONALES',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_other_income').id],
+                        'codigo': '5202',
+                        'cuentas': [],
+                        'type': 'otros_ingresos_no_operacionales'
+
+                        # 'nombre': 'INGRESOS NO OPERACIONALES',
+                        # 'tipo_cuentas': [self.env.ref('account.data_account_type_other_income').id],
+                        # 'codigo': '5202',
+                        # 'cuentas': [],
+                        # 'type': 'ingresos_no_operacionales'
+            },
 
 
         ]
@@ -594,6 +607,16 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_debe'] += movimiento.debit
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['ingresos_no_operacionales'] and ('5201' in cuenta_id.code):
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['otros_ingresos_no_operacionales'] and ('5202' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
