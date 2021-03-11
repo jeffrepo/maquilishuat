@@ -13,6 +13,7 @@ import logging
 import datetime
 import time
 import dateutil.parser
+import collections
 
 
 class ReportColegiaturasPagadasNo(models.AbstractModel):
@@ -256,7 +257,8 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                     no_facturas[llave]['cantidad'] += 1
 
         logging.warn(no_facturas.values())
-        return no_facturas.values()
+        no_facturas_ordenado = collections.OrderedDict(sorted(no_facturas.items()))
+        return no_facturas_ordenado.values()
 
 
     def facturas_creadas(self,fecha_inicio,fecha_fin):
