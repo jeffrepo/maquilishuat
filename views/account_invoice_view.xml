@@ -36,6 +36,14 @@
                 <field name="account_id" position="before">
                     <field name="mes_pagado"/>
                 </field>
+            </field>
+        </record>
+
+        <record id="maquilishuat_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">maquilishuat.account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
                 <xpath expr="//tree/field[@name='price_unit']" position="before">
                     <field name="precio_sin_impuesto"/>
                 </xpath>
