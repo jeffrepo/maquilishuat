@@ -22,3 +22,11 @@ class AccountInvoiceLinea(models.Model):
     _inherit = "account.invoice.line"
 
     mes_pagado = fields.Date('Mes pagado')
+    precio_sin_impuesto = fields.Float('Precio sin impuesto')
+
+
+    @api.onchange('precio_sin_impuesto')
+    def _onchange_precio_sin_impuesto(self):
+        if self.precio_sin_impuesto > 0:
+            self.price_unit = (self.precio_sin_impuesto * 1.13)
+        return True
