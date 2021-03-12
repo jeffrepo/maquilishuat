@@ -36,6 +36,9 @@
                 <field name="account_id" position="before">
                     <field name="mes_pagado"/>
                 </field>
+                <field name="price_unit" position="before">
+                    <field name="precio_sin_impuesto"/>
+                </field>
             </field>
         </record>
 
