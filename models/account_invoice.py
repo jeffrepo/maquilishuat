@@ -27,6 +27,7 @@ class AccountInvoiceLinea(models.Model):
 
     @api.onchange('precio_sin_impuesto')
     def _onchange_precio_sin_impuesto(self):
+        res = {}
         if self.precio_sin_impuesto > 0:
             self.price_unit = (self.precio_sin_impuesto * 1.13)
-        return True
+        return res
