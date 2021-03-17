@@ -40,11 +40,11 @@
                             <t t-foreach="facturas_compra" t-as="pago">
 
                                 <tr>
-                                    <td><span t-esc="pago['fecha_abono']" t-options='{"widget": "date"}'/></td>
-                                    <td><span t-esc="pago['comprobante']"/></td>
-                                    <td><span t-esc="pago['fecha_comprobante']" t-options='{"widget": "date"}'/></td>
-                                    <td><span t-esc="pago['proveedor']"/></td>
-                                    <td><span t-esc="pago['cheque']"/></td>
+                                    <td style="text-align:left"><span t-esc="pago['fecha_abono']" t-options='{"widget": "date"}'/></td>
+                                    <td style="text-align:center"><span t-esc="pago['comprobante']"/></td>
+                                    <td style="text-align:center"><span t-esc="pago['fecha_comprobante']" t-options='{"widget": "date"}'/></td>
+                                    <td style="text-align:center"><span t-esc="pago['proveedor']"/></td>
+                                    <td style="text-align:center"><span t-esc="pago['cheque']"/></td>
                                     <td style="text-align:right"><span t-esc="pago['30']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="pago['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="pago['total']" t-options='{"widget": "float", "precision": 2}'/></td>
