@@ -53,10 +53,10 @@
                                     <td><span t-esc="linea['referencia']"/></td>
                                     <td><span t-esc="linea['fecha']"/></td>
                                     <td><span t-esc="linea['proveedor']"/></td>
-                                    <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}' t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}' t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td style="text-align:right"><span t-esc="linea['iva']" t-options='{"widget": "float", "precision": 2}' t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td style="text-align:right"><span t-esc="linea['total']" t-options='{"widget": "float", "precision": 2}' t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['total']" t-options='{"widget": "float", "precision": 2}'/></td>
 
                                 </tr>
                             </t>
@@ -109,34 +109,10 @@
                             <td>TOTAL GENERAL ==></td>
                             <td style="text-align:right"><span t-esc="totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                             <td style="text-align:right"><span t-esc="totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['iva']"/ t-options='{"widget": "float", "precision": 2}'></td>
+                            <td style="text-align:right"><span t-esc="totales['iva']"/ t-options='{"widget": "float", "precision": 2}'/></td>
                             <td style="text-align:right"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
                         </tr>
                     </tbody>
-                    <!-- <tbody>
-                        <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
-                            <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
-                            <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
-                                <td><span t-esc="fac['codigo']"/></td>
-                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
-                                <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style="text-align:right">TOTAL GENERAL</td>
-                                <td style="text-align:right"><span t-esc="sum_totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                        </t>
-
-                    </tbody> -->
                 </table>
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
