@@ -51,7 +51,7 @@
 
                                 <tr>
                                     <td><span t-esc="linea['referencia']"/></td>
-                                    <td><span t-esc="linea['fecha']"/></td>
+                                    <td><span t-esc="linea['fecha']" t-options='{"widget": "date"}'/></td>
                                     <td><span t-esc="linea['proveedor']"/></td>
                                     <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
@@ -84,7 +84,7 @@
 
                                 <tr>
                                     <td><span t-esc="linea['referencia']"/></td>
-                                    <td><span t-esc="linea['fecha']"/></td>
+                                    <td><span t-esc="linea['fecha']" t-options='{"widget": "date"}'/></td>
                                     <td><span t-esc="linea['proveedor']"/></td>
                                     <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
