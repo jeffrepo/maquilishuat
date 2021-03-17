@@ -78,6 +78,7 @@ class ReportAbonosProveedor(models.AbstractModel):
                         totales['mas'] += mas
                         totales['total'] += total
                         facturas_compra.append(pago_dic)
+        logging.warn(facturas_compra)
 
         return {'facturas_compra':facturas_compra, 'totales': totales}
 
