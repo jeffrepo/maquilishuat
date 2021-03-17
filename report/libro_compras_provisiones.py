@@ -67,7 +67,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
                             facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['iva'] += iva
                         else:
                             exentas = linea.price_total
-                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['excentas'] += exentas
+                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['exentas'] += exentas
 
                         facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['total'] += gravada + iva + exentas
 
