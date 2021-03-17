@@ -32,7 +32,7 @@
 
         <act_window id="maquilishuat_action_antiguedad_saldos_proveedores"
             name="Reporte antiguedad saldos proveedores"
-            res_model="maquilishuat.antiguedad_saldos_proveedor.wizard"
+            res_model="maquilishuat.antiguedad_saldos_proveedores.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
 
