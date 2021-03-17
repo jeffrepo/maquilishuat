@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="abonos_proveedor">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <div clas="header">
+                <center>
+                    <div>
+                        <p>
+
+                            <span t-esc="user.company_id.name"/><br/>
+                            No. DE REGISTRO: 20696, NIT; 06141506901019<br/>
+                            CENTRO DE ENSEÑANZA<br/>
+                            LIBRO DE COMPRAS (PROVISIONES) PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
+                        </p>
+                    </div>
+                </center>
+            </div>
+            <div class="page">
+                FECHA EMISION: <span t-esc="fecha_actual()"/>
+                <t t-set="get_facturas" t-value="_get_facturas(fecha_inicio,fecha_fin)"/>
+                <t t-set="facturas_compra" t-value="get_facturas['facturas_compra']"/>
+                <t t-set="totales" t-value="get_facturas['totales']"/>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left">FAC</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">FECHA</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">NOMBRE DEL PROVEEDOR</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">GRAVADAS</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">EXENTAS</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">IVA</th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="facturas_compra['credito_fiscal']['lineas']">
+                            <tr>
+                                <td>GRUPO:</td>
+                                <td>01 Credito Fiscal</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <t t-foreach="facturas_compra['credito_fiscal']['lineas'].values()" t-as="linea">
+
+                                <tr>
+                                    <td><span t-esc="linea['referencia']"/></td>
+                                    <td><span t-esc="linea['fecha']" t-options='{"widget": "date"}'/></td>
+                                    <td><span t-esc="linea['proveedor']"/></td>
+                                    <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>SUB-TOTAL ==> </td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                        </t>
+                        <t t-if="facturas_compra['facturas']['lineas']">
+                            <tr>
+                                <td>GRUPO:</td>
+                                <td>01 Facturas</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <t t-foreach="facturas_compra['facturas']['lineas'].values()" t-as="linea">
+
+                                <tr>
+                                    <td><span t-esc="linea['referencia']"/></td>
+                                    <td><span t-esc="linea['fecha']" t-options='{"widget": "date"}'/></td>
+                                    <td><span t-esc="linea['proveedor']"/></td>
+                                    <td style="text-align:right"><span t-esc="linea['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td style="text-align:right"><span t-esc="linea['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>SUB-TOTAL ==> </td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>TOTAL GENERAL ==></td>
+                            <td style="text-align:right"><span t-esc="totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right"><span t-esc="totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right"><span t-esc="totales['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
+              Página <span class="page"/>/<span class="topage"/>
+            </div>
+
+        </t>
+    </template>
+</odoo>

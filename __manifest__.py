@@ -26,6 +26,8 @@
         'views/libro_compras.xml',
         'views/libro_compras_provisiones.xml',
         'views/libro_compras_provisiones_wizard.xml',
+        'views/abonos_proveedor.xml',
+        'views/abonos_proveedor_wizard.xml',
         'views/libro_compras_wizard.xml',
         'views/ventas_item.xml',
         'views/ventas_item_wizard.xml',
