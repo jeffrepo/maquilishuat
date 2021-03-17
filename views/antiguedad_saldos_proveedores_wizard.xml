@@ -7,8 +7,8 @@
             string="Reporte antiguedad saldos proveedores"
             model="account.account"
             report_type="qweb-pdf"
-            file="maquilishuat.action_antiguedad_saldos_proveedores"
-            name="maquilishuat.action_antiguedad_saldos_proveedores"
+            file="maquilishuat.antiguedad_saldos_proveedores"
+            name="maquilishuat.antiguedad_saldos_proveedores"
             menu="False"
         />
 
