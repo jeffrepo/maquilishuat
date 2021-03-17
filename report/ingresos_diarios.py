@@ -628,6 +628,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['colegiaturas_debe']:
                                 for movimiento in movimientos:
+                                    verificado_movimiento = False
                                     if movimiento.invoice_id:
                                         if movimiento.invoice_id.state == 'open':
                                             movimiento_dic = {
@@ -635,10 +636,11 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 "debe": movimiento.debit,
                                                 "haber": movimiento.credit,
                                             }
+                                            verificado_movimiento = True
                                             cuenta_dic['moves'].append(movimiento_dic)
                                             cuenta_dic['subtotal_debe'] += movimiento.debit
                                             cuenta_dic['subtotal_haber'] += movimiento.credit
-                                        if movimiento.invoice_id.payment_ids:
+                                        if movimiento.invoice_id.payment_ids and verificado_movimiento == False:
                                             pagado_fecha = True
                                             total_pagos = 0
                                             for p in movimiento.invoice_id.payment_ids:
