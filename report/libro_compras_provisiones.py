@@ -56,7 +56,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
                     if proveedor_id.id not in facturas_compra['credito_fiscal']['lineas']:
                         facturas_compra['credito_fiscal']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'excentas':0,'iva':0,'total':0}
 
-                    for linea in factura.invoice_lince_ids:
+                    for linea in factura.invoice_line_ids:
                         gravada = 0
                         iva = 0
                         exentas = 0
@@ -86,7 +86,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
                         facturas_compra['facturas']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'excentas':0,'iva':0,'total':0}
 
 
-                    for linea in factura.invoice_lince_ids:
+                    for linea in factura.invoice_line_ids:
                         gravada = linea.price_total
                         iva = 0
                         exentas = 0
