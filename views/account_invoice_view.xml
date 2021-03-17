@@ -26,7 +26,6 @@
                     <field name="grado_rel_id"/>
                     <field name="ciclo_rel_id"/>
                     <field name="credito"/>
-                    <field name="tipo_factura_compra"/>
                 </field>
                 <field name="date_invoice" position="attributes">
                     <attribute name="string">Fecha de factura</attribute>
@@ -45,6 +44,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="tipo_factura_compra"/>
+                </field>
                 <xpath expr="//tree/field[@name='price_unit']" position="before">
                     <field name="precio_sin_impuesto"/>
                 </xpath>
