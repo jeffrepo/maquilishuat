@@ -22,25 +22,26 @@
                 <table style="width:100%">
                     <thead>
                         <tr>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>No. FACT.</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>FECHA FACT.</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>NOMBRE DEL CLIENTE</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CONCEPTO DEL ABONO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>FECHA ABONO</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>VALOR ABONO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CODIGO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>NOMBRE DEL PROVEEDOR</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>0 A 30 DIAS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>31 A 60 DIAS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>61 A 90 DIAS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>(+) DE 90 DIAS</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>TOTAL</span></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
+                    <tbody>
                         <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
                             <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
                             <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
-                                <td><span t-esc="fac['codigo']"/></td>
-                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
+                                <td style="text-align:left"><span t-esc="fac['codigo']"/></td>
+                                <td style="text-align:left"><span t-esc="fac['nombre']"/></td>
                                 <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;width:10%"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -53,7 +54,7 @@
                             </tr>
                         </t>
 
-                    </tbody> -->
+                    </tbody>
                 </table>
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
