@@ -54,7 +54,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
                 proveedor_id = factura.partner_id
                 if factura.tipo_factura_compra == 'credito_fiscal':
                     if proveedor_id.id not in facturas_compra['credito_fiscal']['lineas']:
-                        facturas_compra['credito_fiscal']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'excentas':0,'iva':0,'total':0}
+                        facturas_compra['credito_fiscal']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
 
                     for linea in factura.invoice_line_ids:
                         gravada = 0
@@ -83,7 +83,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
 
                 else:
                     if proveedor_id.id not in facturas_compra['facturas']['lineas']:
-                        facturas_compra['facturas']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'excentas':0,'iva':0,'total':0}
+                        facturas_compra['facturas']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
 
 
                     for linea in factura.invoice_line_ids:
@@ -107,7 +107,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
         return {'facturas_compra':facturas_compra, 'totales': totales}
 
     def fecha_actual(self):
-        logging.warn(datetime.datetime.now())
+        logging.warn(datetime.datetime.now())linea['exentas']
 
         timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
         fecha_hora = datetime.datetime.now().astimezone(timezone).strftime('%d/%m/%Y')
