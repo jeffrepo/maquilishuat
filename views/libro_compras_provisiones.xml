@@ -109,7 +109,7 @@
                             <td>TOTAL GENERAL ==></td>
                             <td style="text-align:right"><span t-esc="totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
                             <td style="text-align:right"><span t-esc="totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['iva']"/ t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right"><span t-esc="totales['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
                             <td style="text-align:right"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
                         </tr>
                     </tbody>
