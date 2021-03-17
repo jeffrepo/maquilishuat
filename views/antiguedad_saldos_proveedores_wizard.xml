@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_antiguedad_saldos_proveedores"
+            string="Reporte antiguedad saldos proveedores"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.action_antiguedad_saldos_proveedores"
+            name="maquilishuat.action_antiguedad_saldos_proveedores"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_action_antiguedad_saldos_proveedores_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.antiguedad_saldos_proveedores.wizard</field>
+              <field name="model">maquilishuat.antiguedad_saldos_proveedores.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Reporte antiguedad saldos proveedores">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_antiguedad_saldos_proveedores"
+            name="Reporte antiguedad saldos proveedores"
+            res_model="maquilishuat.antiguedad_saldos_proveedor.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_antiguedad_saldos_proveedores" id="menu_antiguedad_saldos_proveedores" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
