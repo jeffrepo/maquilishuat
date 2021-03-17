@@ -107,7 +107,7 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
         return {'facturas_compra':facturas_compra, 'totales': totales}
 
     def fecha_actual(self):
-        logging.warn(datetime.datetime.now())linea['exentas']
+        logging.warn(datetime.datetime.now())
 
         timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
         fecha_hora = datetime.datetime.now().astimezone(timezone).strftime('%d/%m/%Y')
