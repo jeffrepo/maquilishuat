@@ -21,4 +21,4 @@ class libro_compras_provisiones_wizard(models.TransientModel):
         res = res and res[0] or {}
         datas['form'] = res
         logging.warn(datas)
-        return self.env.ref('maquilishuat.action_libro_compras').report_action([], data=datas)
+        return self.env.ref('maquilishuat.action_libro_compras_provisiones').report_action([], data=datas)
