@@ -47,7 +47,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <t t-foreach="facturas_compra['credito_fiscal']['lineas']" t-as="linea">
+                            <t t-foreach="facturas_compra['credito_fiscal']['lineas'].values()" t-as="linea">
 
                                 <tr>
                                     <td><span t-esc="linea['referencia']"/></td>
@@ -80,7 +80,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <t t-foreach="facturas_compra['facturas']['lineas']" t-as="linea">
+                            <t t-foreach="facturas_compra['facturas']['lineas'].values()" t-as="linea">
 
                                 <tr>
                                     <td><span t-esc="linea['referencia']"/></td>
