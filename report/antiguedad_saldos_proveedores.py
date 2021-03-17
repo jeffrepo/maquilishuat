@@ -11,8 +11,8 @@ from odoo.fields import Date, Datetime
 import pytz
 import logging
 
-class ReportAntiguedadSaldosProveedor(models.AbstractModel):
-    _name = 'report.maquilishuat.antiguedad_saldos_proveedor'
+class ReportAntiguedadSaldosProveedores(models.AbstractModel):
+    _name = 'report.maquilishuat.antiguedad_saldos_proveedores'
 
     def mes_letras(self,fecha):
         mes_nomina = int(datetime.datetime.strptime(str(fecha), '%Y-%m-%d').date().strftime('%m'))
