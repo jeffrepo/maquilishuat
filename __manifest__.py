@@ -27,8 +27,6 @@
         'views/libro_compras_provisiones.xml',
         'views/libro_compras_provisiones_wizard.xml',
         'views/abonos_proveedor.xml',
-        'views/antiguedad_saldos_proveedores.xml',
-        'views/antiguedad_saldos_proveedores_wizard.xml,'
         'views/abonos_proveedor_wizard.xml',
         'views/libro_compras_wizard.xml',
         'views/ventas_item.xml',
