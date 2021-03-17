@@ -11,7 +11,7 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            INFORME DE ABONOS A CUENTAS POR COBRAR, PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            REPORTES DE ANTIGUEDAD DE SALDOS RESUMEN POR PROVEEDOR DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>
