@@ -11,6 +11,8 @@ class AccountInvoice(models.Model):
     ciclo_rel_id = fields.Many2one('colegio.ciclo','Ciclo', store=True)
     matricula_rel = fields.Char('Matricula', related="partner_id.matricula",store=True)
     credito = fields.Boolean('Credito')
+    tipo_factura_compra = fields.Selection([ ('credito_fiscal', 'Credito fiscal'),('factura', 'factura')],'Tipo factura compra')
+
 
     @api.onchange('partner_id')
     def check_change(self):
@@ -31,3 +33,13 @@ class AccountInvoiceLinea(models.Model):
         if self.precio_sin_impuesto > 0:
             self.price_unit = (self.precio_sin_impuesto * 1.13)
         return res
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    nrc = fields.Char('Numero de registro de contribuyente')
+
+# class AccountJournal(models.Model):
+#     _inherit = "account.journal"
+#
+#     tipo_factura_compra = fields.Selection([ ('credito_fiscal', 'Credito fiscal'),('factura', 'factura')],'Tipo factura compra')

@@ -26,6 +26,7 @@
                     <field name="grado_rel_id"/>
                     <field name="ciclo_rel_id"/>
                     <field name="credito"/>
+                    <field name="tipo_factura_compra"/>
                 </field>
                 <field name="date_invoice" position="attributes">
                     <attribute name="string">Fecha de factura</attribute>

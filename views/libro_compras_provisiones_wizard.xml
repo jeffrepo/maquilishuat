@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_libro_compras_provisiones"
+            string="Libro de compras provisiones"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.libro_compras_provisiones"
+            name="maquilishuat.libro_compras_provisiones"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_libro_compras_provisiones_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.libro_compras_provisiones.wizard</field>
+              <field name="model">maquilishuat.libro_compras_provisiones.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Libro de compras provisiones">
+                    <group string="Campos">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_libro_compras_provisiones"
+            name="Libro de compras provisiones"
+            res_model="maquilishuat.libro_compras_provisiones.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_libro_compras_provisiones" id="menu_libro_compras_provisiones" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
