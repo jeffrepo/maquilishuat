@@ -32,7 +32,7 @@
 
 
         <act_window id="maquilishuat_action_abonos_proveedor"
-            name="Libro de compras provisiones"
+            name="Reporte abonos a proveedores"
             res_model="maquilishuat.abonos_proveedor.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
