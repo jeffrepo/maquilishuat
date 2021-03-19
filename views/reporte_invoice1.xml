@@ -24,16 +24,16 @@
                                     <td style="width: 2.1cm; font-size: 110%">
                                         <span t-field="l.quantity"/>
                                     </td>
-                                    <td style="width: 15cm; font-size: 110%">
+                                    <td style="width: 12cm; font-size: 110%">
                                         <span t-field="l.name"/>
                                     </td>
-                                    <td style="width: 1.5cm; font-size: 110%">
+                                    <td style="width: 2cm; font-size: 110%">
                                         <span t-field="l.price_unit"/>
                                     </td>
-                                    <td style="width: 1.5cm; font-size: 110%">
+                                    <td style="width: 2cm; font-size: 110%">
                                         <span t-field="l.price_unit"/>
                                     </td>
-                                    <td style="width: 1.5cm; font-size: 110%">
+                                    <td style="width: 2cm; font-size: 110%">
                                         <span t-field="l.price_unit"/>
                                     </td>
 
