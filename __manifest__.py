@@ -18,6 +18,8 @@
         'views/colegiaturas_pendientes.xml',
         'views/colegiaturas_pendientes_wizard.xml',
         'views/libro_ventas_cf.xml',
+        'views/reporte_invoice1.xml',
+        'views/report.xml',
         'views/libro_ventas_cf_wizard.xml',
         'views/libro_ventas_contribuyente.xml',
         'views/libro_ventas_contribuyente_wizard.xml',

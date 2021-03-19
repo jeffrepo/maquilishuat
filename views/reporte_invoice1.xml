@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="reporte_account_invoice1">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+
+                    <div style="position: absolute; top: 5.4cm; left: 2cm; font-size: 110%; width: 15cm">
+                        <span style="font-family: monospace!important" t-field="o.partner_id.name"/>
+                    </div>
+                    <!-- <div style="position: absolute; top: 5.4cm; left: 16.8cm; font-size: 110%">
+                        <span t-field="o.partner_id.vat"/>
+                    </div>
+                    <div style="position: absolute; top: 6.6cm; left: 2.3cm; font-size: 110%; width: 15cm">
+                        <span t-field="o.partner_id.street"/>
+                    </div>
+                    <div style="position: absolute; top: 7.7cm; left: 2cm; font-size: 110%">
+                        <span t-field="o.comment"/>
+                    </div>
+                    <div style="position: absolute; top: 6.9cm; left: 15cm; font-size: 110%">
+                        <span t-field="o.user_id.name"/>
+                    </div>
+                    <div style="position: absolute; top: 5.5cm; left: 22.2cm; font-size: 110%">
+                        <span t-field="o.date_due"/>
+                    </div>
+                    <div style="position: absolute; top: 6.9cm; left: 24.9cm; font-size: 100%; width: 1.5cm">
+                        <span t-field="o.payment_term_id.name"/>
+                    </div> -->
+
+                    <!-- <div style="position: absolute; top: 9.8cm; left: 0.5cm">
+                        <table>
+                            <tbody>
+                                <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                    <td style="width: 2.1cm; font-size: 110%">
+                                        <span t-field="l.quantity"/>
+                                    </td>
+                                    <td style="width: 1.5cm; font-size: 110%">
+                                        <span t-field="l.product_id.default_code"/>
+                                    </td>
+                                    <td style="width: 15.5cm; font-size: 110%; width: 14cm">
+                                        <span t-esc="producto(l.name)"/>
+                                    </td>
+                                    <td style="width: 1.5cm; font-size: 110%">
+                                        <span t-field="l.price_unit"/>
+                                    </td>
+                                    <td style="width: 3cm; font-size: 110%" class="text-right">
+                                        <span t-esc="total_linea(l)" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+
+                    <!-- <div style="position: absolute; top: 26.9cm; left: 10cm">
+                        <table>
+                            <tbody>
+                                <tr t-foreach="impuesto_impresos(o)" t-as="t">
+                                    <td style="width: 3.0cm; font-size: 110%">
+                                    </td>
+                                    <td style="width: 11.5cm; font-size: 110%">
+                                        <span t-esc="t['nombre']"/>
+                                    </td>
+                                    <td style="width: 7.5cm; font-size: 110%" class="text-right">
+                                        <span t-esc="t['valor']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+
+                    <!-- <div style="position: absolute; top: 31.7cm; left: 23.4cm; font-size: 110%">
+                        <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                    </div> -->
+
+                    <!-- <div style="font-size: 110%; text-transform: uppercase; position: absolute; top: 28.5cm; left: 6cm; width: 20cm">
+                        <span t-esc="a_letras.num_a_letras(o.amount_total)"/>
+                    </div> -->
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
