@@ -10,7 +10,7 @@ class ReportAbstractInvoice(models.AbstractModel):
 
 
     @api.model
-    def get_report_values(self, docids, data=None):
+    def _get_report_values(self, docids, data=None):
         self.model = 'account.invoice'
         docs = self.env[self.model].browse(docids)
 
