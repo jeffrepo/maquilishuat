@@ -53,14 +53,14 @@
                             </t>
                         </t>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>TOTALES</td>
-                            <td style="text-align:right"><span t-esc="totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;">TOTALES</td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
                         </tr>
                     </tbody>
                 </table>
