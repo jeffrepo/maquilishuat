@@ -44,17 +44,71 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
         return mes
 
     def _get_facturas(self,fecha_inicio,fecha_fin):
-        facturas_compra = {'credito_fiscal': {'lineas': {},'total_gravadas': 0,'total_exentas': 0,'total_iva':0,'total_total':0}, 'facturas': {'lineas': {},'total_gravadas': 0,'total_exentas': 0,'total_iva':0,'total_total':0}}
+        facturas_compra = {'credito_fiscal': {'lineas': {},'total_gravadas': 0,'total_exentas': 0,'total_iva':0,'total_total':0},
+        'facturas': {'lineas': {},'total_gravadas': 0,'total_exentas': 0,'total_iva':0,'total_total':0},
+        'notas_credito': {'lineas': {},'total_gravadas': 0,'total_exentas': 0,'total_iva':0,'total_total':0}}
         totales = {'gravadas':0,'exentas':0, 'iva':0, 'total': 0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','in_invoice'),('state','in',['paid','open'])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','in',['in_invoice','in_refund']),('state','in',['paid','open'])],order="date_invoice asc")
 
         if facturas_ids:
             fecha_hoy = date.today()
             for factura in facturas_ids:
                 proveedor_id = factura.partner_id
-                if factura.tipo_factura_compra == 'credito_fiscal':
-                    if proveedor_id.id not in facturas_compra['credito_fiscal']['lineas']:
-                        facturas_compra['credito_fiscal']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
+                if factura.type == 'in_invoice':
+                    if factura.tipo_factura_compra == 'credito_fiscal':
+                        if proveedor_id.id not in facturas_compra['credito_fiscal']['lineas']:
+                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
+
+                        for linea in factura.invoice_line_ids:
+                            gravada = 0
+                            iva = 0
+                            exentas = 0
+                            if linea.invoice_line_tax_ids:
+                                gravada = linea.price_subtotal
+                                iva = linea.price_total - linea.price_subtotal
+                                facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['gravadas'] += gravada
+                                facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['iva'] += iva
+                            else:
+                                exentas = linea.price_total
+                                facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['exentas'] += exentas
+
+                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['total'] += gravada + iva + exentas
+
+                            facturas_compra['credito_fiscal']['total_gravadas'] += gravada
+                            facturas_compra['credito_fiscal']['total_exentas'] += exentas
+                            facturas_compra['credito_fiscal']['total_iva'] += iva
+                            facturas_compra['credito_fiscal']['total_total'] += gravada + iva + exentas
+
+                            totales['gravadas'] += gravada
+                            totales['exentas'] += exentas
+                            totales['iva'] += iva
+                            totales['total'] += gravada + iva + exentas
+
+                    else:
+                        if proveedor_id.id not in facturas_compra['facturas']['lineas']:
+                            facturas_compra['facturas']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
+
+
+                        for linea in factura.invoice_line_ids:
+                            gravada = linea.price_total
+                            iva = 0
+                            exentas = 0
+                            facturas_compra['facturas']['lineas'][proveedor_id.id]['gravadas'] += gravada
+
+                            facturas_compra['facturas']['lineas'][proveedor_id.id]['total'] += gravada
+
+                            facturas_compra['facturas']['total_gravadas'] += gravada
+                            facturas_compra['facturas']['total_exentas'] += exentas
+                            facturas_compra['facturas']['total_iva'] += iva
+                            facturas_compra['facturas']['total_total'] += gravada + iva + exentas
+
+                            totales['gravadas'] += gravada
+                            totales['exentas'] += exentas
+                            totales['iva'] += iva
+                            totales['total'] += gravada + iva + exentas
+                else:
+                    if proveedor_id.id not in facturas_compra['notas_credito']['lineas']:
+                        facturas_compra['notas_credito']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
 
                     for linea in factura.invoice_line_ids:
                         gravada = 0
@@ -63,46 +117,24 @@ class ReportLibroComprasProvisiones(models.AbstractModel):
                         if linea.invoice_line_tax_ids:
                             gravada = linea.price_subtotal
                             iva = linea.price_total - linea.price_subtotal
-                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['gravadas'] += gravada
-                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['iva'] += iva
+                            facturas_compra['notas_credito']['lineas'][proveedor_id.id]['gravadas'] += gravada
+                            facturas_compra['notas_credito']['lineas'][proveedor_id.id]['iva'] += iva
                         else:
                             exentas = linea.price_total
-                            facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['exentas'] += exentas
+                            facturas_compra['notas_credito']['lineas'][proveedor_id.id]['exentas'] += exentas
 
-                        facturas_compra['credito_fiscal']['lineas'][proveedor_id.id]['total'] += gravada + iva + exentas
+                        facturas_compra['notas_credito']['lineas'][proveedor_id.id]['total'] += gravada + iva + exentas
 
-                        facturas_compra['credito_fiscal']['total_gravadas'] += gravada
-                        facturas_compra['credito_fiscal']['total_exentas'] += exentas
-                        facturas_compra['credito_fiscal']['total_iva'] += iva
-                        facturas_compra['credito_fiscal']['total_total'] += gravada + iva + exentas
-
-                        totales['gravadas'] += gravada
-                        totales['exentas'] += exentas
-                        totales['iva'] += iva
-                        totales['total'] += gravada + iva + exentas
-
-                else:
-                    if proveedor_id.id not in facturas_compra['facturas']['lineas']:
-                        facturas_compra['facturas']['lineas'][proveedor_id.id] = {'fecha':factura.date_invoice,'referencia': factura.reference,'proveedor': proveedor_id.name,'gravadas':0,'exentas':0,'iva':0,'total':0}
-
-
-                    for linea in factura.invoice_line_ids:
-                        gravada = linea.price_total
-                        iva = 0
-                        exentas = 0
-                        facturas_compra['facturas']['lineas'][proveedor_id.id]['gravadas'] += gravada
-
-                        facturas_compra['facturas']['lineas'][proveedor_id.id]['total'] += gravada
-
-                        facturas_compra['facturas']['total_gravadas'] += gravada
-                        facturas_compra['facturas']['total_exentas'] += exentas
-                        facturas_compra['facturas']['total_iva'] += iva
-                        facturas_compra['facturas']['total_total'] += gravada + iva + exentas
+                        facturas_compra['notas_credito']['total_gravadas'] += gravada
+                        facturas_compra['notas_credito']['total_exentas'] += exentas
+                        facturas_compra['notas_credito']['total_iva'] += iva
+                        facturas_compra['notas_credito']['total_total'] += gravada + iva + exentas
 
                         totales['gravadas'] += gravada
                         totales['exentas'] += exentas
                         totales['iva'] += iva
                         totales['total'] += gravada + iva + exentas
+
 
         return {'facturas_compra':facturas_compra, 'totales': totales}
 
