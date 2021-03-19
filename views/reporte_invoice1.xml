@@ -5,7 +5,7 @@
             <t t-foreach="docs" t-as="o">
                 <div class="page">
 
-                    <div style="position: absolute; top: 5.4cm; left: 2cm; font-size: 110%; width: 15cm">
+                    <div style="position: absolute; top: 1cm; left: 2cm; font-size: 110%; width: 15cm">
                         <span style="font-family: monospace!important" t-field="o.partner_id.name"/>
                     </div>
                     <!-- <div style="position: absolute; top: 5.4cm; left: 16.8cm; font-size: 110%">
