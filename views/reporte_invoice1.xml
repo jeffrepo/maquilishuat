@@ -8,7 +8,7 @@
                     <div style="position: absolute; top: 1cm; left: 2cm; font-size: 110%; width: 15cm">
                         <span style="font-family: monospace!important" t-field="o.partner_id.name"/>
                     </div>
-                    <div style="position: absolute; top: 1cm; left: 20cm; font-size: 110%">
+                    <div style="position: absolute; top: 1cm; left: 21cm; font-size: 110%">
                         <span t-field="o.date_invoice" t-options='{"widget": "date"}'/>
                     </div>
                     <div style="position: absolute; top: 2cm; left: 2.3cm; font-size: 110%; width: 15cm">
@@ -49,7 +49,7 @@
                         <span t-esc="num_a_letras(o.amount_total)"/>
                     </div>
 
-                    <div style="position: absolute; top: 16cm; left: 20cm; font-size: 110%">
+                    <div style="position: absolute; top: 16cm; left: 21cm; font-size: 110%">
                         <span t-esc="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                     </div>
                     <!-- <div style="position: absolute; top: 5.4cm; left: 16.8cm; font-size: 110%">
