@@ -17,14 +17,14 @@
                     <div style="position: absolute; top: 3cm; left: 15cm; font-size: 110%">
                         <span t-field="o.partner_id.vat"/>
                     </div>
-                    <div style="position: absolute; top: 5cm; left: 2cm">
+                    <div style="position: absolute; top: 5cm; left: 2cm;font-size: 110%">
                         <table>
                             <tbody>
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td style="width: 2.1cm; font-size: 110%">
                                         <span t-field="l.quantity"/>
                                     </td>
-                                    <td style="width: 7cm; font-size: 110%">
+                                    <td style="width: 15cm; font-size: 110%">
                                         <span t-field="l.name"/>
                                     </td>
                                     <td style="width: 1.5cm; font-size: 110%">
