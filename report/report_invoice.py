@@ -2,7 +2,6 @@
 
 from odoo import api, models
 import re
-import odoo.addons.l10n_gt_extra.a_letras
 
 class ReportAbstractInvoice(models.AbstractModel):
     _name = 'maquilishuat.abstract.reporte_account_invoice'
