@@ -45,7 +45,7 @@
                         </table>
                     </div>
 
-                    <div style="position: absolute; top: 8cm; left: 2cm; font-size: 110%">
+                    <div style="position: absolute; top: 14cm; left: 2cm; font-size: 110%">
                         <span t-esc="num_a_letras(o.amount_total)"/>
                     </div>
 
