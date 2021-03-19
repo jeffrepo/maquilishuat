@@ -28,7 +28,7 @@
                                         <span t-field="l.name"/>
                                     </td>
                                     <td style="width: 2cm; font-size: 110%">
-                                        <span t-field="l.price_unit t-options="{'widget': 'monetary', 'display_currency': o.currency_id}""/>
+                                        <span t-field="l.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
                                     <td style="width: 2cm; font-size: 110%">
                                         <span t-field="l.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
