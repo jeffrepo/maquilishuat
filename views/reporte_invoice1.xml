@@ -9,7 +9,7 @@
                         <span style="font-family: monospace!important" t-field="o.partner_id.name"/>
                     </div>
                     <div style="position: absolute; top: 1cm; left: 15cm; font-size: 110%">
-                        <span t-field="o.payment_date" t-options='{"widget": "date"}'/>
+                        <span t-field="o.date_invoice" t-options='{"widget": "date"}'/>
                     </div>
                     <div style="position: absolute; top: 2cm; left: 2.3cm; font-size: 110%; width: 15cm">
                         <span t-field="o.partner_id.street"/>
@@ -36,7 +36,7 @@
                                     <td style="width: 1.5cm; font-size: 110%">
                                         <span t-field="l.price_unit"/>
                                     </td>
-                                    
+
                                     <td style="width: 3cm; font-size: 110%" class="text-right">
                                         <span t-esc="l.price_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
