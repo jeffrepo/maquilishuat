@@ -21,7 +21,7 @@ class ReportAbstractInvoice(models.AbstractModel):
         }
 
 class ReportInvoice1(models.AbstractModel):
-    _name = 'report.buenrollo.reporte_account_invoice1'
+    _name = 'report.maquilishuat.reporte_account_invoice1'
     _inherit = 'maquilishuat.abstract.reporte_account_invoice'
 
-    nombre_reporte = 'buenrollo.reporte_account_invoice1'
+    nombre_reporte = 'maquilishuat.reporte_account_invoice1'
