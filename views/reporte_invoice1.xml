@@ -28,13 +28,13 @@
                                         <span t-field="l.name"/>
                                     </td>
                                     <td style="width: 2cm; font-size: 110%">
-                                        <span t-field="l.price_unit"/>
+                                        <span t-field="l.price_unit t-options="{'widget': 'monetary', 'display_currency': o.currency_id}""/>
                                     </td>
                                     <td style="width: 2cm; font-size: 110%">
-                                        <span t-field="l.price_unit"/>
+                                        <span t-field="l.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
                                     <td style="width: 2cm; font-size: 110%">
-                                        <span t-field="l.price_unit"/>
+                                        <span t-field="l.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
 
                                     <td style="width: 3cm; font-size: 110%" class="text-right">
@@ -49,6 +49,9 @@
                         <span t-esc="num_a_letras(o.amount_total)"/>
                     </div>
 
+                    <div style="position: absolute; top: 16cm; left: 20cm; font-size: 110%">
+                        <span t-esc="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                    </div>
                     <!-- <div style="position: absolute; top: 5.4cm; left: 16.8cm; font-size: 110%">
                         <span t-field="o.partner_id.vat"/>
                     </div>
