@@ -61,13 +61,13 @@
                                 </tr>
                             </t>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td>SUB-TOTAL ==> </td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;">SUB-TOTAL ==> </td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right;border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                         </t>
                         <t t-if="facturas_compra['facturas']['lineas']">
@@ -94,19 +94,19 @@
                                 </tr>
                             </t>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td>SUB-TOTAL ==> </td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['facturas']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td  style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;">SUB-TOTAL ==> </td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['facturas']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['facturas']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['facturas']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['facturas']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                         </t>
                         <t t-if="facturas_compra['notas_credito']['lineas']">
                             <tr>
                                 <td>GRUPO:</td>
-                                <td>01 Credito Fiscal</td>
+                                <td>03 Notas de crédito</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -127,23 +127,23 @@
                                 </tr>
                             </t>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td>SUB-TOTAL ==> </td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="facturas_compra['credito_fiscal']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;"></td>
+                                <td style="border-top: 1px solid black;">SUB-TOTAL ==> </td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td style="text-align:right:border-top: 1px solid black;"><span t-esc="facturas_compra['credito_fiscal']['total_total']" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                         </t>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td>TOTAL GENERAL ==></td>
-                            <td style="text-align:right"><span t-esc="totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            <td style="text-align:right"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;"></td>
+                            <td style="border-top: 1px solid black;">TOTAL GENERAL ==></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['gravadas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['exentas']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['iva']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            <td style="text-align:right;border-top: 1px solid black;"><span t-esc="totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
                         </tr>
                     </tbody>
                 </table>
