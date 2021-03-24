@@ -61,7 +61,7 @@
                                         </t>
                                     </t>
                                     <tr>
-                                        <td colspan="2" style="text-align:center;border-top: 1px solid black;">TOTAL GENERAL</td>
+                                        <td colspan="3" style="text-align:center;border-top: 1px solid black;">TOTAL GENERAL</td>
                                         <td style="text-align:right;border-top: 1px solid black;"><span t-esc="estado_cuenta_proveedor['total']['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right;border-top: 1px solid black;"><span t-esc="estado_cuenta_proveedor['total']['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right;border-top: 1px solid black;"><span t-esc="estado_cuenta_proveedor['total']['saldo']" t-options='{"widget": "float", "precision": 2}'/></td>
