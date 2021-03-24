@@ -20,8 +20,8 @@
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="estado_cuenta_proveedor" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
-                <t t-set="estado_cuenta_proveedor_datos" t-value="estado_cuenta_cliente['datos']"/>
-                <t t-if="estado_cuenta_cliente_datos">
+                <t t-set="estado_cuenta_proveedor_datos" t-value="estado_cuenta_proveedor['datos']"/>
+                <t t-if="estado_cuenta_proveedor_datos">
 
                         <table style="width:100%">
                             <t t-foreach="estado_cuenta_proveedor_datos" t-as="movimientos">
