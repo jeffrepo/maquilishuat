@@ -99,57 +99,28 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
         if facturas_ids:
             saldo = 0
             for f in facturas_ids:
-                logging.warn(str(fecha_inicio))
-                logging.warn(str(f.date_invoice))
-                logging.warn('si pasa')
-                if f.id not in datos:
-                    datos[f.id] = {'codigo': f.partner_id.matricula,'cliente': f.partner_id.name, 'factura': f.number, 'cargos':0,'abonos':0,'saldos':0,'movimientos':[]}
-
-                # saldo = 0
-                for m in f.move_id.line_ids:
-                    # if saldo == 0:
-                    #     saldo = m.debit - m.credit
-                    # else:
-                    #     saldo += m.debit - m.credit
-
-                    if m.debit > 0:
-                        datos[f.id]['movimientos'].append({'fecha': f.date_invoice,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                        datos[f.id]['cargos'] += m.debit
-                        datos[f.id]['abonos'] += m.credit
-                        total['cargos'] += m.debit
-                        total['abonos'] += m.credit
-
+                if f.date_invoice not in datos:
+                    datos[f.date_invoice] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
+                datos[f.date_invoice]['cargos'].push({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
-                    # saldo = 0
-                    for pago in f.payment_ids:
-                        if pago.state == 'posted':
-                            for m in pago.move_line_ids:
-                                # if saldo == 0:
-                                #     saldo = m.debit - m.credit
-                                # else:
-                                #     saldo += m.debit - m.credit
-                                #
+                    for p in f.payment_ids:
+                        datos[f.date_invoice]['abonos'].push({'fecha': p.payment_date, 'reference': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
-                                if m.credit > 0:
-                                    datos[f.id]['movimientos'].append({'fecha':pago.payment_date,'cargos': m.debit, 'abonos': m.credit, 'saldos':saldo})
-                                    datos[f.id]['cargos'] += m.debit
-                                    datos[f.id]['abonos'] += m.credit
-                                    total['cargos'] += m.debit
-                                    total['abonos'] += m.credit
-
-        total['saldo'] = total['cargos'] - total['abonos']
-
-        # ordenar asc
-        for dato in datos.values():
-            dato['movimientos'].sort(key = lambda x:x['fecha'])
+        datos = datos.values()
+        for d in datos:
             saldo = 0
-            for m in dato['movimientos']:
-                saldo += m['cargos'] - m['abonos']
-                m['saldos'] = saldo
-            # logging.warn()
-        # logging.warn(datos)
-        return {'datos': datos.values(), 'total': total}
+            if d['cargos']:
+                for c in d['cargos']:
+                    saldo += c['cargos']
+                    c['saldo'] += saldo
+            if d['abonos']:
+                for a in d['abonos']:
+                    saldo -= a['abonos']
+                    a['saldo'] += saldo
+
+        logging.warn(datos)
+        return {'datos': datos, 'total': total}
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
