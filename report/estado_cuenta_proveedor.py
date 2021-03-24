@@ -105,7 +105,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
 
                 if f.payment_ids:
                     for p in f.payment_ids:
-                        datos[f.date_invoice]['abonos'].append({'fecha': p.payment_date, 'reference': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
+                        datos[f.date_invoice]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
         datos = datos.values()
         for d in datos:
