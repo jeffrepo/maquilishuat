@@ -60,12 +60,12 @@
                                             </tr>
                                         </t>
                                     </t>
-                                    <!-- <tr>
-                                        <td colspan="4" style="text-align:center">SUB-TOTAL FACT. ===></td>
-                                        <td style="text-align:right"><span t-esc="cuentas['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td style="text-align:right"><span t-esc="cuentas['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td style="text-align:right"></td>
-                                    </tr> -->
+                                    <tr>
+                                        <td colspan="4" style="text-align:center">TOTAL GENERAL</td>
+                                        <td style="text-align:right"><span t-esc="estado_cuenta_proveedor['total']['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"><span t-esc="estado_cuenta_proveedor['total']['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"><span t-esc="estado_cuenta_proveedor['total']['saldo']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
 
                                 </tbody>
                             </t>

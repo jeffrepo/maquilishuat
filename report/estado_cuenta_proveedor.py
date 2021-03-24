@@ -114,10 +114,13 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                 for c in d['cargos']:
                     saldo += c['cargos']
                     c['saldo'] += saldo
+                    total['cargos'] += c['cargos']
             if d['abonos']:
                 for a in d['abonos']:
                     saldo -= a['abonos']
                     a['saldo'] += saldo
+                    total['abonos'] += a['abonos']
+            total['saldo'] = saldo            
 
         logging.warn(datos)
         return {'datos': datos, 'total': total}
