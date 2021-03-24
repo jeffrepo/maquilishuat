@@ -236,8 +236,8 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             clientes_facturas.append(factura.partner_id.id)
                     if linea.mes_pagado:
                         # mes_f =  self.mes_letras(self,linea.mes_pagado)
-                        mes_pagado = int(datetime.datetime.strptime(str(fecha), '%Y-%m-%d').date().strftime('%m'))
-                        anio_pagado = int(datetime.datetime.strptime(str(fecha), '%Y-%m-%d').date().strftime('%Y'))
+                        mes_pagado = int(datetime.datetime.strptime(str(linea.mes_pagado), '%Y-%m-%d').date().strftime('%m'))
+                        anio_pagado = int(datetime.datetime.strptime(str(linea.mes_pagado), '%Y-%m-%d').date().strftime('%Y'))
                         mes_final = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
                         anio_final = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%Y'))
                         if mes_pagado == mes_final and anio_pagado == anio_final:
