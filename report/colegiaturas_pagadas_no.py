@@ -234,6 +234,9 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         if ('julio' or 'Julio') in linea.name:
                             mes_f = 'JUNIO'
                             clientes_facturas.append(factura.partner_id.id)
+
+                        else:
+                            clientes_facturas.append(factura.partner_id.id)
                     if linea.mes_pagado:
                         # mes_f =  self.mes_letras(self,linea.mes_pagado)
                         mes_pagado = int(datetime.datetime.strptime(str(linea.mes_pagado), '%Y-%m-%d').date().strftime('%m'))
