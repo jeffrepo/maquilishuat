@@ -37,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td colspan="5"><strong>PROVEEDOR: <span t-esc="cliente_id[0]"/> <span t-esc="cliente_id[1]"/></strong><td>
+                                        <td colspan="5"><strong>PROVEEDOR: <span t-esc="cliente_id[0]"/> <span t-esc="cliente_id[1]"/></strong></td>
                                     </tr>
                                     <t t-if="movimientos['cargos']">
                                         <t t-foreach="movimientos['cargos']" t-as="c">
