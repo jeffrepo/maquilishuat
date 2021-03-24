@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_estado_cuenta_proveedor"
+            string="Reporte estado de cuenta proveedores"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.estado_cuenta_proveedor"
+            name="maquilishuat.estado_cuenta_proveedor"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_estado_cuenta_proveedor_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.estado_cuenta_proveedor.wizard</field>
+              <field name="model">maquilishuat.estado_cuenta_proveedor.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Reporte estado de cuenta proveedores">
+                    <group string="Campos">
+                        <field name="cliente_id"/>
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_estado_cuenta_proveedor"
+            name="Reporte estado de cuenta proveedores"
+            res_model="maquilishuat.estado_cuenta_proveedor.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_estado_cuenta_proveedor" id="menu_estado_cuenta_proveedor" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>

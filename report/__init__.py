@@ -17,3 +17,4 @@ from . import libro_compras_provisiones
 from . import abonos_proveedor
 from . import antiguedad_saldos_proveedores
 from . import report_invoice
+from . import ingreso_detallado_proveedor

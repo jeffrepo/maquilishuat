@@ -41,6 +41,8 @@
         'views/colegiaturas_pagadas_no_wizard.xml',
         'views/estado_cuenta_cliente.xml',
         'views/estado_cuenta_cliente_wizard.xml',
+        'views/estado_cuenta_proveedor.xml',
+        'views/estado_cuenta_proveedor_wizard.xml',
         'views/ventas.xml',
         'views/ventas_wizard.xml',
         'views/saldo_facturas.xml',
