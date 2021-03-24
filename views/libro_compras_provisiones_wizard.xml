@@ -4,7 +4,7 @@
 
         <report
             id="action_libro_compras_provisiones"
-            string="Libro de compras provisiones"
+            string="Informe de compras provisiones"
             model="account.account"
             report_type="qweb-pdf"
             file="maquilishuat.libro_compras_provisiones"
@@ -32,7 +32,7 @@
 
 
         <act_window id="maquilishuat_action_libro_compras_provisiones"
-            name="Libro de compras provisiones"
+            name="Informe de compras provisiones"
             res_model="maquilishuat.libro_compras_provisiones.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>

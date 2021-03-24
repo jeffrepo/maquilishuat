@@ -11,9 +11,10 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
+                            <!-- (SACARLO POR FACTURA) -->
                             No. DE REGISTRO: 20696, NIT; 06141506901019<br/>
                             CENTRO DE ENSEÑANZA<br/>
-                            LIBRO DE COMPRAS (PROVISIONES) PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            INFORME DE COMPRAS (PROVISIONES) PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>

@@ -306,7 +306,8 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             mes_f = 'JUNIO'
                         if ('julio' or 'Julio' or 'JULIO') in linea.name:
                             mes_f = 'JUNIO'
-
+                    if linea.mes_pagado:
+                        mes_f =  self.mes_letras(self,linea.mes_pagado)
                         if mes_f == mes_letras:
                             if llave not in facturas:
                                 facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre ,'subtotal':0,'cantidad': 0}
