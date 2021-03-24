@@ -234,7 +234,14 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                         if ('julio' or 'Julio') in linea.name:
                             mes_f = 'JUNIO'
                             clientes_facturas.append(factura.partner_id.id)
-
+                    if linea.mes_pagado:
+                        # mes_f =  self.mes_letras(self,linea.mes_pagado)
+                        mes_pagado = int(datetime.datetime.strptime(str(fecha), '%Y-%m-%d').date().strftime('%m'))
+                        anio_pagado = int(datetime.datetime.strptime(str(fecha), '%Y-%m-%d').date().strftime('%Y'))
+                        mes_final = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
+                        anio_final = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%Y'))
+                        if mes_pagado == mes_final and anio_pagado == anio_final:
+                            clientes_facturas.append(factura.partner_id.id)
 
         logging.warn(facturas_ids)
         logging.warn(clientes_facturas)
@@ -306,8 +313,6 @@ class ReportColegiaturasPagadasNo(models.AbstractModel):
                             mes_f = 'JUNIO'
                         if ('julio' or 'Julio' or 'JULIO') in linea.name:
                             mes_f = 'JUNIO'
-                    if linea.mes_pagado:
-                        mes_f =  self.mes_letras(self,linea.mes_pagado)
                         if mes_f == mes_letras:
                             if llave not in facturas:
                                 facturas[llave] = {'grado': grado.nombre, 'alumnos': [],'seccion':seccion.nombre ,'subtotal':0,'cantidad': 0}
