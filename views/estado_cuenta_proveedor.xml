@@ -19,50 +19,62 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="estado_cuenta_cliente" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
-                <t t-set="estado_cuenta_cliente_datos" t-value="estado_cuenta_cliente['datos']"/>
+                <t t-set="estado_cuenta_proveedor" t-value="estado_cuenta(fecha_inicio,fecha_fin,cliente_id)"/>
+                <t t-set="estado_cuenta_proveedor_datos" t-value="estado_cuenta_cliente['datos']"/>
                 <t t-if="estado_cuenta_cliente_datos">
 
                         <table style="width:100%">
-                            <t t-foreach="estado_cuenta_cliente_datos" t-as="cuentas">
+                            <t t-foreach="estado_cuenta_proveedor_datos" t-as="movimientos">
                                 <thead>
                                     <tr>
-                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>COD.</span></th>
-                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CLIENTE</span></th>
-                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>CCF/FACT</span></th>
-                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>FECHA</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>No. COMP.</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>FECHA</span></th>
+                                        <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center" ><span>VENCE</span></th>
                                         <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>CARGOS</span></th>
                                         <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>ABONOS</span></th>
                                         <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:right" ><span>SALDO</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="cuentas['movimientos']" t-as="m">
-                                        <tr>
-                                            <td style="text-align:left"><span t-esc="cuentas['codigo']"/></td>
-                                            <td style="text-align:center"><span t-esc="cuentas['cliente']"/></td>
-                                            <td style="text-align:center"><span t-esc="cuentas['factura']"/></td>
-                                            <td style="text-align:center"><span t-esc="m['fecha']" t-options='{"widget": "date"}'/></td>
-                                            <td style="text-align:right"><span t-esc="m['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                            <td style="text-align:right"><span t-esc="m['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                            <td style="text-align:right"><span t-esc="m['saldos']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        </tr>
+                                    <t t-if="movimientos['cargos']">
+                                        <t t-foreach="movimientos['cargos']" t-as="c">
+                                            <tr>
+                                                <td style="text-align:left"><span t-esc="c['referencia']"/></td>
+                                                <td style="text-align:center"><span t-esc="c['fecha']"/></td>
+                                                <td style="text-align:center"></td>
+                                                <td style="text-align:right"><span t-esc="c['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td style="text-align:right"><span t-esc="c['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td style="text-align:right"><span t-esc="c['saldo']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            </tr>
+                                        </t>
                                     </t>
-                                    <tr>
+                                    <t t-if="movimientos['abonos']">
+                                        <t t-foreach="movimientos['abonos']" t-as="a">
+                                            <tr>
+                                                <td style="text-align:left"><span t-esc="a['referencia']"/></td>
+                                                <td style="text-align:center"><span t-esc="a['fecha']"/></td>
+                                                <td style="text-align:center"></td>
+                                                <td style="text-align:right"><span t-esc="a['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td style="text-align:right"><span t-esc="a['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td style="text-align:right"><span t-esc="a['saldo']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <!-- <tr>
                                         <td colspan="4" style="text-align:center">SUB-TOTAL FACT. ===></td>
                                         <td style="text-align:right"><span t-esc="cuentas['cargos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right"><span t-esc="cuentas['abonos']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         <td style="text-align:right"></td>
-                                    </tr>
+                                    </tr> -->
 
                                 </tbody>
                             </t>
-                            <tr>
+                            <!-- <tr>
                                 <td colspan="4" style="text-align:center;border-top: 1px solid black;">TOTAL GENERAL ===></td>
                                 <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['cargos']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                 <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['abonos']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                 <td style="text-align:right;border-top: 1px solid black;"><strong><span t-esc="estado_cuenta_cliente['total']['saldo']" t-options='{"widget": "float", "precision": 2}'/></strong></td>
-                            </tr>
+                            </tr> -->
                         </table>
 
                 </t>
