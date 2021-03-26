@@ -21,6 +21,7 @@
                     <group string="Kardex">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
+                        <field name="productos_ids"/>
                     </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
