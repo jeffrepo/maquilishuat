@@ -43,51 +43,9 @@ class ReportKardexProducto(models.AbstractModel):
             mes = 'DICIEMBRE'
         return mes
 
-    def _get_facturas(self,fecha_inicio,fecha_fin):
-        facturas = []
-        totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','out_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
-
-        if facturas_ids:
-            fecha_hoy = date.today()
-            for factura in facturas_ids:
-                treinta = 0
-                sesenta = 0
-                noventa = 0
-                ciento_veinte = 0
-                mas = 0
-                diferencia_dias = fecha_hoy - factura.date_invoice
-                dias = diferencia_dias.days
-                if dias <= 30:
-                    treinta = factura.residual
-                elif dias > 30 and dias <=60:
-                    sesenta =  factura.residual
-                elif dias > 60 and dias <= 90:
-                    noventa = factura.residual
-                elif dias > 90:
-                    mas = factura.residual
-
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
-                    'numero': factura.name,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
-                }
-                totales['30'] += treinta
-                totales['60'] += sesenta
-                totales['90'] += noventa
-                totales['120'] += ciento_veinte
-                totales['mas'] += mas
-                totales['total'] += factura.residual
-                facturas.append(f)
-        return {'fact':facturas, 'suma_totales': totales}
+    def _get_kardex(self,fecha_inicio,fecha_fin,productos_ids):
+        logging.warn(productos_ids)
+        return True
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
@@ -106,6 +64,7 @@ class ReportKardexProducto(models.AbstractModel):
         self.model = 'account.invoice'
         fecha_fin = data.get('form', {}).get('fecha_fin', False)
         fecha_inicio = data.get('form', {}).get('fecha_inicio', False)
+        productos_ids = data.get('form', {}).get('productos_ids', False)
         # formato_planilla_id = data.get('form', {}).get('formato_planilla_id', False)
         docs = self.env[self.model].browse(docids)
         logging.warn(docs)
@@ -117,7 +76,8 @@ class ReportKardexProducto(models.AbstractModel):
             'docs': docs,
             'fecha_fin': fecha_fin,
             'fecha_inicio': fecha_inicio,
-            '_get_facturas': self._get_facturas,
+            'productos_ids': productos_ids,
+            '_get_kardex': self._get_kardex,
             'fecha_actual': self.fecha_actual,
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
