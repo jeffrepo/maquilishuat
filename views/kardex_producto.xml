@@ -78,7 +78,7 @@
                                   <t t-set="cantidad_entrada_total" t-value="cantidad_entrada_total+movimiento['cantidad_entrada']"/>
                                   <t t-set="costo_entrada_total" t-value="costo_entrada_total+movimiento['costo_entrada']"/>
                                   <t t-set="existencia_total" t-value="existencia_total+movimiento['cantidad_existencia']"/>
-                                  <t t-set="costo_actual" t-value="costo_actual+movimiento['costo_actual"/>
+                                  <t t-set="costo_actual" t-value="costo_actual+movimiento['costo_actual']"/>
                               </t>
                               <tr>
                                   <td></td>
