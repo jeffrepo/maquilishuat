@@ -52,7 +52,7 @@
                     <tbody>
                           <t t-foreach="obtener_kardex" t-as="producto">
                               <tr colspan="10">
-                                  <td><span t-esc="producto['nombre']"/></td>
+                                  <td>PRODUCTO: <span t-esc="producto['nombre']"/></td>
                               </tr>
                               <t t-foreach="producto['stock_move_line']" t-as="movimiento">
                                   <tr>
