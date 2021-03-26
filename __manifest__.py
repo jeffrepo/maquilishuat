@@ -25,6 +25,8 @@
         'views/libro_ventas_contribuyente_wizard.xml',
         'views/libro_ventas_cf_detallado.xml',
         'views/libro_ventas_cf_detallado_wizard.xml',
+        'views/kardex_producto.xml',
+        'views/kardex_producto_wizard.xml',
         'views/libro_compras.xml',
         'views/libro_compras_provisiones.xml',
         'views/libro_compras_provisiones_wizard.xml',

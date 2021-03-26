@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_kardex_producto"
+            string="Kardex por producto"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.kardex_producto"
+            name="maquilishuat.kardex_producto"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_kardex_producto_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.kardex_producto.wizard</field>
+              <field name="model">maquilishuat.kardex_producto.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Kardex por producto">
+                    <group string="Kardex">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_kardex_producto"
+            name="Kardex por producto"
+            res_model="maquilishuat.kardex_producto.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_kardex_producto" id="menu_kardex_producto" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
