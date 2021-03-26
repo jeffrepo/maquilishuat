@@ -110,8 +110,8 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
 
         datos = datos.values()
         logging.warn(datos)
+        saldo = 0
         for d in datos:
-            saldo = 0
             if d['cargos']:
                 for c in d['cargos']:
                     saldo += c['cargos']
