@@ -101,17 +101,17 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
             for f in facturas_ids:
                 mes = int(datetime.datetime.strptime(str(f.date_invoice), '%Y-%m-%d').date().strftime('%m'))
                 if f.date_invoice not in datos:
-                    datos[mes] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
+                    datos[f.id] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
 
                 if f.type == 'in_refund':
-                    datos[mes]['abonos'].append({'fecha': f.date_invoice, 'referencia': f.reference, 'cargos': 0, 'abonos': f.amount_total, 'saldo': 0})
+                    datos[f.id]['abonos'].append({'fecha': f.date_invoice, 'referencia': f.reference, 'cargos': 0, 'abonos': f.amount_total, 'saldo': 0})
                 else:
-                    datos[mes]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
+                    datos[f.id]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
                     logging.warn('si hay pagos')
                     for p in f.payment_ids:
-                        datos[mes]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
+                        datos[f.id]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
         datos = datos.values()
         logging.warn(datos)
