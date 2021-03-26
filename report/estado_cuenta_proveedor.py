@@ -103,7 +103,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                     datos[str(f.date_invoice)] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
 
                 if f.id == 810:
-                    f.amount_total    
+                    logging.warn(f.amount_total)    
                 datos[str(f.date_invoice)]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
