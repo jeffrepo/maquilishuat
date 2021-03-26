@@ -45,7 +45,7 @@ class ReportKardexProducto(models.AbstractModel):
 
     def _get_kardex(self,fecha_inicio,fecha_fin,productos_ids):
         logging.warn(productos_ids)
-        movimientos = self.env['stock.move.line'].search([('date','>=', str(fecha_inicio)),('date','<=',str(fecha_fin)),('product_id','in',productos_ids)])
+        movimientos = self.env['stock.move.line'].search([('date','>=', fecha_inicio),('date','<=',fecha_fin),('product_id','in',productos_ids)])
         if movimientos:
             logging.warn(movimientos)
         return True
