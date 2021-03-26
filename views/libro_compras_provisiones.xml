@@ -11,10 +11,9 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            <!-- (SACARLO POR FACTURA) -->
                             No. DE REGISTRO: 20696, NIT; 06141506901019<br/>
                             CENTRO DE ENSEÑANZA<br/>
-                            INFORME DE COMPRAS (PROVISIONES) PERIODO DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            INFORME DE COMPRAS (PROVISIONES) PERIODO DEL <span t-esc="fecha_inicio" t-options="{&quot;widget&quot;: &quot;date&quot;}"/> AL <span t-esc="fecha_fin" t-options="{&quot;widget&quot;: &quot;date&quot;}"/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>
@@ -74,7 +73,7 @@
                         <t t-if="facturas_compra['facturas']['lineas']">
                             <tr>
                                 <td>GRUPO:</td>
-                                <td>01 Facturas</td>
+                                <td>02 Facturas</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

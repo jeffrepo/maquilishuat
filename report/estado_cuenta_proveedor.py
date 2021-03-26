@@ -108,6 +108,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                         datos[f.date_invoice]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
         datos = datos.values()
+        logging.warn(datos)
         for d in datos:
             saldo = 0
             if d['cargos']:
@@ -120,7 +121,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                     saldo -= a['abonos']
                     a['saldo'] += saldo
                     total['abonos'] += a['abonos']
-            total['saldo'] = saldo            
+            total['saldo'] = saldo
 
         logging.warn(datos)
         return {'datos': datos, 'total': total}
