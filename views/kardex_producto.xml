@@ -22,6 +22,34 @@
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
                 <t t-set="obtener_kardex" t-value="_get_kardex(fecha_inicio,fecha_fin,productos_ids)"/>
 
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="2" class="text-center">ENTRADAS</th>
+                            <th colspan="2" class="text-center">SALIDAS</th>
+                            <th class="text-center">EXIST.</th>
+                            <th class="text-center">ACTUAL</th>
+
+
+                        <tr>
+                        <tr>
+                            <th style="border-bottom: 1px solid black;">No. Doc.</th>
+                            <th style="border-bottom: 1px solid black;">Fecha</th>
+                            <th style="border-bottom: 1px solid black;">Nombre del Proveedor</th>
+                            <th style="border-bottom: 1px solid black;">Costo Promedio</th>
+                            <th style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th style="border-bottom: 1px solid black;">Costo</th>
+                            <th style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th style="border-bottom: 1px solid black;">Costo</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                        </tr>
+                    </thead>
+                </table>
                 <!-- <table style="width:100%">
                     <thead>
                         <tr>
