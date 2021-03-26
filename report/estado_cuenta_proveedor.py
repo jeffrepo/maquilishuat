@@ -104,7 +104,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                     datos[f.id] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
 
                 if f.type == 'in_refund':
-                    datos[f.id]['abonos'].append({'fecha': f.date_invoice, 'referencia': f.reference, 'cargos': 0, 'abonos': f.amount_total, 'saldo': 0})
+                    datos[f.id]['abonos'].append({'fecha': f.date_invoice, 'referencia': f.reference, 'cargos': 0, 'abonos': f.amount_total*-1, 'saldo': 0})
                 else:
                     datos[f.id]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
