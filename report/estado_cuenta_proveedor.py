@@ -104,6 +104,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                 datos[f.date_invoice]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
+                    logging.warn('si hay pagos')
                     for p in f.payment_ids:
                         datos[f.date_invoice]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
