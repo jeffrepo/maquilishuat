@@ -51,13 +51,23 @@ class ReportKardexProducto(models.AbstractModel):
             for m in movimientos:
                 if m.product_id.id not in movimientos_productos:
                     movimientos_productos[m.product_id.id] = {'nombre': m.product_id.name,'stock_move_line': []}
+                precio_costo_salida = product.get_history_price(
+                    self.env.user.company_id.id,
+                    date=m.date,
+                )
                 movimientos_productos[m.product_id.id]['stock_move_line'].append({
                     'documento': m.reference,
                     'fecha': m.date,
                     'proveedor': m.pickin_id.partner_id.name if (m.pickin_id and m.pickin_id.partner_id) else '',
-                    'costo_promedio': 1
+                    'costo_promedio': m.product_id.standard_price,
+                    'cantidad_salidas': if m.location_dest_id.usage == 'customer' else '0',
+                    'costo_salidas': precio_costo_salida,
+                    'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
+                    'costo_actual': m.product_id.standard_price
                 })
             logging.warn(movimientos)
+
+        logging.warn(movimientos_productos)    
         return True
 
     def fecha_actual(self):
