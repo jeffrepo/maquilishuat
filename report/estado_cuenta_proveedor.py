@@ -106,7 +106,7 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                 if f.type == 'in_refund':
                     datos[f.id]['abonos'].append({'fecha': f.date_invoice, 'referencia': f.reference, 'cargos': 0, 'abonos': f.amount_total*-1, 'saldo': 0})
                 else:
-                    if (factura.state == 'paid' and f.payment_ids) or (factura.state == 'open'):
+                    if (f.state == 'paid' and f.payment_ids) or (f.state == 'open'):
                         datos[f.id]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
