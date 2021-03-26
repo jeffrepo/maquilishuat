@@ -124,7 +124,10 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                     total['cargos'] += c['cargos']
             if d['abonos']:
                 for a in d['abonos']:
-                    saldo -= a['abonos']
+                    if a['abonos'] < 0:
+                        saldo += a['abonos']
+                    else:
+                        saldo -= a['abonos']
                     a['saldo'] += saldo
                     total['abonos'] += a['abonos']
             total['saldo'] = saldo
