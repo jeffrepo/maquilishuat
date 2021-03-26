@@ -49,6 +49,27 @@
                             <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
                         </tr>
                     </thead>
+                    <tbody>
+                          <t t-foreach="obtener_kardex" t-as="producto">
+                              <tr colspan="10">
+                                  <td><span t-esc="producto['nombre']"/></td>
+                              </tr>
+                              <t t-foreach="producto['stock_move_line']" t-as="movimiento">
+                                  <tr>
+                                      <td><span t-esc="movimiento['documento']"/></td>
+                                      <td><span t-esc="movimiento['fecha']"/></td>
+                                      <td><span t-esc="movimiento['proveedor']"/></td>
+                                      <td><span t-esc="movimiento['costo_promedio']"/></td>
+                                      <td><span t-esc="movimiento['cantidad_entrada']"/></td>
+                                      <td><span t-esc="movimiento['costo_entrada']"/></td>
+                                      <td><span t-esc="movimiento['cantidad_salidas']"/></td>
+                                      <td><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td><span t-esc="movimiento['cantidad_existencia']"/></td>
+                                      <td><span t-esc="movimiento['costo_actual']"/></td>
+                                  </tr>
+                              </t>
+                          </t>
+                    </tbody>
                 </table>
                 <!-- <table style="width:100%">
                     <thead>
