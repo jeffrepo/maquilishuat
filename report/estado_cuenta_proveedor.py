@@ -100,16 +100,16 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
             saldo = 0
             for f in facturas_ids:
                 if f.date_invoice not in datos:
-                    datos[str(f.date_invoice)] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
+                    datos[f.id] = {'fecha': f.date_invoice,'cargos': [], 'abonos':[]}
 
                 if f.id == 810:
-                    logging.warn(f.amount_total)    
-                datos[str(f.date_invoice)]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
+                    logging.warn(f.amount_total)
+                datos[f.id]['cargos'].append({'fecha': f.date_invoice,'referencia': f.reference,'proveedor':f.partner_id.name,'vence': '', 'cargos': f.amount_total, 'abonos': 0, 'saldo':0})
 
                 if f.payment_ids:
                     logging.warn('si hay pagos')
                     for p in f.payment_ids:
-                        datos[str(f.date_invoice)]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
+                        datos[f.id]['abonos'].append({'fecha': p.payment_date, 'referencia': p.communication, 'cargos': 0, 'abonos': p.amount, 'saldo': 0})
 
         datos = datos.values()
         logging.warn(datos)
