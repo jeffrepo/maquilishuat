@@ -51,7 +51,7 @@ class ReportKardexProducto(models.AbstractModel):
             for m in movimientos:
                 if m.product_id.id not in movimientos_productos:
                     movimientos_productos[m.product_id.id] = {'nombre': m.product_id.name,'stock_move_line': []}
-                precio_costo_salida = product.get_history_price(
+                precio_costo_salida = m.product_id.get_history_price(
                     self.env.user.company_id.id,
                     date=m.date,
                 )
