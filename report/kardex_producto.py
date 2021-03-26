@@ -60,14 +60,14 @@ class ReportKardexProducto(models.AbstractModel):
                     'fecha': m.date,
                     'proveedor': m.pickin_id.partner_id.name if (m.pickin_id and m.pickin_id.partner_id) else '',
                     'costo_promedio': m.product_id.standard_price,
-                    'cantidad_salidas': if m.location_dest_id.usage == 'customer' else '0',
+                    'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else '0',
                     'costo_salidas': precio_costo_salida,
                     'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
                     'costo_actual': m.product_id.standard_price
                 })
             logging.warn(movimientos)
 
-        logging.warn(movimientos_productos)    
+        logging.warn(movimientos_productos)
         return True
 
     def fecha_actual(self):
