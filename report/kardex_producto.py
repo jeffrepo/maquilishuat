@@ -58,7 +58,7 @@ class ReportKardexProducto(models.AbstractModel):
                 movimientos_productos[m.product_id.id]['stock_move_line'].append({
                     'documento': m.reference,
                     'fecha': m.date,
-                    'proveedor': m.pickin_id.partner_id.name if (m.pickin_id and m.pickin_id.partner_id) else '',
+                    'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
                     'costo_promedio': m.product_id.standard_price,
                     'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else '0',
                     'costo_salidas': precio_costo_salida,
