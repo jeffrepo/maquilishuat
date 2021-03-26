@@ -129,7 +129,8 @@ class ReportEstadoCuentaProveedor(models.AbstractModel):
                     else:
                         saldo -= a['abonos']
                     a['saldo'] += saldo
-                    total['abonos'] += a['abonos']
+
+                    total['abonos'] += saldo
             total['saldo'] = saldo
 
         logging.warn(datos)
