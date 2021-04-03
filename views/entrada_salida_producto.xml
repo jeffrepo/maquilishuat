@@ -29,10 +29,6 @@
                             <th></th>
                             <th colspan="2" class="text-center">ENTRADAS</th>
                             <th colspan="2" class="text-center">SALIDAS</th>
-                            <th class="text-center">EXIST.</th>
-                            <th class="text-center">ACTUAL</th>
-
-
                         </tr>
                         <tr>
                             <th style="border-bottom: 1px solid black;">No. Doc.</th>
@@ -42,12 +38,10 @@
                             <th style="border-bottom: 1px solid black;">Costo</th>
                             <th style="border-bottom: 1px solid black;">Cantidad</th>
                             <th style="border-bottom: 1px solid black;">Costo</th>
-                            <th  class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
-                          <t t-set="costo_actual_total_general" t-value="0"/>
+                          <t t-set="costo_salida_total_general" t-value="0"/>
                           <t t-foreach="obtener_entrada_salida" t-as="producto">
                               <t t-set="cantidad_salida_total" t-value="0"/>
                               <t t-set="costo_salida_total" t-value="0"/>
@@ -68,15 +62,11 @@
                                       <td><span t-esc="movimiento['costo_entrada']"/></td>
                                       <td><span t-esc="movimiento['cantidad_salidas']"/></td>
                                       <td><span t-esc="movimiento['costo_salidas']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['cantidad_existencia']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['costo_actual']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
                                   <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
                                   <t t-set="cantidad_entrada_total" t-value="cantidad_entrada_total+movimiento['cantidad_entrada']"/>
                                   <t t-set="costo_entrada_total" t-value="costo_entrada_total+movimiento['costo_entrada']"/>
-                                  <t t-set="existencia_total" t-value="existencia_total+movimiento['cantidad_existencia']"/>
-                                  <t t-set="costo_actual" t-value="costo_actual+movimiento['costo_actual']"/>
                               </t>
                               <tr>
                                   <td style="border-bottom: 1px solid black"></td>
@@ -86,10 +76,7 @@
                                   <td style="border-bottom: 1px solid black"><span t-esc="costo_entrada_total"/></td>
                                   <td style="border-bottom: 1px solid black"><span t-esc="cantidad_salida_total"/></td>
                                   <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total"/></td>
-                                  <td style="border-bottom: 1px solid black" class="text-center"><span t-esc="existencia_total"/></td>
-                                  <td style="border-bottom: 1px solid black" class="text-center"><span t-esc="costo_actual"/></td>
-
-                                  <t t-set="costo_actual_total_general" t-value="costo_actual_total_general+costo_actual"/>
+                                  <t t-set="costo_salida_total_general" t-value="costo_salida_total_general+costo_salida_total"/>
                               </tr>
 
                           </t>
@@ -100,10 +87,8 @@
                               <td style="border-bottom: 1px solid black"></td>
                               <td style="border-bottom: 1px solid black"></td>
                               <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black" class="text-center"><span t-esc="costo_actual_total_general"/></td>
-                          </tr>
+                              <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total_general"/></td>
+                            </tr>
                     </tbody>
                 </table>
                 <!-- <table style="width:100%">
