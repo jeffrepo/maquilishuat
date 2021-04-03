@@ -18,3 +18,4 @@ from . import abonos_proveedor
 from . import antiguedad_saldos_proveedores
 from . import estado_cuenta_proveedor
 from . import kardex_producto
+from . import entrada_salida_producto

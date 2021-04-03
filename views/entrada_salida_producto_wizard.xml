@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_entrada_salida_producto"
+            string="Entrada o salida por producto"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.entrada_salida_producto"
+            name="maquilishuat.entrada_salida_producto"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_entrada_salida_producto_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.entrada_salida_producto.wizard</field>
+              <field name="model">maquilishuat.entrada_salida_producto.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Kardex por producto">
+                    <group string="Kardex">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                        <field name="productos_ids"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_entrada_salida_producto"
+            name="Entrasa o salida por producto"
+            res_model="maquilishuat.entrada_salida_producto.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_entrada_salida_producto" id="menu_entrada_salida_producto" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
