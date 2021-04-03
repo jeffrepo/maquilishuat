@@ -20,4 +20,4 @@ from . import report_invoice
 from . import estado_cuenta_proveedor
 from . import kardex_producto
 from . import entrada_salida_producto
-from . import listado_producto_familia
+from . import producto_familia

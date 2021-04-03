@@ -7,8 +7,8 @@ import xlsxwriter
 import io
 import logging
 
-class listado_producto_familia_wizard(models.TransientModel):
-    _name = 'maquilishuat.listado_producto_familia.wizard'
+class producto_familia_wizard(models.TransientModel):
+    _name = 'maquilishuat.producto_familia.wizard'
 
     fecha_inicio = fields.Date('Fecha inicio')
     fecha_fin = fields.Date('Fecha fin')
@@ -23,4 +23,4 @@ class listado_producto_familia_wizard(models.TransientModel):
         res = res and res[0] or {}
         datas['form'] = res
         logging.warn(datas)
-        return self.env.ref('maquilishuat.action_listado_producto_familia').report_action([], data=datas)
+        return self.env.ref('maquilishuat.action_producto_familia').report_action([], data=datas)

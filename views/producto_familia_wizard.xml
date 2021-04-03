@@ -3,19 +3,19 @@
     <data>
 
         <report
-            id="action_listado_producto_familia"
+            id="action_producto_familia"
             string="Listado de productos por famlia"
             model="account.account"
             report_type="qweb-pdf"
-            file="maquilishuat.listado_producto_familia"
-            name="maquilishuat.listado_producto_familia"
+            file="maquilishuat.producto_familia"
+            name="maquilishuat.producto_familia"
             paperformat="paperformat_horizontal"
             menu="False"
         />
 
-        <record id="view_maquilishuat_listado_producto_familia_wizard" model="ir.ui.view">
-              <field name="name">view.maquilishuat.listado_producto_familia.wizard</field>
-              <field name="model">maquilishuat.listado_producto_familia.wizard</field>
+        <record id="view_maquilishuat_producto_familia_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.producto_familia.wizard</field>
+              <field name="model">maquilishuat.producto_familia.wizard</field>
               <field name="arch" type="xml">
                 <form string="Kardex por producto">
                     <group string="Kardex">
@@ -34,14 +34,14 @@
         </record>
 
 
-        <act_window id="maquilishuat_action_listado_producto_familia"
+        <act_window id="maquilishuat_action_producto_familia"
             name="Listado de productos por familia"
-            res_model="maquilishuat.listado_producto_familia.wizard"
+            res_model="maquilishuat.producto_familia.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
 
 
-        <menuitem action="maquilishuat_action_listado_producto_familia" id="menu_listado_producto_familia" parent="account.menu_finance_reports"/>
+        <menuitem action="maquilishuat_action_producto_familia" id="menu_producto_familia" parent="account.menu_finance_reports"/>
 
     </data>
 </odoo>
