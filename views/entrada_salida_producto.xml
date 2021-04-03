@@ -48,7 +48,7 @@
                     </thead>
                     <tbody>
                           <t t-set="costo_actual_total_general" t-value="0"/>
-                          <t t-foreach="obtener_kardex" t-as="producto">
+                          <t t-foreach="obtener_entrada_salida" t-as="producto">
                               <t t-set="cantidad_salida_total" t-value="0"/>
                               <t t-set="costo_salida_total" t-value="0"/>
                               <t t-set="cantidad_entrada_total" t-value="0"/>
