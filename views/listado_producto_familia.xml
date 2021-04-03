@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="entrada_salida_producto">
+    <template id="listado_producto_familia">
         <t t-call="web.html_container">
             <t t-set="data_report_margin_top" t-value="12"/>
             <t t-set="data_report_header_spacing" t-value="9"/>
@@ -11,7 +11,8 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            REPORTE DE ENTRADAS/SALIDAS POR PRODUCTO, DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            NIT: 06141506901019 , NRC: 20696-2<br/>
+                            KARDEX DE MOVIMIENTOS POR PRODUCTO, DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>
@@ -19,7 +20,7 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="obtener_entrada_salida" t-value="_get_entrada_salida(fecha_inicio,fecha_fin,productos_ids)"/>
+                <t t-set="obtener_kardex" t-value="_get_kardex(fecha_inicio,fecha_fin,productos_ids)"/>
 
                 <table style="width:100%">
                     <thead>
@@ -27,22 +28,29 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                             <th colspan="2" class="text-center">ENTRADAS</th>
                             <th colspan="2" class="text-center">SALIDAS</th>
+                            <th class="text-center">EXIST.</th>
+                            <th class="text-center">ACTUAL</th>
+
+
                         </tr>
                         <tr>
                             <th style="border-bottom: 1px solid black;">No. Doc.</th>
                             <th style="border-bottom: 1px solid black;">Fecha</th>
+                            <th style="border-bottom: 1px solid black;">Nombre del Proveedor</th>
                             <th class="text-center" style="border-bottom: 1px solid black;">Costo Promedio</th>
                             <th style="border-bottom: 1px solid black;">Cantidad</th>
                             <th style="border-bottom: 1px solid black;">Costo</th>
                             <th style="border-bottom: 1px solid black;">Cantidad</th>
                             <th style="border-bottom: 1px solid black;">Costo</th>
+                            <th  class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
-                          <t t-set="costo_salida_total_general" t-value="0"/>
-                          <t t-foreach="obtener_entrada_salida" t-as="producto">
+                          <t t-foreach="obtener_kardex" t-as="producto">
                               <t t-set="cantidad_salida_total" t-value="0"/>
                               <t t-set="costo_salida_total" t-value="0"/>
                               <t t-set="cantidad_entrada_total" t-value="0"/>
@@ -56,38 +64,35 @@
                                   <tr>
                                       <td><span t-esc="movimiento['documento']"/></td>
                                       <td><span t-esc="movimiento['fecha']"/></td>
+                                      <td><span t-esc="movimiento['proveedor']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
                                       <td><span t-esc="movimiento['cantidad_entrada']"/></td>
                                       <td><span t-esc="movimiento['costo_entrada']"/></td>
                                       <td><span t-esc="movimiento['cantidad_salidas']"/></td>
                                       <td><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['cantidad_existencia']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['costo_actual']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
                                   <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
                                   <t t-set="cantidad_entrada_total" t-value="cantidad_entrada_total+movimiento['cantidad_entrada']"/>
                                   <t t-set="costo_entrada_total" t-value="costo_entrada_total+movimiento['costo_entrada']"/>
+                                  <t t-set="existencia_total" t-value="existencia_total+movimiento['cantidad_existencia']"/>
+                                  <t t-set="costo_actual" t-value="costo_actual+movimiento['costo_actual']"/>
                               </t>
                               <tr>
-                                  <td style="border-bottom: 1px solid black"></td>
-                                  <td style="border-bottom: 1px solid black"></td>
-                                  <td style="border-bottom: 1px solid black"><strong>sub-total</strong></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="cantidad_entrada_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="costo_entrada_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="cantidad_salida_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total"/></td>
-                                  <t t-set="costo_salida_total_general" t-value="costo_salida_total_general+costo_salida_total"/>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td><span t-esc="cantidad_entrada_total"/></td>
+                                  <td><span t-esc="costo_entrada_total"/></td>
+                                  <td><span t-esc="cantidad_salida_total"/></td>
+                                  <td><span t-esc="costo_salida_total"/></td>
+                                  <td class="text-center"><span t-esc="existencia_total"/></td>
+                                  <td class="text-center"><span t-esc="costo_actual"/></td>
                               </tr>
-
                           </t>
-                          <tr>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"><strong>TOTAL GENERAL</strong></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total_general" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
                     </tbody>
                 </table>
                 <!-- <table style="width:100%">

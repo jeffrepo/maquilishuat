@@ -29,6 +29,8 @@
         'views/kardex_producto_wizard.xml',
         'views/entrada_salida_producto.xml',
         'views/entrada_salida_producto_wizard.xml',
+        'views/listado_producto_familia.xml',
+        'views/listado_producto_familia_wizard.xml',
         'views/libro_compras.xml',
         'views/libro_compras_provisiones.xml',
         'views/libro_compras_provisiones_wizard.xml',

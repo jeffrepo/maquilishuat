@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_listado_producto_familia"
+            string="Listado de productos por famlia"
+            model="account.account"
+            report_type="qweb-pdf"
+            file="maquilishuat.listado_producto_familia"
+            name="maquilishuat.listado_producto_familia"
+            paperformat="paperformat_horizontal"
+            menu="False"
+        />
+
+        <record id="view_maquilishuat_listado_producto_familia_wizard" model="ir.ui.view">
+              <field name="name">view.maquilishuat.listado_producto_familia.wizard</field>
+              <field name="model">maquilishuat.listado_producto_familia.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Kardex por producto">
+                    <group string="Kardex">
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                        <fields name="libros"/>
+                        <field name=="uniformes"/>
+                        <field name="productos_ids"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="maquilishuat_action_listado_producto_familia"
+            name="Listado de productos por familia"
+            res_model="maquilishuat.listado_producto_familia.wizard"
+            src_model="account.invoice"
+            view_mode="form" target="new"/>
+
+
+        <menuitem action="maquilishuat_action_listado_producto_familia" id="menu_listado_producto_familia" parent="account.menu_finance_reports"/>
+
+    </data>
+</odoo>
