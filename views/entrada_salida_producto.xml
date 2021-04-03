@@ -56,7 +56,6 @@
                                   <tr>
                                       <td><span t-esc="movimiento['documento']"/></td>
                                       <td><span t-esc="movimiento['fecha']"/></td>
-                                      <td><span t-esc="movimiento['proveedor']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
                                       <td><span t-esc="movimiento['cantidad_entrada']"/></td>
                                       <td><span t-esc="movimiento['costo_entrada']"/></td>
