@@ -33,7 +33,7 @@
 
 
         <act_window id="maquilishuat_action_entrada_salida_producto"
-            name="Entrasa o salida por producto"
+            name="Entrada o salida por producto"
             res_model="maquilishuat.entrada_salida_producto.wizard"
             src_model="account.invoice"
             view_mode="form" target="new"/>
