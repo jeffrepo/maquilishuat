@@ -21,7 +21,7 @@
                     <group string="Kardex">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
-                        <fields name="libros"/>
+                        <field name="libros"/>
                         <field name="uniformes"/>
                         <field name="productos_ids"/>
                     </group>
