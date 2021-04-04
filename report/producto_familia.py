@@ -45,12 +45,14 @@ class ReportProductoFamilia(models.AbstractModel):
 
     def _get_listado_producto(self,fecha_inicio,fecha_fin,uniformes,libros):
         productos_ids = self.env['product.product'].search([],order='default_code asc')
+        logging.warn('productos')
+        logging.warn(productos_ids)
         productos_lista = []
         if productos_ids:
             if libros:
                 for p in productos_ids:
                     logging.warn(p.categ_id.parent_id)
-                    if p.categ_id and p.categ_id.parent_id and 'LIBRO' in p.categ_id.parent_id.name:
+                    if p.categ_id and p.categ_id.parent_id and 'LIBROS' in p.categ_id.parent_id.name:
                         # cantidad_existencia = p.with_context(company_owned=True, owner_id=False).qty_available
                         cantidad_existencia = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
                         logging.warn('cantidad existencias')
