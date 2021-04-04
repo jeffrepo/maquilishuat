@@ -17,8 +17,8 @@
               <field name="name">view.maquilishuat.producto_familia.wizard</field>
               <field name="model">maquilishuat.producto_familia.wizard</field>
               <field name="arch" type="xml">
-                <form string="Kardex por producto">
-                    <group string="Kardex">
+                <form string="Listado producto por famlia">
+                    <group string="Campos">
                         <field name="fecha_inicio"/>
                         <field name="fecha_fin"/>
                         <field name="libros"/>
