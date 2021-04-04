@@ -60,7 +60,7 @@ class ReportProductoFamilia(models.AbstractModel):
                         logging.warn(compute_quanti)
                         if compute_quanti:
                             costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
-                            cantidad_existencia = compute_quanti.values()['qty_available']
+                            cantidad_existencia = compute_quanti[p.id]['qty_available']
                             valor = cantidad_existencia * costo
                             productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': cantidad_existencia, 'valor': valor})
             #
