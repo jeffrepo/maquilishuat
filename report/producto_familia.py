@@ -55,13 +55,14 @@ class ReportProductoFamilia(models.AbstractModel):
                     logging.warn(p.categ_id.parent_id)
                     if p.categ_id and p.categ_id.parent_id and 'LIBROS' in p.categ_id.parent_id.name:
                         # cantidad_existencia = p.with_context(company_owned=True, owner_id=False).qty_available
-                        cantidad_existencia = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
+                        compute_quanti = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
                         logging.warn('cantidad existencias')
-                        logging.warn(cantidad_existencia)
-                        if cantidad_existencia > 0:
+                        logging.warn(compute_quanti)
+                        if compute_quanti > 0:
                             costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
+                            cantidad_existencia = compute_quanti.values()['qty_available']
                             valor = cantidad_existencia * costo
-                            productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': existencia, 'valor': 1})
+                            productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': cantidad_existencia, 'valor': valor})
             #
             # if uniformes:
 
@@ -88,6 +89,8 @@ class ReportProductoFamilia(models.AbstractModel):
         #     logging.warn(movimientos)
         #
         # logging.warn(movimientos_productos)
+        logging.warn('productos lista')
+        logging.warn(productos_lista)
         return productos_lista
 
     def fecha_actual(self):
