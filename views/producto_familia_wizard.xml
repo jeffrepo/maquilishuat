@@ -23,7 +23,7 @@
                         <field name="fecha_fin"/>
                         <field name="libros"/>
                         <field name="uniformes"/>
-                        <field name="productos_ids"/>
+                        <!-- <field name="productos_ids"/> -->
                     </group>
                     <footer>
                         <button name="print_report" string="Generar reporte"  type="object" class="btn-primary"/>
