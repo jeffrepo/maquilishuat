@@ -58,7 +58,7 @@ class ReportProductoFamilia(models.AbstractModel):
                         compute_quanti = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
                         logging.warn('cantidad existencias')
                         logging.warn(compute_quanti)
-                        if compute_quanti > 0:
+                        if compute_quanti:
                             costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
                             cantidad_existencia = compute_quanti.values()['qty_available']
                             valor = cantidad_existencia * costo
