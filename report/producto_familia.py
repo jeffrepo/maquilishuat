@@ -50,7 +50,8 @@ class ReportProductoFamilia(models.AbstractModel):
         if productos_ids:
             if libros:
                 for p in productos_ids:
-                    if p.categ_id and p.categ_id.parent_id and 'LIBROS' in p.categ_id.parent_id.name:
+                    logging.warn(p.categ_id.parent_id)
+                    if p.categ_id and p.categ_id.parent_id and 'LIBRO' in p.categ_id.parent_id.name:
                         # cantidad_existencia = p.with_context(company_owned=True, owner_id=False).qty_available
                         cantidad_existencia = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
                         logging.warn('cantidad existencias')
