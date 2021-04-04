@@ -33,6 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <t t-set="total_costo" t-value="0"/>
                         <t t-if="libros">
                             <tr>
                                 <td><center>FAMILIA:</center></td>
@@ -45,10 +46,11 @@
                                 <tr>
                                     <td><span t-esc="producto['codigo']"/></td>
                                     <td><span t-esc="producto['nombre']"/></td>
-                                    <td style="text-align:right"><span t-esc="producto['costo']"/></td>
+                                    <td style="text-align:right"><span t-esc="producto['costo']" /></td>
                                     <td style="text-align:right"><span t-esc="producto['existencia']"/></td>
-                                    <td style="text-align:right"><span t-esc="producto['valor']"/></td>
+                                    <td style="text-align:right"><span t-esc="producto['valor']" /></td>
                                 </tr>
+                                <t t-set="total_costo" t-value="total_costo+producto['valor']"/>
                             </t>
                         </t>
                         <t t-if="uniformes">
@@ -63,12 +65,20 @@
                                 <tr>
                                     <td><span t-esc="producto['codigo']"/></td>
                                     <td><span t-esc="producto['nombre']"/></td>
-                                    <td style="text-align:right"><span t-esc="producto['costo']"/></td>
+                                    <td style="text-align:right"><span t-esc="producto['costo']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     <td style="text-align:right"><span t-esc="producto['existencia']"/></td>
-                                    <td style="text-align:right"><span t-esc="producto['valor']"/></td>
+                                    <td style="text-align:right"><span t-esc="producto['valor']" t-options='{"widget": "float", "precision": 2}'/></td>
                                 </tr>
+                                <t t-set="total_costo" t-value="total_costo+producto['valor']"/>
                             </t>
                         </t>
+                        <tr>
+                            <td style="border-bottom: 1px solid black;border-top: 1px solid black;"></td>
+                            <td style="border-bottom: 1px solid black;border-top: 1px solid black;"></td>
+                            <td style="border-bottom: 1px solid black;border-top: 1px solid black;"></td>
+                            <td style="border-bottom: 1px solid black;border-top: 1px solid black;"><strong>TOTAL</strong></td>
+                            <td style="text-align:right;border-bottom: 1px solid black;border-top: 1px solid black;"><strong><span t-esc="total_costo"/></strong></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
