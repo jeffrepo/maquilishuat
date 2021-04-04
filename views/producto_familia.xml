@@ -45,9 +45,9 @@
                                 <tr>
                                     <td><span t-esc="producto['codigo']"/></td>
                                     <td><span t-esc="producto['nombre']"/></td>
-                                    <td><span t-esc="producto['costo']"/></td>
-                                    <td><span t-esc="producto['existencia']"/></td>
-                                    <td><span t-esc="producto['valor']"/></td>
+                                    <td class="text-center"><span t-esc="producto['costo']"/></td>
+                                    <td class="text-center"><span t-esc="producto['existencia']"/></td>
+                                    <td class="text-center"><span t-esc="producto['valor']"/></td>
                                 </tr>
                             </t>
                         </t>
@@ -63,9 +63,9 @@
                                 <tr>
                                     <td><span t-esc="producto['codigo']"/></td>
                                     <td><span t-esc="producto['nombre']"/></td>
-                                    <td><span t-esc="producto['costo']"/></td>
-                                    <td><span t-esc="producto['existencia']"/></td>
-                                    <td><span t-esc="producto['valor']"/></td>
+                                    <td class="text-center"><span t-esc="producto['costo']"/></td>
+                                    <td class="text-center"><span t-esc="producto['existencia']"/></td>
+                                    <td class="text-center"><span t-esc="producto['valor']"/></td>
                                 </tr>
                             </t>
                         </t>
