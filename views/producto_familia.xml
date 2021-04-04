@@ -27,9 +27,9 @@
                         <tr>
                             <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Cód.</th>
                             <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Descripción</th>
-                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Costo Promedio US$</th>
-                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Existencia Actual</th>
-                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Valor TOTAL US$</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;border-top: 1px solid black;">Costo Promedio US$</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;border-top: 1px solid black;">Existencia Actual</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;border-top: 1px solid black;">Valor TOTAL US$</th>
                         </tr>
                     </thead>
                     <tbody>
