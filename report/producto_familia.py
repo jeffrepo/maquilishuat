@@ -64,7 +64,21 @@ class ReportProductoFamilia(models.AbstractModel):
                                 costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
                                 valor = cantidad_existencia * costo
                                 productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': cantidad_existencia, 'valor': valor})
-            #
+            if uniformes:
+                for p in productos_ids:
+                    logging.warn(p.categ_id.parent_id)
+                    if p.categ_id and p.categ_id.parent_id and 'UNIFORMES' in p.categ_id.parent_id.name:
+                        # cantidad_existencia = p.with_context(company_owned=True, owner_id=False).qty_available
+                        compute_quanti = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
+                        logging.warn('cantidad existencias')
+                        logging.warn(compute_quanti)
+                        if compute_quanti:
+                            cantidad_existencia = compute_quanti[p.id]['qty_available']
+                            if cantidad_existencia > 0:
+                                costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
+                                valor = cantidad_existencia * costo
+                                productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': cantidad_existencia, 'valor': valor})
+
             # if uniformes:
 
 

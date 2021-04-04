@@ -41,6 +41,15 @@
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <t t-foreach="obtener_listado_producto" t-as="producto">
+                                <tr>
+                                    <td><span t-esc="producto['codigo']"/></td>
+                                    <td><span t-esc="producto['nombre']"/></td>
+                                    <td><span t-esc="producto['costo']"/></td>
+                                    <td><span t-esc="producto['existencia']"/></td>
+                                    <td><span t-esc="producto['valor']"/></td>
+                                </tr>
+                            </t>
                         </t>
                         <t t-if="uniformes">
                             <tr>
@@ -50,116 +59,18 @@
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <t t-foreach="obtener_listado_producto" t-as="producto">
+                                <tr>
+                                    <td><span t-esc="producto['codigo']"/></td>
+                                    <td><span t-esc="producto['nombre']"/></td>
+                                    <td><span t-esc="producto['costo']"/></td>
+                                    <td><span t-esc="producto['existencia']"/></td>
+                                    <td><span t-esc="producto['valor']"/></td>
+                                </tr>
+                            </t>
                         </t>
-
-                          <t t-foreach="obtener_kardex" t-as="producto">
-                              <t t-set="cantidad_salida_total" t-value="0"/>
-                              <t t-set="costo_salida_total" t-value="0"/>
-                              <t t-set="cantidad_entrada_total" t-value="0"/>
-                              <t t-set="costo_entrada_total" t-value="0"/>
-                              <t t-set="existencia_total" t-value="0"/>
-                              <t t-set="costo_actual" t-value="0"/>
-                              <tr colspan="10">
-                                  <td>PRODUCTO: <span t-esc="producto['nombre']"/></td>
-                              </tr>
-                              <t t-foreach="producto['stock_move_line']" t-as="movimiento">
-                                  <tr>
-                                      <td><span t-esc="movimiento['documento']"/></td>
-                                      <td><span t-esc="movimiento['fecha']"/></td>
-                                      <td><span t-esc="movimiento['proveedor']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_entrada']"/></td>
-                                      <td><span t-esc="movimiento['costo_entrada']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_salidas']"/></td>
-                                      <td><span t-esc="movimiento['costo_salidas']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['cantidad_existencia']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['costo_actual']"/></td>
-                                  </tr>
-                                  <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
-                                  <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
-                                  <t t-set="cantidad_entrada_total" t-value="cantidad_entrada_total+movimiento['cantidad_entrada']"/>
-                                  <t t-set="costo_entrada_total" t-value="costo_entrada_total+movimiento['costo_entrada']"/>
-                                  <t t-set="existencia_total" t-value="existencia_total+movimiento['cantidad_existencia']"/>
-                                  <t t-set="costo_actual" t-value="costo_actual+movimiento['costo_actual']"/>
-                              </t>
-                              <tr>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td><span t-esc="cantidad_entrada_total"/></td>
-                                  <td><span t-esc="costo_entrada_total"/></td>
-                                  <td><span t-esc="cantidad_salida_total"/></td>
-                                  <td><span t-esc="costo_salida_total"/></td>
-                                  <td class="text-center"><span t-esc="existencia_total"/></td>
-                                  <td class="text-center"><span t-esc="costo_actual"/></td>
-                              </tr>
-                          </t>
                     </tbody>
                 </table>
-                <!-- <table style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-
-                            <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">COMPRAS EXENTAS</th>
-                            <th colspan="2" style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center">COMPRAS GRAVADAS</th>
-
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-                            <th style="border-top: 1px solid black;"></th>
-
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th style="border-bottom: 1px solid black;text-align:left"><span>No.</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:center"><span>FECHA DE EMISION</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:center" ><span>No. DE COMPROB.</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>No. DE REGISTRO</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>NIT O DUI DE SUJETO EXCLUIDO</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>NOMBRE DEL PROVEEDOR</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>INTERNAS</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>IMPORT. E. INTERNAC.</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>INTERNAS</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>IMPORT. E. INTERNAC.</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>CRÉDITO FISCAL</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>ANTICIPO A CUENTA IVA PERCIBIDO</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>TOTAL COMPRAS</span></th>
-                            <th style="border-bottom: 1px solid black;text-align:right" ><span>COMPRAS A SUJETOS INCLUIDOS</span></th>
-                        </tr>
-                    </thead> -->
-                    <!-- <tbody>
-                        <t t-if="_get_facturas(fecha_inicio,fecha_fin)['fact']">
-                            <t t-set="sum_totales" t-value="_get_facturas(fecha_inicio,fecha_fin)['suma_totales']"/>
-                            <tr t-foreach="_get_facturas(fecha_inicio,fecha_fin)['fact']" t-as="fac">
-                                <td><span t-esc="fac['codigo']"/></td>
-                                <td style="text-align:center"><span t-esc="fac['nombre']"/></td>
-                                <td style="text-align:right"><span t-esc="fac['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="fac['saldo_factura']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td style="text-align:right">TOTAL GENERAL</td>
-                                <td style="text-align:right"><span t-esc="sum_totales['30']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['60']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['90']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['mas']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                <td style="text-align:right"><span t-esc="sum_totales['total']" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                        </t>
-
-                    </tbody> -->
-                <!-- </table> -->
             </div>
             <div class="footer text-center" style="margin:0px; padding:0px;font-size:12px;">
               Página <span class="page"/>/<span class="topage"/>
