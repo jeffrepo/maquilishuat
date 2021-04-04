@@ -108,6 +108,8 @@ class ReportProductoFamilia(models.AbstractModel):
         fecha_fin = data.get('form', {}).get('fecha_fin', False)
         fecha_inicio = data.get('form', {}).get('fecha_inicio', False)
         productos_ids = data.get('form', {}).get('productos_ids', False)
+        libros = data.get('form', {}).get('libros', False)
+        uniformes = data.get('form', {}).get('uniformes', False)
         # formato_planilla_id = data.get('form', {}).get('formato_planilla_id', False)
         docs = self.env[self.model].browse(docids)
         logging.warn(docs)
@@ -118,6 +120,8 @@ class ReportProductoFamilia(models.AbstractModel):
             'doc_model': self.model,
             'docs': docs,
             'fecha_fin': fecha_fin,
+            'libros': libros,
+            'uniformes': uniformes,
             'fecha_inicio': fecha_inicio,
             'productos_ids': productos_ids,
             '_get_listado_producto': self._get_listado_producto,
