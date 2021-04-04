@@ -45,6 +45,7 @@ class ReportProductoFamilia(models.AbstractModel):
 
     def _get_listado_producto(self,fecha_inicio,fecha_fin,uniformes,libros):
         productos_ids = self.env['product.product'].search([],order='default_code asc')
+        logging.warn(libros)
         logging.warn('productos')
         logging.warn(productos_ids)
         productos_lista = []
