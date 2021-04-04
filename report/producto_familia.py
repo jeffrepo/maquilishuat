@@ -58,7 +58,7 @@ class ReportProductoFamilia(models.AbstractModel):
                         if cantidad_existencia > 0:
                             costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
                             valor = cantidad_existencia * costo
-                            productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': existencia, 'valor': })
+                            productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': existencia, 'valor': 1})
             #
             # if uniformes:
 
