@@ -12,7 +12,7 @@
 
                             <span t-esc="user.company_id.name"/><br/>
                             NIT: 06141506901019 , NRC: 20696-2<br/>
-                            KARDEX DE MOVIMIENTOS POR PRODUCTO, DEL <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/> AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
+                            LISTADO DE PRODUCTOS POR FAMILIA DE INVENTARIOS, AL <span t-esc="fecha_fin" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA
                         </p>
                     </div>
@@ -20,36 +20,38 @@
             </div>
             <div class="page">
                 FECHA EMISION: <span t-esc="fecha_actual()"/>
-                <t t-set="obtener_kardex" t-value="_get_kardex(fecha_inicio,fecha_fin,productos_ids)"/>
+                <t t-set="obtener_kardex" t-value="_get_kardex(fecha_inicio,fecha_fin,libros,uniformes)"/>
 
                 <table style="width:100%">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th colspan="2" class="text-center">ENTRADAS</th>
-                            <th colspan="2" class="text-center">SALIDAS</th>
-                            <th class="text-center">EXIST.</th>
-                            <th class="text-center">ACTUAL</th>
-
-
-                        </tr>
-                        <tr>
-                            <th style="border-bottom: 1px solid black;">No. Doc.</th>
-                            <th style="border-bottom: 1px solid black;">Fecha</th>
-                            <th style="border-bottom: 1px solid black;">Nombre del Proveedor</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Costo Promedio</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
-                            <th  class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Cód.</th>
+                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Descripción</th>
+                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Costo Promedio US$</th>
+                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Existencia Actual</th>
+                            <th style="border-bottom: 1px solid black;border-top: 1px solid black;">Valor TOTAL US$</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <t t-if="libros">
+                            <tr>
+                                <td><center>FAMILIA:</center></td>
+                                <td><center>002 LIBROS DE TEXTO</center></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </t>
+                        <t t-if="uniformes">
+                            <tr>
+                                <td><center>FAMILIA:</center></td>
+                                <td><center>001 UNIFORMES EBM</center></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </t>
+
                           <t t-foreach="obtener_kardex" t-as="producto">
                               <t t-set="cantidad_salida_total" t-value="0"/>
                               <t t-set="costo_salida_total" t-value="0"/>

@@ -43,34 +43,49 @@ class ReportProductoFamilia(models.AbstractModel):
             mes = 'DICIEMBRE'
         return mes
 
-    def _get_listado_producto(self,fecha_inicio,fecha_fin,productos_ids):
+    def _get_listado_producto(self,fecha_inicio,fecha_fin,uniformes,libros):
         logging.warn(productos_ids)
-        movimientos = self.env['stock.move.line'].search([('date','>=', fecha_inicio),('date','<=',fecha_fin),('picking_id','!=',False),('product_id','in',productos_ids)],order='date asc')
-        movimientos_productos = {}
-        if movimientos:
-            for m in movimientos:
-                if m.product_id.id not in movimientos_productos:
-                    movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'stock_move_line': []}
-                precio_costo_salida = m.product_id.get_history_price(
-                    self.env.user.company_id.id,
-                    date=m.date,
-                )
-                movimientos_productos[m.product_id.id]['stock_move_line'].append({
-                    'documento': m.reference,
-                    'fecha': m.date,
-                    'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
-                    'costo_promedio': m.product_id.standard_price,
-                    'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
-                    'costo_entrada': precio_costo_salida,
-                    'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else 0,
-                    'costo_salidas': precio_costo_salida,
-                    'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
-                    'costo_actual': m.product_id.standard_price
-                })
-            logging.warn(movimientos)
+        productos_ids = self.env['product.product'].search([()],order='default_code asc')
+        productos_lista = []
+        if productos_ids:
+            if libros:
+                for p in productos_ids:
+                    if p.categ_id and p.categ_id.parent_id and 'LIBROS' in p.categ_id.parent_id.name:
+                        # cantidad_existencia = p.with_context(company_owned=True, owner_id=False).qty_available
+                        cantidad_existencia = p._compute_quantities_dict(False, False, False, fecha_inicio, fecha_fin)
+                        logging.warn('cantidad existencias')
+                        logging.warn(cantidad_existencia)
+                        if cantidad_existencia > 0:
+                            costo = p.get_history_price(self.env.user.company_id.id, date=fecha_fin)
+                            valor = cantidad_existencia * costo
+                            productos_lista.append({'codigo': p.default_code,'nombre':p.name,'costo': costo,'existencia': existencia, 'valor': })
+            #
+            # if uniformes:
 
-        logging.warn(movimientos_productos)
-        return movimientos_productos.values()
+
+            # for m in movimientos:
+            #     if m.product_id.id not in movimientos_productos:
+            #         movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'stock_move_line': []}
+            #     precio_costo_salida = m.product_id.get_history_price(
+            #         self.env.user.company_id.id,
+            #         date=m.date,
+            #     )
+            #     movimientos_productos[m.product_id.id]['stock_move_line'].append({
+            #         'documento': m.reference,
+            #         'fecha': m.date,
+            #         'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
+            #         'costo_promedio': m.product_id.standard_price,
+            #         'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
+            #         'costo_entrada': precio_costo_salida,
+            #         'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else 0,
+            #         'costo_salidas': precio_costo_salida,
+            #         'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
+            #         'costo_actual': m.product_id.standard_price
+            #     })
+        #     logging.warn(movimientos)
+        #
+        # logging.warn(movimientos_productos)
+        return productos_lista
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())

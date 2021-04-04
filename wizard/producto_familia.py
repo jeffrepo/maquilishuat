@@ -19,7 +19,7 @@ class producto_familia_wizard(models.TransientModel):
     @api.multi
     def print_report(self):
         datas = {'ids': self.env.context.get('active_ids', [])}
-        res = self.read(['fecha_inicio','fecha_fin','productos_ids'])
+        res = self.read(['fecha_inicio','fecha_fin','libros','uniformes','productos_ids'])
         res = res and res[0] or {}
         datas['form'] = res
         logging.warn(datas)
