@@ -515,6 +515,14 @@ class ReportIngresosDiarios(models.AbstractModel):
             },
             {
 
+                        'nombre': 'DOCUMENTOS POR PAGAR',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
+                        'codigo': '210102',
+                        'cuentas': [],
+                        'type': 'documentos_por_pagar'
+            },
+            {
+
                         'nombre': 'DEBITO FISCAL',
                         'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
                         'codigo': '210402',
@@ -586,7 +594,27 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13','debito_fiscal']:
+                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13']:
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['documentos_por_pagar'] and ('210102' in cuenta_id.code):
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['debito_fiscal'] and ('210402' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
