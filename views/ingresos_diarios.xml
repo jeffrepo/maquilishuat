@@ -35,7 +35,7 @@
                     </thead>
                     <tbody>
                         <t t-foreach="_get_saldo_cuentas[0]" t-as="cuenta">
-                            <t t-if="cuenta['cuentas']">
+                            <t t-if="len(cuenta['cuentas']) &gt; 0">
                                 <tr>
                                     <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
                                     <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
