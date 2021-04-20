@@ -35,37 +35,38 @@
                     </thead>
                     <tbody>
                         <t t-foreach="_get_saldo_cuentas[0]" t-as="cuenta">
-                            <tr>
-                                <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
-                                <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <t t-foreach="cuenta['cuentas']" t-as="c">
+                            <t t-if="cuenta['cuentas']">
                                 <tr>
-                                    <td style="text-align:left"><span t-esc="c['codigo']"/></td>
-                                    <td style="text-align:left"><span t-esc="c['nombre']"/></td>
-                                    <td style="text-align:right"></td>
-                                    <td style="text-align:right"></td>
+                                    <td style="text-align:left"><strong><span t-esc="cuenta['codigo']"/></strong></td>
+                                    <td style="text-align:left"><strong><span t-esc="cuenta['nombre']"/></strong></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                                <t t-foreach="c['moves']" t-as="m">
+                                <t t-foreach="cuenta['cuentas']" t-as="c">
                                     <tr>
-                                        <td style="text-align:left"></td>
-                                        <td style="text-align:left"><span t-esc="m['concepto']"/></td>
-                                        <td style="text-align:right"><span t-esc="m['debe']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                        <td style="text-align:right"><span t-esc="m['haber']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:left"><span t-esc="c['codigo']"/></td>
+                                        <td style="text-align:left"><span t-esc="c['nombre']"/></td>
+                                        <td style="text-align:right"></td>
+                                        <td style="text-align:right"></td>
+                                    </tr>
+                                    <t t-foreach="c['moves']" t-as="m">
+                                        <tr>
+                                            <td style="text-align:left"></td>
+                                            <td style="text-align:left"><span t-esc="m['concepto']"/></td>
+                                            <td style="text-align:right"><span t-esc="m['debe']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td style="text-align:right"><span t-esc="m['haber']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        </tr>
+
+                                    </t>
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-align:right">Sub-Total</td>
+                                        <td style="text-align:right"><span t-esc="c['subtotal_debe']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td style="text-align:right"><span t-esc="c['subtotal_haber']" t-options='{"widget": "float", "precision": 2}'/></td>
                                     </tr>
 
                                 </t>
-                                <tr>
-                                    <td></td>
-                                    <td style="text-align:right">Sub-Total</td>
-                                    <td style="text-align:right"><span t-esc="c['subtotal_debe']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                    <td style="text-align:right"><span t-esc="c['subtotal_haber']" t-options='{"widget": "float", "precision": 2}'/></td>
-                                </tr>
-
                             </t>
-
 
                         </t>
                         <tr>
