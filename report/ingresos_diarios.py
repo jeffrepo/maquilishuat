@@ -523,6 +523,14 @@ class ReportIngresosDiarios(models.AbstractModel):
             },
             {
 
+                        'nombre': 'RETENCIONES POR PAGAR EMPLEADOS',
+                        'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
+                        'codigo': '210104',
+                        'cuentas': [],
+                        'type': 'retencioes_pagar_empleados'
+            },
+            {
+
                         'nombre': 'DEBITO FISCAL',
                         'tipo_cuentas': [self.env.ref('account.data_account_type_current_liabilities').id],
                         'codigo': '210402',
@@ -605,6 +613,16 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_debe'] += movimiento.debit
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['documentos_por_pagar'] and ('210102' in cuenta_id.code):
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['retencioes_pagar_empleados'] and ('210104' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
