@@ -602,7 +602,17 @@ class ReportIngresosDiarios(models.AbstractModel):
 
                         movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)])
                         if movimientos:
-                            if tipo['type'] in ['efectivo_equivalente','gastos_financieros','periodo_12_13']:
+                            if tipo['type'] in ['efectivo_equivalente','periodo_12_13']:
+                                for movimiento in movimientos:
+                                    movimiento_dic = {
+                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                        "debe": movimiento.debit,
+                                        "haber": movimiento.credit,
+                                    }
+                                    cuenta_dic['moves'].append(movimiento_dic)
+                                    cuenta_dic['subtotal_debe'] += movimiento.debit
+                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                            if tipo['type'] in ['gastos_financieros'] and ('4301' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
                                         "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
