@@ -46,11 +46,12 @@ class ReportIngresosDiarios(models.AbstractModel):
     def _encabezado(self, fecha_inicio,fecha_fin):
         encabezado = 'ING'
         mes = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%m'))
+        dia = int(datetime.datetime.strptime(str(fecha_fin), '%Y-%m-%d').date().strftime('%d'))
         # movimientos = self.env["account.move.line"].search([("account_id","=", cuenta_id.id),("date","=",fecha_fin)],order="date asc")
         # primera_partida = movimientos[0]
         # dia = int(datetime.datetime.strptime(str(primera_partida.date), '%Y-%m-%d').date().strftime('%d'))
 
-        encabezado += ' ' + str(mes)
+        encabezado += ' ' + str(mes) +'-'+str(dia)+'I'
 
         return encabezado
 
