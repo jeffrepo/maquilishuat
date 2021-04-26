@@ -39,6 +39,13 @@ class ResPartner(models.Model):
 
     nrc = fields.Char('Numero de registro de contribuyente')
 
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    colegiaturas = fields.Boolean('Colegiaturas')
+    inscripciones = fields.Boolean('inscripciones')
+    varios = fields.Boolean('Varias')
+
 # class AccountJournal(models.Model):
 #     _inherit = "account.journal"
 #
