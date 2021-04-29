@@ -625,34 +625,37 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['documentos_por_pagar'] and ('210102' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['retencioes_pagar_empleados'] and ('210104' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['debito_fiscal'] and ('210402' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['ingresos_servicios'] and ('5101' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
