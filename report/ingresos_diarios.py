@@ -625,7 +625,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                     cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['documentos_por_pagar'] and ('210102' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.type == 'out_invoice'):
                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
@@ -636,7 +636,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['retencioes_pagar_empleados'] and ('210104' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.type == 'out_invoice'):
                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
@@ -647,7 +647,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['debito_fiscal'] and ('210402' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.out_invoice):
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.out_invoice) or (movimiento.invoice_id and movimiento.invoice_id.type == 'out_invoice'):
                                         movimiento_dic = {
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
