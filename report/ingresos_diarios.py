@@ -605,14 +605,15 @@ class ReportIngresosDiarios(models.AbstractModel):
                         if movimientos:
                             if tipo['type'] in ['efectivo_equivalente','periodo_12_13']:
                                 for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['gastos_financieros'] and ('4301' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     movimiento_dic = {
