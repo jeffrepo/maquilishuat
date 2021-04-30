@@ -615,15 +615,16 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['gastos_financieros'] and ('4301' in cuenta_id.code):
-                                for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
+                                    for movimiento in movimientos:
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['documentos_por_pagar'] and ('210102' in cuenta_id.code):
                                 for movimiento in movimientos:
                                     if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
@@ -658,35 +659,38 @@ class ReportIngresosDiarios(models.AbstractModel):
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
                                         cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['ingresos_servicios'] and ('5101' in cuenta_id.code):
-                                for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.invoice_id.date_invoice)+' ' +str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
+                                    for movimiento in movimientos:
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.invoice_id.date_invoice)+' ' +str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['ingresos_no_operacionales'] and ('5201' in cuenta_id.code):
-                                for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
+                                    for movimiento in movimientos:
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['otros_ingresos_no_operacionales'] and ('5202' in cuenta_id.code):
                                 for movimiento in movimientos:
-                                    movimiento_dic = {
-                                        "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
-                                        "debe": movimiento.debit,
-                                        "haber": movimiento.credit,
-                                    }
-                                    cuenta_dic['moves'].append(movimiento_dic)
-                                    cuenta_dic['subtotal_debe'] += movimiento.debit
-                                    cuenta_dic['subtotal_haber'] += movimiento.credit
+                                    if (movimiento.payment_id and movimiento.payment_id.invoice_ids and movimiento.payment_id.invoice_ids.type in ['out_invoice','out_refund']) or (movimiento.invoice_id and movimiento.invoice_id.type in ['out_invoice','out_refund']):
+                                        movimiento_dic = {
+                                            "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
+                                            "debe": movimiento.debit,
+                                            "haber": movimiento.credit,
+                                        }
+                                        cuenta_dic['moves'].append(movimiento_dic)
+                                        cuenta_dic['subtotal_debe'] += movimiento.debit
+                                        cuenta_dic['subtotal_haber'] += movimiento.credit
                             if tipo['type'] in ['colegiaturas_debe']:
                                 for movimiento in movimientos:
                                     verificado_movimiento = False
