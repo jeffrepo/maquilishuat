@@ -11,7 +11,7 @@
                         <p>
 
                             <span t-esc="user.company_id.name"/><br/>
-                            No de Comprobante: <span t-esc="_encabezado(fecha_inicio,fecha_fin)"/>    FECHA: <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/><br/>
+                            RESUMEN DE INGRESOS DEL DÍA DE <span t-esc="fecha_inicio" t-options='{"widget": "date"}'/><br/>
                             DOLARES DE LOS ESTADOS UNIDOS DE AMERICA<br/>
                             VENTAS
                         </p>
@@ -26,7 +26,8 @@
                 <table style="width:100%">
                     <thead>
                         <tr>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Codigo</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Codigo</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Asiento</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CONCEPTO</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Debe</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Haber</span></th>
@@ -52,6 +53,7 @@
                                     <t t-foreach="c['moves']" t-as="m">
                                         <tr>
                                             <td style="text-align:left"></td>
+                                            <td style="text-align:left"><span t-esc="m['asiento']"/></td>
                                             <td style="text-align:left"><span t-esc="m['concepto']"/></td>
                                             <td style="text-align:right"><span t-esc="m['debe']" t-options='{"widget": "float", "precision": 2}'/></td>
                                             <td style="text-align:right"><span t-esc="m['haber']" t-options='{"widget": "float", "precision": 2}'/></td>

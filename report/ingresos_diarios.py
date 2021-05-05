@@ -610,6 +610,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -621,6 +622,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -632,6 +634,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -643,6 +646,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -654,6 +658,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -665,6 +670,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.invoice_id.date_invoice)+' ' +str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -676,6 +682,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -687,6 +694,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' DEL '+str(movimiento.date)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -700,6 +708,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                 "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                                 "debe": movimiento.debit,
                                                 "haber": movimiento.credit,
+                                                "asiento": movimiento.move_id.name
                                             }
                                             verificado_movimiento = True
                                             cuenta_dic['moves'].append(movimiento_dic)
@@ -718,6 +727,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                                     "debe": movimiento.debit,
                                                     "haber": movimiento.credit,
+                                                    "asiento": movimiento.move_id.name
                                                 }
                                                 cuenta_dic['moves'].append(movimiento_dic)
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -728,6 +738,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                     "concepto": str(movimiento.ref)+ ' ' + str(movimiento.partner_id.name),
                                                     "debe": movimiento.debit,
                                                     "haber": movimiento.credit,
+                                                    "asiento": movimiento.move_id.name
                                                 }
                                                 cuenta_dic['moves'].append(movimiento_dic)
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -742,6 +753,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -755,6 +767,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                             "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
                                             "debe": movimiento.debit,
                                             "haber": movimiento.credit,
+                                            "asiento": movimiento.move_id.name
                                         }
                                         cuenta_dic['moves'].append(movimiento_dic)
                                         cuenta_dic['subtotal_debe'] += movimiento.debit
@@ -773,6 +786,7 @@ class ReportIngresosDiarios(models.AbstractModel):
                                                     "concepto": str(movimiento.ref)+ ' DE '+str(movimiento.payment_id.invoice_ids.date_invoice)+' ' + str(movimiento.partner_id.name),
                                                     "debe": movimiento.debit,
                                                     "haber": movimiento.credit,
+                                                    "asiento": movimiento.move_id.name
                                                 }
                                                 cuenta_dic['moves'].append(movimiento_dic)
                                                 cuenta_dic['subtotal_debe'] += movimiento.debit
