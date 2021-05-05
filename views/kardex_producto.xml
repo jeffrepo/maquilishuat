@@ -65,7 +65,7 @@
                               </tr>
                               <tr colspan="2">
                                   <td tyle="text-align:center;"><span t-esc="producto['existencia_inicial']"/></td>
-                                  <td tyle="text-align:center;"><span t-esc="producto['costo_salidas']"/></td>
+                                  <td tyle="text-align:center;"><span t-esc="producto['costo_inicial']"/></td>
                               </tr>
                               <t t-foreach="producto['stock_move_line']" t-as="movimiento">
                                   <tr>
