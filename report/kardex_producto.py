@@ -49,12 +49,15 @@ class ReportKardexProducto(models.AbstractModel):
         movimientos_productos = {}
         if movimientos:
             for m in movimientos:
+                cantidad_existencia = m.product_id.with_context(company_owned=True, owner_id=False).qty_available
+                costo_actual = m.product_id.standard_price
                 if m.product_id.id not in movimientos_productos:
-                    movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'stock_move_line': []}
+                    movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'existencia_final': cantidad_existencia,'costo_final':costo_actual,'existencia_inicial': cantidad_existencia,'costo_inicial':costo_actual,'stock_move_line': []}
                 precio_costo_salida = m.product_id.get_history_price(
                     self.env.user.company_id.id,
                     date=m.date,
                 )
+                cantidad_salidas =  m.qty_done if m.location_dest_id.usage == 'customer' else 0
                 movimientos_productos[m.product_id.id]['stock_move_line'].append({
                     'documento': m.reference,
                     'fecha': m.date,
@@ -62,11 +65,13 @@ class ReportKardexProducto(models.AbstractModel):
                     'costo_promedio': m.product_id.standard_price,
                     'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
                     'costo_entrada': precio_costo_salida,
-                    'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else 0,
+                    'cantidad_salidas': cantidad_salidas,
                     'costo_salidas': precio_costo_salida,
-                    'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
-                    'costo_actual': m.product_id.standard_price
+                    'cantidad_existencia': cantidad_existencia,
+                    'costo_actual': costo_actual
                 })
+                movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
+
             logging.warn(movimientos)
 
         logging.warn(movimientos_productos)
