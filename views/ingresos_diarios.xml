@@ -28,7 +28,7 @@
                         <tr>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Codigo</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>Asiento</span></th>
-                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>CONCEPTO</span></th>
+                            <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:left"><span>CONCEPTO</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Debe</span></th>
                             <th style="border-top: 1px solid black;border-bottom: 1px solid black;text-align:center"><span>Haber</span></th>
 
