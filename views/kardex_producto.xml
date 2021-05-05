@@ -41,10 +41,10 @@
                             <th style="border-bottom: 1px solid black;">Fecha</th>
                             <th style="border-bottom: 1px solid black;">Nombre del Proveedor</th>
                             <th class="text-center" style="border-bottom: 1px solid black;">Costo Promedio</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
                             <th  class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
                             <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
                         </tr>
@@ -66,10 +66,10 @@
                                       <td><span t-esc="movimiento['fecha']"/></td>
                                       <td><span t-esc="movimiento['proveedor']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_entrada']"/></td>
-                                      <td><span t-esc="movimiento['costo_entrada']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_salidas']"/></td>
-                                      <td><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['cantidad_entrada']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['costo_entrada']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['cantidad_salidas']"/></td>
+                                      <td class="text-center"><span t-esc="movimiento['costo_salidas']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['cantidad_existencia']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['costo_actual']"/></td>
                                   </tr>
@@ -85,10 +85,10 @@
                                   <td></td>
                                   <td></td>
                                   <td></td>
-                                  <td><span t-esc="cantidad_entrada_total"/></td>
-                                  <td><span t-esc="costo_entrada_total"/></td>
-                                  <td><span t-esc="cantidad_salida_total"/></td>
-                                  <td><span t-esc="costo_salida_total"/></td>
+                                  <td class="text-center"><span t-esc="cantidad_entrada_total"/></td>
+                                  <td class="text-center"><span t-esc="costo_entrada_total"/></td>
+                                  <td class="text-center"><span t-esc="cantidad_salida_total"/></td>
+                                  <td class="text-center"><span t-esc="costo_salida_total"/></td>
                                   <td class="text-center"><span t-esc="existencia_total"/></td>
                                   <td class="text-center"><span t-esc="costo_actual"/></td>
                               </tr>
