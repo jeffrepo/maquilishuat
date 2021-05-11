@@ -68,13 +68,13 @@
                                       <td><span t-esc="movimiento['documento']"/></td>
                                       <td><span t-esc="movimiento['fecha']"/></td>
                                       <td><span t-esc="movimiento['proveedor']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['costo_promedio']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['cantidad_entrada']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['costo_entrada']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['cantidad_salidas']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['costo_salidas']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['cantidad_existencia']"/></td>
-                                      <td style="text-align:center;"><span t-esc="movimiento['costo_actual']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['costo_promedio']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['cantidad_entrada']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['costo_entrada']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['cantidad_salidas']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['cantidad_existencia']"/></td>
+                                      <td style="text-align:right;"><span t-esc="movimiento['costo_actual']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
                                   <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
@@ -88,12 +88,12 @@
                                   <td></td>
                                   <td></td>
                                   <td>TOTAL PRODUCTO</td>
-                                  <td style="text-align:center;"><span t-esc="cantidad_entrada_total"/></td>
-                                  <td style="text-align:center;"><span t-esc="costo_entrada_total"/></td>
-                                  <td style="text-align:center;"><span t-esc="cantidad_salida_total"/></td>
-                                  <td style="text-align:center;"><span t-esc="costo_salida_total"/></td>
-                                  <td style="text-align:center;"><span t-esc="producto['existencia_final']"/></td>
-                                  <td style="text-align:center;"><span t-esc="producto['costo_final']"/></td>
+                                  <td style="text-align:right;"><span t-esc="cantidad_entrada_total"/></td>
+                                  <td style="text-align:right;"><span t-esc="costo_entrada_total"/></td>
+                                  <td style="text-align:right;"><span t-esc="cantidad_salida_total"/></td>
+                                  <td style="text-align:right;"><span t-esc="costo_salida_total"/></td>
+                                  <td style="text-align:right;"><span t-esc="producto['existencia_final']"/></td>
+                                  <td style="text-align:right;"><span t-esc="producto['costo_final']"/></td>
                               </tr>
                           </t>
                     </tbody>
