@@ -58,6 +58,7 @@ class ReportKardexProducto(models.AbstractModel):
                     date=m.date,
                 )
                 cantidad_salidas =  m.qty_done if m.location_dest_id.usage == 'customer' else 0
+                movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
                 movimientos_productos[m.product_id.id]['stock_move_line'].append({
                     'documento': m.reference,
                     'fecha': m.date,
@@ -67,7 +68,7 @@ class ReportKardexProducto(models.AbstractModel):
                     'costo_entrada': precio_costo_salida,
                     'cantidad_salidas': cantidad_salidas,
                     'costo_salidas': precio_costo_salida,
-                    'cantidad_existencia': movimientos_productos[m.product_id.id]['existencia_inicial'] - cantidad_salidas,
+                    'cantidad_existencia': movimientos_productos[m.product_id.id]['existencia_final'],
                     'costo_actual': movimientos_productos[m.product_id.id]['existencia_inicial'] * costo_actual
                 })
                 logging.warn(cantidad_salidas)
