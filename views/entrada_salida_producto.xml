@@ -27,17 +27,17 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th colspan="2" class="text-center">ENTRADAS</th>
-                            <th colspan="2" class="text-center">SALIDAS</th>
+                            <th colspan="2" style="text-align:center">ENTRADAS</th>
+                            <th colspan="2" style="text-align:center">SALIDAS</th>
                         </tr>
                         <tr>
                             <th style="border-bottom: 1px solid black;">No. Doc.</th>
                             <th style="border-bottom: 1px solid black;">Fecha</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Costo Promedio</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
+                            <th style="border-bottom: 1px solid black;text-align:center">Costo Promedio</th>
+                            <th style="border-bottom: 1px solid black;text-align:center">Cantidad</th>
+                            <th style="border-bottom: 1px solid black;text-align:center">Costo</th>
+                            <th style="border-bottom: 1px solid black;text-align:center">Cantidad</th>
+                            <th style="border-bottom: 1px solid black;text-align:center">Costo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,11 +56,11 @@
                                   <tr>
                                       <td><span t-esc="movimiento['documento']"/></td>
                                       <td><span t-esc="movimiento['fecha']"/></td>
-                                      <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
-                                      <td class="text-right"><span t-esc="movimiento['cantidad_entrada']"/></td>
-                                      <td class="text-right"><span t-esc="movimiento['costo_entrada']"/></td>
-                                      <td class="text-right"><span t-esc="movimiento['cantidad_salidas']"/></td>
-                                      <td class="text-right"><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td style="text-align:right"><span t-esc="movimiento['costo_promedio']"/></td>
+                                      <td style="text-align:right"><span t-esc="movimiento['cantidad_entrada']"/></td>
+                                      <td style="text-align:right"><span t-esc="movimiento['costo_entrada']"/></td>
+                                      <td style="text-align:right"><span t-esc="movimiento['cantidad_salidas']"/></td>
+                                      <td style="text-align:right"><span t-esc="movimiento['costo_salidas']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
                                   <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
@@ -71,10 +71,10 @@
                                   <td style="border-bottom: 1px solid black"></td>
                                   <td style="border-bottom: 1px solid black"></td>
                                   <td style="border-bottom: 1px solid black"><strong>sub-total</strong></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="cantidad_entrada_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="costo_entrada_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="cantidad_salida_total"/></td>
-                                  <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total"/></td>
+                                  <td style="border-bottom: 1px solid black;text-align:right"><span t-esc="cantidad_entrada_total"/></td>
+                                  <td style="border-bottom: 1px solid black;text-align:right"><span t-esc="costo_entrada_total"/></td>
+                                  <td style="border-bottom: 1px solid black;text-align:right"><span t-esc="cantidad_salida_total"/></td>
+                                  <td style="border-bottom: 1px solid black;text-align:right"><span t-esc="costo_salida_total"/></td>
                                   <t t-set="costo_salida_total_general" t-value="costo_salida_total_general+costo_salida_total"/>
                               </tr>
 
@@ -86,7 +86,7 @@
                               <td style="border-bottom: 1px solid black"></td>
                               <td style="border-bottom: 1px solid black"></td>
                               <td style="border-bottom: 1px solid black"></td>
-                              <td style="border-bottom: 1px solid black"><span t-esc="costo_salida_total_general" t-options='{"widget": "float", "precision": 2}'/></td>
+                              <td style="border-bottom: 1px solid black;text-align:right"><span t-esc="costo_salida_total_general" t-options='{"widget": "float", "precision": 2}'/></td>
                             </tr>
                     </tbody>
                 </table>
