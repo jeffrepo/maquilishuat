@@ -59,7 +59,7 @@ class ReportKardexProducto(models.AbstractModel):
                 )
                 cantidad_salidas =  m.qty_done if m.location_dest_id.usage == 'customer' else 0
                 movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
-                costo_final = (self.currency_id.round(movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price) if self.currency_id else round(movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price, 2))
+                costo_final = (m.company_id.currency_id.round(movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price) if n.company_id.currency_id else round(movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price, 2))
                 movimientos_productos[m.product_id.id]['costo_final'] = costo_final
                 movimientos_productos[m.product_id.id]['stock_move_line'].append({
                     'documento': m.reference,
