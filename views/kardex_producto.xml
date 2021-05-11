@@ -92,8 +92,8 @@
                                   <td style="text-align:center;"><span t-esc="costo_entrada_total"/></td>
                                   <td style="text-align:center;"><span t-esc="cantidad_salida_total"/></td>
                                   <td style="text-align:center;"><span t-esc="costo_salida_total"/></td>
-                                  <td style="text-align:center;"><span t-esc="producto['costo_inicial']"/></td>
-                                  <td style="text-align:center;"><span t-esc="costo_actual"/></td>
+                                  <td style="text-align:center;"><span t-esc="producto['existencia_final']"/></td>
+                                  <td style="text-align:center;"><span t-esc="producto['costo_final']"/></td>
                               </tr>
                           </t>
                     </tbody>
