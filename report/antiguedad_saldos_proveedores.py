@@ -46,7 +46,7 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
     def _get_facturas(self,fecha_inicio,fecha_fin):
         facturas = []
         totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
-        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','=','in_invoice'),('state','in',['in_payment','open'])],order="date_invoice asc")
+        facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','in',['in_invoice','in_refund']),('state','in',['in_payment','open'])],order="date_invoice asc")
 
         if facturas_ids:
             fecha_hoy = date.today()
