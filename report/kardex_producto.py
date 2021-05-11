@@ -50,7 +50,7 @@ class ReportKardexProducto(models.AbstractModel):
         if movimientos:
             for m in movimientos:
                 cantidad_existencia = m.product_id.with_context(company_owned=True, owner_id=False).qty_available
-                costo_actual = m.product_id.standard_price
+                costo_actual = m.product_id.standard_price * cantidad_existencia
                 if m.product_id.id not in movimientos_productos:
                     movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'existencia_final': cantidad_existencia,'costo_final':costo_actual,'existencia_inicial': cantidad_existencia,'costo_inicial':costo_actual,'stock_move_line': []}
                 precio_costo_salida = m.product_id.get_history_price(
