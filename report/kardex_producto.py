@@ -71,7 +71,7 @@ class ReportKardexProducto(models.AbstractModel):
                     'cantidad_salidas': cantidad_salidas,
                     'costo_salidas': precio_costo_salida,
                     'cantidad_existencia': movimientos_productos[m.product_id.id]['existencia_final'],
-                    'costo_actual':  movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price
+                    'costo_actual':  round(movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price,2)
                 })
                 # movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
 
