@@ -61,9 +61,9 @@ class ReportEntradaSalidaProducto(models.AbstractModel):
                     'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
                     'costo_promedio': round(m.product_id.standard_price,2),
                     'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
-                    'costo_entrada': precio_costo_salida,
+                    'costo_entrada': precio_costo_salida * (m.qty_done if m.location_dest_id.usage != 'customer' else 0),
                     'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else 0,
-                    'costo_salidas': precio_costo_salida,
+                    'costo_salidas': precio_costo_salida * (m.qty_done if m.location_dest_id.usage == 'customer' else 0),
                     'cantidad_existencia': m.product_id.with_context(company_owned=True, owner_id=False).qty_available,
                     'costo_actual': m.product_id.standard_price
                 })
