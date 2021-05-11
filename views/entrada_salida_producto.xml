@@ -34,10 +34,10 @@
                             <th style="border-bottom: 1px solid black;">No. Doc.</th>
                             <th style="border-bottom: 1px solid black;">Fecha</th>
                             <th class="text-center" style="border-bottom: 1px solid black;">Costo Promedio</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
-                            <th style="border-bottom: 1px solid black;">Cantidad</th>
-                            <th style="border-bottom: 1px solid black;">Costo</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Cantidad</th>
+                            <th class="text-center" style="border-bottom: 1px solid black;">Costo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,18 +49,18 @@
                               <t t-set="costo_entrada_total" t-value="0"/>
                               <t t-set="existencia_total" t-value="0"/>
                               <t t-set="costo_actual" t-value="0"/>
-                              <tr colspan="10">
-                                  <td>PRODUCTO: <span t-esc="producto['nombre']"/></td>
+                              <tr colspan="7">
+                                  <td class="text-center"><strong>PRODUCTO: <span t-esc="producto['nombre']"/></strong></td>
                               </tr>
                               <t t-foreach="producto['stock_move_line']" t-as="movimiento">
                                   <tr>
                                       <td><span t-esc="movimiento['documento']"/></td>
                                       <td><span t-esc="movimiento['fecha']"/></td>
                                       <td class="text-center"><span t-esc="movimiento['costo_promedio']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_entrada']"/></td>
-                                      <td><span t-esc="movimiento['costo_entrada']"/></td>
-                                      <td><span t-esc="movimiento['cantidad_salidas']"/></td>
-                                      <td><span t-esc="movimiento['costo_salidas']"/></td>
+                                      <td class="text-right"><span t-esc="movimiento['cantidad_entrada']"/></td>
+                                      <td class="text-right"><span t-esc="movimiento['costo_entrada']"/></td>
+                                      <td class="text-right"><span t-esc="movimiento['cantidad_salidas']"/></td>
+                                      <td class="text-right"><span t-esc="movimiento['costo_salidas']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
                                   <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
