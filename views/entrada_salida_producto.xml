@@ -63,7 +63,7 @@
                                       <td style="text-align:right"><span t-esc="movimiento['costo_salidas']"/></td>
                                   </tr>
                                   <t t-set="cantidad_salida_total" t-value="cantidad_salida_total+movimiento['cantidad_salidas']"/>
-                                  <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_entrada']"/>
+                                  <t t-set="costo_salida_total" t-value="costo_salida_total+movimiento['costo_salidas']"/>
                                   <t t-set="cantidad_entrada_total" t-value="cantidad_entrada_total+movimiento['cantidad_entrada']"/>
                                   <t t-set="costo_entrada_total" t-value="costo_entrada_total+movimiento['costo_entrada']"/>
                               </t>
