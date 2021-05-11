@@ -80,12 +80,20 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
                     'mas': mas,
                     'saldo_factura': factura.residual
                 }
-                totales['30'] += treinta
-                totales['60'] += sesenta
-                totales['90'] += noventa
-                totales['120'] += ciento_veinte
-                totales['mas'] += mas
-                totales['total'] += factura.residual
+                if facttura.type == 'in_refund':
+                    totales['30'] -= treinta
+                    totales['60'] -= sesenta
+                    totales['90'] -= noventa
+                    totales['120'] -= ciento_veinte
+                    totales['mas'] -= mas
+                    totales['total'] -= factura.residual
+                else:
+                    totales['30'] += treinta
+                    totales['60'] += sesenta
+                    totales['90'] += noventa
+                    totales['120'] += ciento_veinte
+                    totales['mas'] += mas
+                    totales['total'] += factura.residual
                 facturas.append(f)
         return {'fact':facturas, 'suma_totales': totales}
 
