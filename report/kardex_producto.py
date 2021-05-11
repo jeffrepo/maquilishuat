@@ -52,7 +52,7 @@ class ReportKardexProducto(models.AbstractModel):
                 cantidad_existencia = m.product_id.with_context(company_owned=True, owner_id=False).qty_available
                 costo_actual = m.product_id.standard_price * cantidad_existencia
                 if m.product_id.id not in movimientos_productos:
-                    movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'existencia_final': cantidad_existencia,'costo_final':costo_actual,'existencia_inicial': cantidad_existencia,'costo_inicial':costo_actual,'stock_move_line': []}
+                    movimientos_productos[m.product_id.id] = {'nombre': str(m.product_id.default_code) +' '+str(m.product_id.name),'existencia_final': cantidad_existencia,'costo_final':costo_actual,'existencia_inicial': round(cantidad_existencia,2),'costo_inicial':costo_actual,'stock_move_line': []}
                 precio_costo_salida = m.product_id.get_history_price(
                     self.env.user.company_id.id,
                     date=m.date,
@@ -65,7 +65,7 @@ class ReportKardexProducto(models.AbstractModel):
                     'documento': m.reference,
                     'fecha': m.date,
                     'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
-                    'costo_promedio': m.product_id.standard_price,
+                    'costo_promedio': round(m.product_id.standard_price,2),
                     'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
                     'costo_entrada': precio_costo_salida,
                     'cantidad_salidas': cantidad_salidas,
