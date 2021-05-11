@@ -71,9 +71,7 @@ class ReportKardexProducto(models.AbstractModel):
                     'cantidad_existencia': movimientos_productos[m.product_id.id]['existencia_final'],
                     'costo_actual':  movimientos_productos[m.product_id.id]['existencia_final'] *  m.product_id.standard_price
                 })
-                logging.warn(cantidad_salidas)
-                logging.warn(movimientos_productos[m.product_id.id]['existencia_inicial'] - cantidad_salidas)
-                movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
+                # movimientos_productos[m.product_id.id]['existencia_final'] -= cantidad_salidas
 
             logging.warn(movimientos)
 
