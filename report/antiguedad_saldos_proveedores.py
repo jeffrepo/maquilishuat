@@ -80,7 +80,7 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
                     'mas': mas,
                     'saldo_factura': factura.residual
                 }
-                if facttura.type == 'in_refund':
+                if factura.type == 'in_refund':
                     totales['30'] -= treinta
                     totales['60'] -= sesenta
                     totales['90'] -= noventa
