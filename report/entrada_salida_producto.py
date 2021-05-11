@@ -59,7 +59,7 @@ class ReportEntradaSalidaProducto(models.AbstractModel):
                     'documento': m.reference,
                     'fecha': m.date,
                     'proveedor': m.picking_id.partner_id.name if (m.picking_id and m.picking_id.partner_id) else '',
-                    'costo_promedio': m.product_id.standard_price,
+                    'costo_promedio': rond(m.product_id.standard_price,2),
                     'cantidad_entrada': m.qty_done if m.location_dest_id.usage != 'customer' else 0,
                     'costo_entrada': precio_costo_salida,
                     'cantidad_salidas': m.qty_done if m.location_dest_id.usage == 'customer' else 0,
