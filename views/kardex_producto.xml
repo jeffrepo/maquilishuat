@@ -57,13 +57,9 @@
                               <t t-set="costo_entrada_total" t-value="0"/>
                               <t t-set="existencia_total" t-value="0"/>
                               <t t-set="costo_actual" t-value="0"/>
-                              <tr colspan="6">
-                                  <td><strong>PRODUCTO: <span t-esc="producto['nombre']"/></strong></td>
-                              </tr>
-                              <tr colspan="2">
-                                  <td>Existencia inicial</td>
-                              </tr>
-                              <tr colspan="2">
+                              <tr>
+                                  <td colspan="4"><strong>PRODUCTO: <span t-esc="producto['nombre']"/></strong></td>
+                                  <td colspan="2">Existencia inicial</td>
                                   <td tyle="text-align:center;"><span t-esc="producto['existencia_inicial']"/></td>
                                   <td tyle="text-align:center;"><span t-esc="producto['costo_inicial']"/></td>
                               </tr>
