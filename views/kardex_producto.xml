@@ -59,7 +59,7 @@
                               <t t-set="costo_actual" t-value="0"/>
                               <tr>
                                   <td colspan="4"><strong>PRODUCTO: <span t-esc="producto['nombre']"/></strong></td>
-                                  <td colspan="2">Existencia inicial</td>
+                                  <td colspan="4">Existencia inicial</td>
                                   <td tyle="text-align:center;"><span t-esc="producto['existencia_inicial']"/></td>
                                   <td tyle="text-align:center;"><span t-esc="producto['costo_inicial']"/></td>
                               </tr>
