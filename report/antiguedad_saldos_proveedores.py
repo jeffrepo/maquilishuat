@@ -47,7 +47,7 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
         facturas = []
         totales = {'30': 0,'60': 0,'90': 0,'120': 0,'mas': 0,'total':0}
         facturas_ids = self.env['account.invoice'].search([('date_invoice','>=', fecha_inicio),('date_invoice','<=',fecha_fin),('type','in',['in_invoice','in_refund']),('state','in',['in_payment','open'])],order="date_invoice asc")
-
+        facturas = {}
         if facturas_ids:
             fecha_hoy = date.today()
             for factura in facturas_ids:
@@ -67,35 +67,51 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
                 elif dias > 90:
                     mas = factura.residual
 
-                f = {
-                    'codigo': factura.partner_id.matricula,
-                    'nombre': factura.partner_id.name,
-                    'grado': factura.grado_id.nombre if factura.grado_id else '',
-                    'numero': factura.name,
-                    'fecha': factura.date_invoice,
-                    '30': treinta,
-                    '60': sesenta,
-                    '90': noventa,
-                    '120': ciento_veinte,
-                    'mas': mas,
-                    'saldo_factura': factura.residual
-                }
+                if factura.partner_id.id not in facturas:
+                    facturas[factura.partner_id.id] = {'codigo':factura.partner_id.matricula, 'nombre':factura.partner_id.name,'grado': factura.grado_id.nombre if factura.grado_id else '', 'numero': factura.name, '30': 0,'60':0,'90':0,'120':0,'mas':0,'saldo_factura': 0}
+                # f = {
+                #     'codigo': factura.partner_id.matricula,
+                #     'nombre': factura.partner_id.name,
+                #     'grado': factura.grado_id.nombre if factura.grado_id else '',
+                #     'numero': factura.name,
+                #     'fecha': factura.date_invoice,
+                #     '30': treinta,
+                #     '60': sesenta,
+                #     '90': noventa,
+                #     '120': ciento_veinte,
+                #     'mas': mas,
+                #     'saldo_factura': factura.residual
+                # }
                 if factura.type == 'in_refund':
+                    facturas[factura.partner_id.id]['30'] -= treinta
+                    facturas[factura.partner_id.id]['60'] -= sesenta
+                    facturas[factura.partner_id.id]['90'] -= noventa
+                    facturas[factura.partner_id.id]['120'] -= ciento_veinte
+                    facturas[factura.partner_id.id]['mas'] -= mas
+                    facturas[factura.partner_id.id]['saldo_factura'] -= factura.residual
+
                     totales['30'] -= treinta
                     totales['60'] -= sesenta
                     totales['90'] -= noventa
                     totales['120'] -= ciento_veinte
                     totales['mas'] -= mas
                     totales['total'] -= factura.residual
+
                 else:
+                    facturas[factura.partner_id.id]['30'] += treinta
+                    facturas[factura.partner_id.id]['60'] += sesenta
+                    facturas[factura.partner_id.id]['90'] += noventa
+                    facturas[factura.partner_id.id]['120'] += ciento_veinte
+                    facturas[factura.partner_id.id]['mas'] += mas
+                    facturas[factura.partner_id.id]['saldo_factura'] -= factura.residual
+
                     totales['30'] += treinta
                     totales['60'] += sesenta
                     totales['90'] += noventa
                     totales['120'] += ciento_veinte
                     totales['mas'] += mas
                     totales['total'] += factura.residual
-                facturas.append(f)
-        return {'fact':facturas, 'suma_totales': totales}
+        return {'fact':facturas.values() if len(facturas) > 0 else facturas, 'suma_totales': totales}
 
     def fecha_actual(self):
         logging.warn(datetime.datetime.now())
