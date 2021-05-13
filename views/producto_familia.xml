@@ -62,7 +62,7 @@
                                 <td></td>
                             </tr>
                             <t t-foreach="obtener_listado_producto" t-as="producto">
-                                <tr>
+                                <tr style="height:1cm">
                                     <td><span t-esc="producto['codigo']"/></td>
                                     <td><span t-esc="producto['nombre']"/></td>
                                     <td style="text-align:right"><span t-esc="producto['costo']" t-options='{"widget": "float", "precision": 2}'/></td>
