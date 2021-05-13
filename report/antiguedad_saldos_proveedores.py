@@ -95,7 +95,7 @@ class ReportAntiguedadSaldosProveedores(models.AbstractModel):
                     totales['90'] -= noventa
                     totales['120'] -= ciento_veinte
                     totales['mas'] -= mas
-                    totales['total'] += factura.residual
+                    totales['total'] -= factura.residual
 
                 else:
                     facturas[factura.partner_id.id]['30'] += treinta
